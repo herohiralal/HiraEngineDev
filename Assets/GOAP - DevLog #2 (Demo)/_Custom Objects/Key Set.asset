@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fbd94dd5fd4959952b19ed1da92697, type: 3}
   m_Name: Key Set
   m_EditorClassIdentifier: 
-  collection:
+  collection1:
   - {fileID: -5911455955670963162}
   - {fileID: 1304530038788525323}
   - {fileID: -560933158455212489}
