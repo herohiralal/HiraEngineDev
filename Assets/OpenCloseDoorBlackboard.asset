@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2182549457087300641
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80dd4db4b4545b08de0bf7e393f526a, type: 3}
+  m_Name: DoorOpen
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  defaultValue: 0
+--- !u!114 &-1980243879405301659
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80dd4db4b4545b08de0bf7e393f526a, type: 3}
+  m_Name: HasKey
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  defaultValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd2813711ea4db1a127d9ae32fb3188, type: 3}
+  m_Name: OpenCloseDoorBlackboard
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -2182549457087300641}
+  - {fileID: -1980243879405301659}
+  - {fileID: 368716628081075324}
+  - {fileID: 2182583221365606181}
+  dependencies: []
+  namespace: UnityEngine
+  cachedFilePath: 
+  valueAccessorInfo: []
+--- !u!114 &368716628081075324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80dd4db4b4545b08de0bf7e393f526a, type: 3}
+  m_Name: HasCrowbar
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  defaultValue: 0
+--- !u!114 &2182583221365606181
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80dd4db4b4545b08de0bf7e393f526a, type: 3}
+  m_Name: HasStamina
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  defaultValue: 0
