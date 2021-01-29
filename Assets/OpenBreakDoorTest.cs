@@ -1,291 +1,117 @@
 ﻿using System;
-using AOT;
-using Unity.Burst;
+using System.Threading;
 using Unity.Collections;
 using Unity.Jobs;
+using UnityEngine.Assertions;
 
 namespace UnityEngine
 {
-    public class OpenBreakDoorTest : MonoBehaviour
-    {
-        private enum Actions
-        {
-            OpenDoor, BreakDoor, PickupKey, PickupCrowbar, DrinkWater
-        }
+	public class OpenBreakDoorTest : MonoBehaviour
+	{
+		[SerializeField] private bool useJobs = true;
+		[SerializeField] private bool runEveryFrame = false;
 
-        private void Awake()
-        {
-            
-        }
+		private bool _plannerActive = false;
+		private Planner _planner;
 
-        private void SimpleTest()
-        {
-            using var actions = new NativeArray<OpenCloseDoorTransitionData>(4, Allocator.TempJob)
-            {
-                [0] = GetOpenDoorAction(1),
-                [1] = GetPickupKeyAction(1),
-                [2] = GetPickupCrowbarAction(1),
-                [3] = GetBreakDoorAction(5)
-            };
+		private bool _handleActive = false;
+		private JobHandle _handle;
+		private NativeArray<OpenCloseDoorTransitionData> _actions;
+		private PlannerJob _job;
+		private NativeArray<int> _plan;
 
-            using var plan = new NativeArray<int>(2, Allocator.TempJob);
-            
-            var openCloseDoorBlackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
-            using var job = new PlannerJob(ref openCloseDoorBlackboard, 2, PlannerJobFunctionLibrary.GoalOpenDoorTargetDelegate,
-                actions, 1000, plan);
-            
-            var jobHandle = job.Schedule();
-            jobHandle.Complete();
-            
-            Debug.Log((Actions) job.Plan[0]);
-            Debug.Log((Actions) job.Plan[1]);
-        }
+		private void Awake()
+		{
+			
+		}
 
-        private void InvertedTest()
-        {
-        }
+		private JobHandle SimpleTestJob()
+		{
+			_actions = new NativeArray<OpenCloseDoorTransitionData>(4, Allocator.TempJob)
+			{
+				[0] = PlannerJobFunctionLibrary.GetOpenDoorAction(1),
+				[1] = PlannerJobFunctionLibrary.GetPickupKeyAction(1),
+				[2] = PlannerJobFunctionLibrary.GetPickupCrowbarAction(1),
+				[3] = PlannerJobFunctionLibrary.GetBreakDoorWithoutStaminaAction(5)
+			};
 
-        private void InvertedTestRequiringStamina()
-        {
-        }
+			_plan = new NativeArray<int>(3, Allocator.TempJob);
 
-        private void OnGUI()
-        {
-            if(GUILayout.Button("Simple Test"))
-                SimpleTest();
-        }
+			var openCloseDoorBlackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
+			_job = new PlannerJob(ref openCloseDoorBlackboard, 2, PlannerJobFunctionLibrary.GOAL_OPEN_DOOR_TARGET_DELEGATE,
+				_actions, 1000, _plan);
 
-        private static OpenCloseDoorTransitionData GetOpenDoorAction(float cost)
-        {
-            return new OpenCloseDoorTransitionData
-            {
-                Cost = cost,
-                Effect = PlannerJobFunctionLibrary.ActionOpenDoorEffectDelegate,
-                OuterIndex = (int) Actions.OpenDoor,
-                Precondition = PlannerJobFunctionLibrary.ActionOpenDoorPreConditionDelegate
-            };
-        }
+			_handleActive = true;
+			return _job.Schedule();
 
-        private static OpenCloseDoorTransitionData GetBreakDoorAction(float cost)
-        {
-            return new OpenCloseDoorTransitionData
-            {
-                Cost = cost,
-                Effect = PlannerJobFunctionLibrary.ActionBreakDoorEffectDelegate,
-                OuterIndex = (int) Actions.BreakDoor,
-                Precondition = PlannerJobFunctionLibrary.ActionBreakDoorPreConditionDelegate
-            };
-        }
+			// Debug.Log(job.Plan[0]);
+			// Debug.Log((PlannerJobFunctionLibrary.Actions) job.Plan[1]);
+			// Debug.Log((PlannerJobFunctionLibrary.Actions) job.Plan[2]);
+		}
 
-        private static OpenCloseDoorTransitionData GetPickupKeyAction(float cost)
-        {
-            return new OpenCloseDoorTransitionData
-            {
-                Cost = cost,
-                Effect = PlannerJobFunctionLibrary.ActionGetKeyEffectDelegate,
-                OuterIndex = (int) Actions.PickupKey,
-                Precondition = PlannerJobFunctionLibrary.ActionGetKeyPreConditionDelegate
-            };
-        }
+		private unsafe void SimpleTest(object o = null)
+		{
+			var actions = new[]
+			{
+				PlannerJobFunctionLibrary.GetOpenDoorNonJobAction(1),
+				PlannerJobFunctionLibrary.GetPickupKeyNonJobAction(1),
+				PlannerJobFunctionLibrary.GetPickupCrowbarNonJobAction(1),
+				PlannerJobFunctionLibrary.GetBreakDoorWithoutStaminaNonJobAction(5)
+			};
 
-        private static OpenCloseDoorTransitionData GetPickupCrowbarAction(float cost)
-        {
-            return new OpenCloseDoorTransitionData
-            {
-                Cost = cost,
-                Effect = PlannerJobFunctionLibrary.ActionGetCrowbarEffectDelegate,
-                OuterIndex = (int) Actions.PickupCrowbar,
-                Precondition = PlannerJobFunctionLibrary.ActionGetCrowbarPreConditionDelegate
-            };
-        }
+			var plan = new int[3];
 
-        private static OpenCloseDoorTransitionData GetDrinkWaterAction(float cost)
-        {
-            return new OpenCloseDoorTransitionData
-            {
-                Cost = cost,
-                Effect = PlannerJobFunctionLibrary.ActionDrinkWaterEffectDelegate,
-                OuterIndex = (int) Actions.DrinkWater,
-                Precondition = PlannerJobFunctionLibrary.ActionDrinkWaterPreConditionDelegate
-            };
-        }
-    }
+			var blackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
 
-    [BurstCompile]
-    public struct OpenCloseDoorTransitionData
-    {
-        [ReadOnly] public int OuterIndex;
-        [ReadOnly] public FunctionPointer<BlackboardQuery> Precondition;
-        [ReadOnly] public FunctionPointer<BlackboardModification> Effect;
-        [ReadOnly] public float Cost;
-    }
+			_planner = new Planner(ref blackboard, 2, PlannerJobFunctionLibrary.GoalOpenDoorTarget, actions, 1000, plan, PlannerCallback);
+			
+			_plannerActive = true;
+			ThreadPool.QueueUserWorkItem(_planner.Execute);
+		}
 
-    public unsafe delegate int BlackboardQuery(OpenCloseDoorBlackboard* blackboard);
+		private void PlannerCallback()
+		{
+			_plannerActive = false;
+			Assert.AreEqual(2, _planner.Plan[0]);
+			Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupKey, _planner.Plan[1]);
+			Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.OpenDoor, _planner.Plan[2]);
+		}
 
-    public unsafe delegate void BlackboardModification(OpenCloseDoorBlackboard* blackboard);
+		private void Update()
+		{
+			if (!runEveryFrame) return;
 
-    [BurstCompile]
-    public static class PlannerJobFunctionLibrary
-    {
-        // goal
+			if (useJobs)
+			{
+				if (!_handleActive) _handle = SimpleTestJob();
+			}
+			else
+			{
+				if (!_plannerActive) SimpleTest();
+			}
+		}
 
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int GoalOpenDoorTarget(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->DoorOpen ? 0 : 1;
+		private void LateUpdate()
+		{
+			if (_handleActive)
+			{
+				_handleActive = false;
+				_handle.Complete();
+				Assert.AreEqual(2, _job.Plan[0]);
+				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupKey, _job.Plan[1]);
+				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.OpenDoor, _job.Plan[2]);
+				_job.Dispose();
+				_actions.Dispose();
+				_plan.Dispose();
+			}
+		}
 
-        // get key
+		private void InvertedTest()
+		{
+		}
 
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int ActionGetKeyPreCondition(OpenCloseDoorBlackboard* blackboard) =>
-            !blackboard->HasKey ? 0 : 1;
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardModification))]
-        public static unsafe void ActionGetKeyEffect(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->HasKey = true;
-
-        // get crowbar
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int ActionGetCrowbarPreCondition(OpenCloseDoorBlackboard* blackboard) =>
-            !blackboard->HasCrowbar ? 0 : 1;
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardModification))]
-        public static unsafe void ActionGetCrowbarEffect(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->HasCrowbar = true;
-
-        // drink water
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int ActionDrinkWaterPreCondition(OpenCloseDoorBlackboard* blackboard) =>
-            0;
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardModification))]
-        public static unsafe void ActionDrinkWaterEffect(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->HasStamina = true;
-
-        // open door
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int ActionOpenDoorPreCondition(OpenCloseDoorBlackboard* blackboard) =>
-            (blackboard->HasKey ? 0 : 1) + (!blackboard->DoorOpen ? 0 : 1);
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardModification))]
-        public static unsafe void ActionOpenDoorEffect(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->DoorOpen = true;
-
-        // break door
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int ActionBreakDoorPreCondition(OpenCloseDoorBlackboard* blackboard) =>
-            (blackboard->HasCrowbar ? 0 : 1) + (blackboard->HasStamina ? 0 : 1) + (!blackboard->DoorOpen ? 0 : 1);
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardModification))]
-        public static unsafe void ActionBreakDoorEffect(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->DoorOpen = true;
-
-        // break door without stamina
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardQuery))]
-        public static unsafe int ActionBreakDoorWithoutStaminaPreCondition(OpenCloseDoorBlackboard* blackboard) =>
-            (blackboard->HasCrowbar ? 0 : 1) + (!blackboard->DoorOpen ? 0 : 1);
-
-        [BurstCompile]
-        [MonoPInvokeCallback(typeof(BlackboardModification))]
-        public static unsafe void ActionBreakDoorWithoutStaminaEffect(OpenCloseDoorBlackboard* blackboard) =>
-            blackboard->DoorOpen = true;
-        
-        // function pointers
-
-        public static unsafe FunctionPointer<BlackboardQuery> GoalOpenDoorTargetDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.GoalOpenDoorTarget);
-
-        public static unsafe FunctionPointer<BlackboardQuery> ActionGetKeyPreConditionDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.ActionGetKeyPreCondition);
-
-        public static unsafe FunctionPointer<BlackboardQuery> ActionGetCrowbarPreConditionDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.ActionGetCrowbarPreCondition);
-
-        public static unsafe FunctionPointer<BlackboardQuery> ActionDrinkWaterPreConditionDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.ActionDrinkWaterPreCondition);
-
-        public static unsafe FunctionPointer<BlackboardQuery> ActionOpenDoorPreConditionDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.ActionOpenDoorPreCondition);
-
-        public static unsafe FunctionPointer<BlackboardQuery> ActionBreakDoorPreConditionDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.ActionBreakDoorPreCondition);
-
-        public static unsafe FunctionPointer<BlackboardQuery> ActionBreakDoorWithoutStaminaPreConditionDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardQuery>(PlannerJobFunctionLibrary.ActionBreakDoorWithoutStaminaPreCondition);
-
-        public static unsafe FunctionPointer<BlackboardModification> ActionGetKeyEffectDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardModification>(PlannerJobFunctionLibrary.ActionGetKeyEffect);
-
-        public static unsafe FunctionPointer<BlackboardModification> ActionGetCrowbarEffectDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardModification>(PlannerJobFunctionLibrary.ActionGetCrowbarEffect);
-
-        public static unsafe FunctionPointer<BlackboardModification> ActionDrinkWaterEffectDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardModification>(PlannerJobFunctionLibrary.ActionDrinkWaterEffect);
-
-        public static unsafe FunctionPointer<BlackboardModification> ActionOpenDoorEffectDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardModification>(PlannerJobFunctionLibrary.ActionOpenDoorEffect);
-
-        public static unsafe FunctionPointer<BlackboardModification> ActionBreakDoorEffectDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardModification>(PlannerJobFunctionLibrary.ActionBreakDoorEffect);
-
-        public static unsafe FunctionPointer<BlackboardModification> ActionBreakDoorWithoutStaminaEffectDelegate =
-            BurstCompiler.CompileFunctionPointer<BlackboardModification>(PlannerJobFunctionLibrary.ActionBreakDoorWithoutStaminaEffect);
-    }
-
-    [BurstCompile]
-    public struct PlannerJob : IJob, IDisposable
-    {
-        [ReadOnly] private OpenCloseDoorBlackboard _dataset;
-        [ReadOnly] private NativeArray<OpenCloseDoorBlackboard> _datasets;
-        [ReadOnly] private readonly FunctionPointer<BlackboardQuery> _goal;
-        [ReadOnly] private readonly NativeArray<OpenCloseDoorTransitionData> _actions;
-        [ReadOnly] private readonly float _maxFScore;
-        [ReadOnly] private readonly int _maxPlanLength;
-        public NativeArray<int> Plan;
-
-        public PlannerJob(ref OpenCloseDoorBlackboard dataset, int maxPlanLength, FunctionPointer<BlackboardQuery> goal,
-            NativeArray<OpenCloseDoorTransitionData> actions, float maxFScore, NativeArray<int> plan)
-        {
-            _dataset = dataset;
-            _maxPlanLength = maxPlanLength;
-            _datasets = new NativeArray<OpenCloseDoorBlackboard>(maxPlanLength + 1, Allocator.TempJob);
-            _datasets[0] = _dataset;
-            _goal = goal;
-            _actions = actions;
-            _maxFScore = maxFScore;
-            Plan = plan;
-        }
-
-        public void Execute()
-        {
-            float threshold = GetHeuristic(0);
-        }
-
-        private unsafe int GetHeuristic(int index)
-        {
-            var v = _datasets[index];
-            return _goal.Invoke(&v);
-        }
-
-        public void Dispose()
-        {
-            _datasets.Dispose();
-        }
-    }
+		private void InvertedTestRequiringStamina()
+		{
+		}
+	}
 }
