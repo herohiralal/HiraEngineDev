@@ -10,8 +10,6 @@ namespace UnityEngine
 	[BurstCompile]
 	public struct PlannerJob : IJob, IDisposable
 	{
-		[NativeDisableUnsafePtrRestriction]
-		private readonly unsafe OpenCloseDoorBlackboard* _datasetsPtr;
 		private NativeArray<OpenCloseDoorBlackboard> _datasets;
 		[ReadOnly] private readonly FunctionPointer<BlackboardQuery> _goal;
 		[ReadOnly] private readonly NativeArray<OpenCloseDoorTransitionData> _actions;
@@ -29,43 +27,42 @@ namespace UnityEngine
 			_actions = actions;
 			_maxFScore = maxFScore;
 			Plan = plan;
-			
-			unsafe
-			{
-				_datasetsPtr = (OpenCloseDoorBlackboard*) _datasets.GetUnsafePtr();
-			}
 		}
 
 		public void Execute()
 		{
-			float threshold = GetHeuristic(0);
-
-			while (true)
+			unsafe
 			{
-				if (!PerformHeuristicEstimatedSearch(1, 0, threshold, out var score))
-				{
-					break;
-				}
+				var datasets = (OpenCloseDoorBlackboard*) _datasets.GetUnsafePtr();
+				float threshold = _goal.Invoke(datasets);
 
-				if (score > _maxFScore)
+				while (true)
 				{
-					Plan[0] = 0;
-					break;
-				}
+					if (!PerformHeuristicEstimatedSearch(datasets, 1, 0, threshold, out var score))
+					{
+						break;
+					}
 
-				if (score < 0)
-				{
-					Debug.Log("Planning cancelled.");
-					break;
-				}
+					if (score > _maxFScore)
+					{
+						Plan[0] = 0;
+						break;
+					}
 
-				threshold = score;
+					if (score < 0)
+					{
+						Debug.Log("Planning cancelled.");
+						break;
+					}
+
+					threshold = score;
+				}
 			}
 		}
 
-		private unsafe bool PerformHeuristicEstimatedSearch(int index, float cost, float threshold, out float outScore)
+		private unsafe bool PerformHeuristicEstimatedSearch(OpenCloseDoorBlackboard* datasets, int index, float cost, float threshold, out float outScore)
 		{
-			var heuristic = GetHeuristic(index - 1);
+			var heuristic = _goal.Invoke(datasets + index - 1);
 			var fScore = cost + heuristic;
 			if (fScore > threshold)
 			{
@@ -92,12 +89,12 @@ namespace UnityEngine
 			{
 				var action = _actions[i];
 				
-				if (action.Precondition.Invoke(_datasetsPtr + index - 1) != 0) continue;
+				if (action.Precondition.Invoke(datasets + index - 1) != 0) continue;
 
 				_datasets[index] = _datasets[index - 1];
-				action.Effect.Invoke(_datasetsPtr + index);
+				action.Effect.Invoke(datasets + index);
 
-				var scoreReceived = PerformHeuristicEstimatedSearch(index + 1, cost + action.Cost, threshold, out var score);
+				var scoreReceived = PerformHeuristicEstimatedSearch(datasets, index + 1, cost + action.Cost, threshold, out var score);
 				
 				_datasets[index] = _datasets[index - 1];
 				
@@ -115,9 +112,6 @@ namespace UnityEngine
 			outScore = min;
 			return true;
 		}
-
-		private unsafe int GetHeuristic(int index) =>
-			_goal.Invoke(_datasetsPtr + index);
 
 		public void Dispose() =>
 			_datasets.Dispose();

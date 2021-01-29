@@ -1,6 +1,7 @@
 using AOT;
 using Unity.Burst;
 using Unity.Collections;
+using UnityEngine.Profiling;
 
 namespace UnityEngine
 {
@@ -232,6 +233,8 @@ namespace UnityEngine
 				Precondition = action_drink_water_pre_condition_delegate
 			};
 		}
+		
+		public static readonly CustomSampler SAMPLER = CustomSampler.Create("Planner");
 
 		public static unsafe TransitionData GetOpenDoorNonJobAction(float cost) =>
 			new TransitionData((int) Actions.OpenDoor, ActionOpenDoorPreCondition, ActionOpenDoorEffect, cost);

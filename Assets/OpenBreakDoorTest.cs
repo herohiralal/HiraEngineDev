@@ -14,16 +14,16 @@ namespace UnityEngine
 		private bool _plannerActive = false;
 		private Planner _planner;
 
-		private bool _handleActive = false;
+		private enum JobType
+		{
+			None, Simple, Inverted, InvertedRequiringStamina
+		}
+
+		private JobType _currentJob = JobType.None;
 		private JobHandle _handle;
 		private NativeArray<OpenCloseDoorTransitionData> _actions;
 		private PlannerJob _job;
 		private NativeArray<int> _plan;
-
-		private void Awake()
-		{
-			
-		}
 
 		private JobHandle SimpleTestJob()
 		{
@@ -41,12 +41,8 @@ namespace UnityEngine
 			_job = new PlannerJob(ref openCloseDoorBlackboard, 2, PlannerJobFunctionLibrary.GOAL_OPEN_DOOR_TARGET_DELEGATE,
 				_actions, 1000, _plan);
 
-			_handleActive = true;
+			_currentJob = JobType.Simple;
 			return _job.Schedule();
-
-			// Debug.Log(job.Plan[0]);
-			// Debug.Log((PlannerJobFunctionLibrary.Actions) job.Plan[1]);
-			// Debug.Log((PlannerJobFunctionLibrary.Actions) job.Plan[2]);
 		}
 
 		private unsafe void SimpleTest(object o = null)
@@ -63,13 +59,64 @@ namespace UnityEngine
 
 			var blackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
 
-			_planner = new Planner(ref blackboard, 2, PlannerJobFunctionLibrary.GoalOpenDoorTarget, actions, 1000, plan, PlannerCallback);
+			_planner = new Planner(ref blackboard, 2, PlannerJobFunctionLibrary.GoalOpenDoorTarget, actions, 1000, plan, SimpleTestPlannerCallback);
 			
 			_plannerActive = true;
 			ThreadPool.QueueUserWorkItem(_planner.Execute);
 		}
 
-		private void PlannerCallback()
+		private void InvertedTestJob()
+		{
+		}
+
+		private void InvertedTest()
+		{
+		}
+
+		private JobHandle InvertedTestRequiringStaminaJob()
+		{
+			_actions = new NativeArray<OpenCloseDoorTransitionData>(5, Allocator.TempJob)
+			{
+				[0] = PlannerJobFunctionLibrary.GetOpenDoorAction(10),
+				[1] = PlannerJobFunctionLibrary.GetPickupKeyAction(1),
+				[2] = PlannerJobFunctionLibrary.GetPickupCrowbarAction(1),
+				[3] = PlannerJobFunctionLibrary.GetBreakDoorAction(5),
+				[4] = PlannerJobFunctionLibrary.GetDrinkWaterAction(1)
+			};
+
+			_plan = new NativeArray<int>(5, Allocator.TempJob);
+
+			var openCloseDoorBlackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
+			_job = new PlannerJob(ref openCloseDoorBlackboard, 5, PlannerJobFunctionLibrary.GOAL_OPEN_DOOR_TARGET_DELEGATE,
+				_actions, 1000, _plan);
+
+			_currentJob = JobType.InvertedRequiringStamina;
+			return _job.Schedule();
+		}
+
+		private unsafe void InvertedTestRequiringStamina()
+		{
+			var actions = new[]
+			{
+				PlannerJobFunctionLibrary.GetOpenDoorNonJobAction(10),
+				PlannerJobFunctionLibrary.GetPickupKeyNonJobAction(1),
+				PlannerJobFunctionLibrary.GetPickupCrowbarNonJobAction(1),
+				PlannerJobFunctionLibrary.GetBreakDoorNonJobAction(5),
+				PlannerJobFunctionLibrary.GetDrinkWaterNonJobAction(1)
+			};
+
+			var plan = new int[5];
+
+			var blackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
+
+			_planner = new Planner(ref blackboard, 5, PlannerJobFunctionLibrary.GoalOpenDoorTarget,
+				actions, 1000, plan, InvertedTestRequiringStaminaPlannerCallback);
+			
+			_plannerActive = true;
+			ThreadPool.QueueUserWorkItem(_planner.Execute);
+		}
+
+		private void SimpleTestPlannerCallback()
 		{
 			_plannerActive = false;
 			Assert.AreEqual(2, _planner.Plan[0]);
@@ -77,41 +124,71 @@ namespace UnityEngine
 			Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.OpenDoor, _planner.Plan[2]);
 		}
 
-		private void Update()
+		private void InvertedTestRequiringStaminaPlannerCallback()
 		{
-			if (!runEveryFrame) return;
-
-			if (useJobs)
+			_plannerActive = false;
+			Assert.AreEqual(3, _planner.Plan[0]);
+			try
 			{
-				if (!_handleActive) _handle = SimpleTestJob();
+				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupCrowbar, _planner.Plan[1]);
+				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.DrinkWater, _planner.Plan[2]);
 			}
-			else
+			catch (AssertionException)
 			{
-				if (!_plannerActive) SimpleTest();
+				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.DrinkWater, _planner.Plan[1]);
+				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupCrowbar, _planner.Plan[2]);
 			}
+			Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.BreakDoor, _planner.Plan[3]);
 		}
 
-		private void LateUpdate()
+		private void Update()
 		{
-			if (_handleActive)
+			
+			if (_currentJob != JobType.None)
 			{
-				_handleActive = false;
 				_handle.Complete();
-				Assert.AreEqual(2, _job.Plan[0]);
-				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupKey, _job.Plan[1]);
-				Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.OpenDoor, _job.Plan[2]);
+				switch (_currentJob)
+				{
+					case JobType.Simple:
+						Assert.AreEqual(2, _job.Plan[0]);
+						Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupKey, _job.Plan[1]);
+						Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.OpenDoor, _job.Plan[2]);
+						break;
+					case JobType.Inverted:
+						break;
+					case JobType.InvertedRequiringStamina:
+						Assert.AreEqual(3, _job.Plan[0]);
+						try
+						{
+							Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupCrowbar, _job.Plan[1]);
+							Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.DrinkWater, _job.Plan[2]);
+						}
+						catch (AssertionException)
+						{
+							Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.DrinkWater, _job.Plan[1]);
+							Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.PickupCrowbar, _job.Plan[2]);
+						}
+
+						Assert.AreEqual((int) PlannerJobFunctionLibrary.Actions.BreakDoor, _job.Plan[3]);
+						break;
+				}
+
+				_currentJob = JobType.None;
 				_job.Dispose();
 				_actions.Dispose();
 				_plan.Dispose();
 			}
-		}
+			
+			if (!runEveryFrame) return;
 
-		private void InvertedTest()
-		{
-		}
-
-		private void InvertedTestRequiringStamina()
-		{
+			if (useJobs)
+			{
+				if (_currentJob == JobType.None) _handle = InvertedTestRequiringStaminaJob();
+			}
+			else
+			{
+				if (!_plannerActive) InvertedTestRequiringStamina();
+			}
 		}
 	}
 }
