@@ -38,7 +38,7 @@ namespace UnityEngine
 			_plan = new NativeArray<int>(3, Allocator.TempJob);
 
 			var openCloseDoorBlackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
-			_job = new PlannerJob(ref openCloseDoorBlackboard, 2, PlannerJobFunctionLibrary.GOAL_OPEN_DOOR_TARGET_DELEGATE,
+			_job = new PlannerJob(ref openCloseDoorBlackboard, 2,
 				_actions, 1000, _plan);
 
 			_currentJob = JobType.Simple;
@@ -87,7 +87,7 @@ namespace UnityEngine
 			_plan = new NativeArray<int>(5, Allocator.TempJob);
 
 			var openCloseDoorBlackboard = new OpenCloseDoorBlackboard {DoorOpen = false, HasCrowbar = false, HasKey = false, HasStamina = false};
-			_job = new PlannerJob(ref openCloseDoorBlackboard, 5, PlannerJobFunctionLibrary.GOAL_OPEN_DOOR_TARGET_DELEGATE,
+			_job = new PlannerJob(ref openCloseDoorBlackboard, 5,
 				_actions, 1000, _plan);
 
 			_currentJob = JobType.InvertedRequiringStamina;

@@ -14,8 +14,9 @@ namespace UnityEngine
 	public struct OpenCloseDoorTransitionData
 	{
 		[ReadOnly] public int OuterIndex;
-		[ReadOnly] public FunctionPointer<BlackboardQuery> Precondition;
-		[ReadOnly] public FunctionPointer<BlackboardModification> Effect;
+		[ReadOnly] public PlannerJobFunctionLibrary.Actions Type;
+		//[ReadOnly] public FunctionPointer<BlackboardQuery> Precondition;
+		//[ReadOnly] public FunctionPointer<BlackboardModification> Effect;
 		[ReadOnly] public float Cost;
 	}
 	
@@ -163,9 +164,10 @@ namespace UnityEngine
 			Unrecognized = 0,
 			OpenDoor = 1,
 			BreakDoor = 2,
-			PickupKey = 3,
-			PickupCrowbar = 4,
-			DrinkWater = 5
+			BreakDoorWithoutStamina = 3,
+			PickupKey = 4,
+			PickupCrowbar = 5,
+			DrinkWater = 6
 		}
 
 		public static OpenCloseDoorTransitionData GetOpenDoorAction(float cost)
@@ -173,9 +175,10 @@ namespace UnityEngine
 			return new OpenCloseDoorTransitionData
 			{
 				Cost = cost,
-				Effect = action_open_door_effect_delegate,
+				//Effect = action_open_door_effect_delegate,
 				OuterIndex = (int) Actions.OpenDoor,
-				Precondition = action_open_door_pre_condition_delegate
+				Type = Actions.OpenDoor,
+				//Precondition = action_open_door_pre_condition_delegate
 			};
 		}
 
@@ -184,9 +187,10 @@ namespace UnityEngine
 			return new OpenCloseDoorTransitionData
 			{
 				Cost = cost,
-				Effect = action_break_door_effect_delegate,
+				//Effect = action_break_door_effect_delegate,
 				OuterIndex = (int) Actions.BreakDoor,
-				Precondition = action_break_door_pre_condition_delegate
+				Type = Actions.BreakDoor,
+				//Precondition = action_break_door_pre_condition_delegate
 			};
 		}
 
@@ -195,9 +199,10 @@ namespace UnityEngine
 			return new OpenCloseDoorTransitionData
 			{
 				Cost = cost,
-				Effect = action_break_door_without_stamina_effect_delegate,
-				OuterIndex = (int) Actions.BreakDoor,
-				Precondition = action_break_door_without_stamina_pre_condition_delegate
+				//Effect = action_break_door_without_stamina_effect_delegate,
+				OuterIndex = (int) Actions.BreakDoorWithoutStamina,
+				Type = Actions.BreakDoorWithoutStamina,
+				//Precondition = action_break_door_without_stamina_pre_condition_delegate
 			};
 		}
 
@@ -206,9 +211,10 @@ namespace UnityEngine
 			return new OpenCloseDoorTransitionData
 			{
 				Cost = cost,
-				Effect = action_get_key_effect_delegate,
+				//Effect = action_get_key_effect_delegate,
 				OuterIndex = (int) Actions.PickupKey,
-				Precondition = action_get_key_pre_condition_delegate
+				Type = Actions.PickupKey,
+				//Precondition = action_get_key_pre_condition_delegate
 			};
 		}
 
@@ -217,9 +223,10 @@ namespace UnityEngine
 			return new OpenCloseDoorTransitionData
 			{
 				Cost = cost,
-				Effect = action_get_crowbar_effect_delegate,
+				//Effect = action_get_crowbar_effect_delegate,
 				OuterIndex = (int) Actions.PickupCrowbar,
-				Precondition = action_get_crowbar_pre_condition_delegate
+				Type = Actions.PickupCrowbar,
+				//Precondition = action_get_crowbar_pre_condition_delegate
 			};
 		}
 
@@ -228,13 +235,12 @@ namespace UnityEngine
 			return new OpenCloseDoorTransitionData
 			{
 				Cost = cost,
-				Effect = action_drink_water_effect_delegate,
+				//Effect = action_drink_water_effect_delegate,
 				OuterIndex = (int) Actions.DrinkWater,
-				Precondition = action_drink_water_pre_condition_delegate
+				Type = Actions.DrinkWater,
+				//Precondition = action_drink_water_pre_condition_delegate
 			};
 		}
-		
-		public static readonly CustomSampler SAMPLER = CustomSampler.Create("Planner");
 
 		public static unsafe TransitionData GetOpenDoorNonJobAction(float cost) =>
 			new TransitionData((int) Actions.OpenDoor, ActionOpenDoorPreCondition, ActionOpenDoorEffect, cost);

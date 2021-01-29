@@ -11,22 +11,22 @@ namespace UnityEngine
 	public struct PlannerJob : IJob, IDisposable
 	{
 		private NativeArray<OpenCloseDoorBlackboard> _datasets;
-		[ReadOnly] private readonly FunctionPointer<BlackboardQuery> _goal;
+		[ReadOnly] private readonly int _goal;
 		[ReadOnly] private readonly NativeArray<OpenCloseDoorTransitionData> _actions;
 		[ReadOnly] private readonly int _actionsCount;
 		[ReadOnly] private readonly float _maxFScore;
 		public NativeArray<int> Plan;
 
-		public PlannerJob(ref OpenCloseDoorBlackboard dataset, int maxPlanLength, FunctionPointer<BlackboardQuery> goal,
+		public PlannerJob(ref OpenCloseDoorBlackboard dataset, int maxPlanLength,
 			NativeArray<OpenCloseDoorTransitionData> actions, float maxFScore, NativeArray<int> plan)
 		{
 			_datasets = new NativeArray<OpenCloseDoorBlackboard>(maxPlanLength + 1, Allocator.TempJob);
 			_datasets[0] = dataset;
-			_goal = goal;
 			_actionsCount = actions.Length;
 			_actions = actions;
 			_maxFScore = maxFScore;
 			Plan = plan;
+			_goal = 0;
 		}
 
 		public void Execute()
@@ -34,7 +34,7 @@ namespace UnityEngine
 			unsafe
 			{
 				var datasets = (OpenCloseDoorBlackboard*) _datasets.GetUnsafePtr();
-				float threshold = _goal.Invoke(datasets);
+				float threshold = HeuristicCheck(_goal, datasets);
 
 				while (true)
 				{
@@ -62,7 +62,7 @@ namespace UnityEngine
 
 		private unsafe bool PerformHeuristicEstimatedSearch(OpenCloseDoorBlackboard* datasets, int index, float cost, float threshold, out float outScore)
 		{
-			var heuristic = _goal.Invoke(datasets + index - 1);
+			var heuristic = HeuristicCheck(_goal, datasets + index - 1);
 			var fScore = cost + heuristic;
 			if (fScore > threshold)
 			{
@@ -88,11 +88,13 @@ namespace UnityEngine
 			for (var i = 0; i < _actionsCount; i++)
 			{
 				var action = _actions[i];
-				
-				if (action.Precondition.Invoke(datasets + index - 1) != 0) continue;
+
+				if (PreconditionCheck(action.Type, datasets + index - 1) != 0) continue;
+				// if (action.Precondition.Invoke(datasets + index - 1) != 0) continue;
 
 				_datasets[index] = _datasets[index - 1];
-				action.Effect.Invoke(datasets + index);
+				ApplyEffect(action.Type, datasets + index);
+				// action.Effect.Invoke(datasets + index);
 
 				var scoreReceived = PerformHeuristicEstimatedSearch(datasets, index + 1, cost + action.Cost, threshold, out var score);
 				
@@ -111,6 +113,68 @@ namespace UnityEngine
 
 			outScore = min;
 			return true;
+		}
+
+		private unsafe int HeuristicCheck(int target, OpenCloseDoorBlackboard* blackboard)
+		{
+			switch (target)
+			{
+				case 0:
+					return PlannerJobFunctionLibrary.GoalOpenDoorTarget(blackboard);
+				default:
+					Debug.Log("HOWWWWWWWWW?");
+					return -1;
+			}
+		}
+
+		private unsafe int PreconditionCheck(PlannerJobFunctionLibrary.Actions target, OpenCloseDoorBlackboard* blackboard)
+		{
+			switch (target)
+			{
+				case PlannerJobFunctionLibrary.Actions.OpenDoor:
+					return PlannerJobFunctionLibrary.ActionOpenDoorPreCondition(blackboard);
+				case PlannerJobFunctionLibrary.Actions.BreakDoor:
+					return PlannerJobFunctionLibrary.ActionBreakDoorPreCondition(blackboard);
+				case PlannerJobFunctionLibrary.Actions.BreakDoorWithoutStamina:
+					return PlannerJobFunctionLibrary.ActionBreakDoorWithoutStaminaPreCondition(blackboard);
+				case PlannerJobFunctionLibrary.Actions.PickupKey:
+					return PlannerJobFunctionLibrary.ActionGetKeyPreCondition(blackboard);
+				case PlannerJobFunctionLibrary.Actions.PickupCrowbar:
+					return PlannerJobFunctionLibrary.ActionGetCrowbarPreCondition(blackboard);
+				case PlannerJobFunctionLibrary.Actions.DrinkWater:
+					return PlannerJobFunctionLibrary.ActionDrinkWaterPreCondition(blackboard);
+				default:
+					Debug.Log("Transition data not initialized properly.");
+					return -1;
+			}
+		}
+
+		private unsafe void ApplyEffect(PlannerJobFunctionLibrary.Actions target, OpenCloseDoorBlackboard* blackboard)
+		{
+			switch (target)
+			{
+				case PlannerJobFunctionLibrary.Actions.OpenDoor:
+					PlannerJobFunctionLibrary.ActionOpenDoorEffect(blackboard);
+					return;
+				case PlannerJobFunctionLibrary.Actions.BreakDoor:
+					PlannerJobFunctionLibrary.ActionBreakDoorEffect(blackboard);
+					return;
+				case PlannerJobFunctionLibrary.Actions.BreakDoorWithoutStamina:
+					PlannerJobFunctionLibrary.ActionBreakDoorWithoutStaminaEffect(blackboard);
+					return;
+				case PlannerJobFunctionLibrary.Actions.PickupKey:
+					PlannerJobFunctionLibrary.ActionGetKeyEffect(blackboard);
+					return;
+				case PlannerJobFunctionLibrary.Actions.PickupCrowbar:
+					PlannerJobFunctionLibrary.ActionGetCrowbarEffect(blackboard);
+					return;
+				case PlannerJobFunctionLibrary.Actions.DrinkWater:
+					PlannerJobFunctionLibrary.ActionDrinkWaterEffect(blackboard);
+					return;
+				default:
+					Debug.Log("Transition data not initialized properly.");
+					return;
+			}
 		}
 
 		public void Dispose() =>
