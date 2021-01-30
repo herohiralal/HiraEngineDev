@@ -1,5 +1,41 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7748680088198030701
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
+  m_Name: OpenDoor
+  m_EditorClassIdentifier: 
+--- !u!114 &-5887812627969409484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
+  m_Name: BreakDoor
+  m_EditorClassIdentifier: 
+--- !u!114 &-4363161074874548413
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
+  m_Name: DrinkWater
+  m_EditorClassIdentifier: 
 --- !u!114 &-2182549457087300641
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -28,6 +64,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSynced: 0
   defaultValue: 0
+--- !u!114 &-1431514666678256696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
+  m_Name: PickupCrowbar
+  m_EditorClassIdentifier: 
+--- !u!114 &-175873403683842550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
+  m_Name: PickupKey
+  m_EditorClassIdentifier: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,9 +105,17 @@ MonoBehaviour:
   - {fileID: -1980243879405301659}
   - {fileID: 368716628081075324}
   - {fileID: 2182583221365606181}
+  collection2:
+  - {fileID: 8836312069814376730}
+  collection3:
+  - {fileID: -7748680088198030701}
+  - {fileID: -5887812627969409484}
+  - {fileID: -175873403683842550}
+  - {fileID: -1431514666678256696}
+  - {fileID: -4363161074874548413}
   dependencies: []
   namespace: UnityEngine
-  cachedFilePath: 
+  cachedFilePath: Assets/OpenCloseDoorBlackboard.cs
   valueAccessorInfo: []
 --- !u!114 &368716628081075324
 MonoBehaviour:
@@ -77,3 +145,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSynced: 0
   defaultValue: 0
+--- !u!114 &8836312069814376730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c3d0fb0478487a819f7a720fda2f7e, type: 3}
+  m_Name: OpenDoor
+  m_EditorClassIdentifier: 

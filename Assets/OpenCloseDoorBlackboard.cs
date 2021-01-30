@@ -22,7 +22,6 @@ namespace UnityEngine
         public bool HasKey;
         public bool HasCrowbar;
         public bool HasStamina;
-
     }
     
     [System.Serializable]
@@ -86,5 +85,32 @@ namespace UnityEngine
                 OnValueUpdate.Invoke();
             }
         }
+    }
+    
+    [Unity.Burst.BurstCompile]
+    public readonly struct OpenCloseDoorBlackboardActionData
+    {
+        [Unity.Collections.ReadOnly] public readonly int Identifier;
+        [Unity.Collections.ReadOnly] public readonly int ArchetypeIndex;
+        [Unity.Collections.ReadOnly] public readonly float Cost;
+        
+        public OpenCloseDoorBlackboardActionData(int identifier, int archetypeIndex, float cost)
+        {
+            Identifier = identifier;
+            ArchetypeIndex = archetypeIndex;
+            Cost = cost;
+        }
+    }
+    
+    public static class OpenCloseDoorBlackboardArchetypeIndices
+    {
+        public const int GOAL_UNINITIALIZED = 0;
+        public const int GOAL_OPEN_DOOR = 1;
+        public const int ACTION_UNINITIALIZED = 0;
+        public const int ACTION_OPEN_DOOR = 1;
+        public const int ACTION_BREAK_DOOR = 2;
+        public const int ACTION_PICKUP_KEY = 3;
+        public const int ACTION_PICKUP_CROWBAR = 4;
+        public const int ACTION_DRINK_WATER = 5;
     }
 }
