@@ -1,39 +1,62 @@
-using System;
-using Unity.Burst;
-using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.Jobs;
-using Unity.Mathematics;
+// ReSharper disable Alla
 
-namespace UnityEngine
+namespace UnityEngine.Internal
 {
-	[BurstCompile]
-	public struct PlannerJob : IJob, IDisposable
-	{
-		private NativeArray<OpenCloseDoorBlackboard> _datasets;
-		[ReadOnly] private readonly int _goal;
-		[ReadOnly] private readonly NativeArray<OpenCloseDoorTransitionData> _actions;
-		[ReadOnly] private readonly int _actionsCount;
-		[ReadOnly] private readonly float _maxFScore;
-		public NativeArray<int> Plan;
 
-		public PlannerJob(ref OpenCloseDoorBlackboard dataset, int maxPlanLength,
-			NativeArray<OpenCloseDoorTransitionData> actions, float maxFScore, NativeArray<int> plan)
+	[Unity.Burst.BurstCompile]
+	public readonly struct OpenCloseDoorTransitionData
+	{
+		[Unity.Collections.ReadOnly] public readonly int Identifier;
+		[Unity.Collections.ReadOnly] public readonly int ArchetypeIndex;
+		[Unity.Collections.ReadOnly] public readonly float Cost;
+
+		public OpenCloseDoorTransitionData(int identifier, int archetypeIndex, float cost)
 		{
-			_datasets = new NativeArray<OpenCloseDoorBlackboard>(maxPlanLength + 1, Allocator.TempJob);
-			_datasets[0] = dataset;
+			Identifier = identifier;
+			ArchetypeIndex = archetypeIndex;
+			Cost = cost;
+		}
+	}
+
+	public static class OpenCloseDoorBlackboardArchetypeIndices
+	{
+		public const int GOAL_UNRECOGNIZED = 0;
+		public const int GOAL_OPEN_DOOR = 1;
+		public const int ACTION_UNRECOGNIZED = 0;
+		public const int ACTION_OPEN_DOOR = 1;
+		public const int ACTION_BREAK_DOOR = 2;
+		public const int ACTION_BREAK_DOOR_WITHOUT_STAMINA = 3;
+		public const int ACTION_PICKUP_KEY = 4;
+		public const int ACTION_PICKUP_CROWBAR = 5;
+		public const int ACTION_DRINK_WATER = 6;
+	}
+	
+	[Unity.Burst.BurstCompile]
+	public struct PlannerJob : Unity.Jobs.IJob
+	{
+		[Unity.Collections.DeallocateOnJobCompletion] private Unity.Collections.NativeArray<OpenCloseDoorBlackboard> _datasets;
+		[Unity.Collections.ReadOnly] private readonly int _goal;
+		[Unity.Collections.ReadOnly] private readonly Unity.Collections.NativeArray<OpenCloseDoorTransitionData> _actions;
+		[Unity.Collections.ReadOnly] private readonly int _actionsCount;
+		[Unity.Collections.ReadOnly] private readonly float _maxFScore;
+		[Unity.Collections.WriteOnly] public Unity.Collections.NativeArray<int> Plan;
+
+		public PlannerJob(ref OpenCloseDoorBlackboard dataset, int goal, int maxPlanLength,
+			Unity.Collections.NativeArray<OpenCloseDoorTransitionData> actions, float maxFScore, Unity.Collections.NativeArray<int> plan)
+		{
+			_datasets = new Unity.Collections.NativeArray<OpenCloseDoorBlackboard>(maxPlanLength + 1, Unity.Collections.Allocator.TempJob) {[0] = dataset};
 			_actionsCount = actions.Length;
 			_actions = actions;
 			_maxFScore = maxFScore;
+			_goal = goal;
 			Plan = plan;
-			_goal = 0;
 		}
 
 		public void Execute()
 		{
 			unsafe
 			{
-				var datasets = (OpenCloseDoorBlackboard*) _datasets.GetUnsafePtr();
+				var datasets = (OpenCloseDoorBlackboard*) Unity.Collections.LowLevel.Unsafe.NativeArrayUnsafeUtility.GetUnsafePtr(_datasets);
 				float threshold = HeuristicCheck(_goal, datasets);
 
 				while (true)
@@ -89,11 +112,11 @@ namespace UnityEngine
 			{
 				var action = _actions[i];
 
-				if (PreconditionCheck(action.Type, datasets + index - 1) != 0) continue;
+				if (PreconditionCheck(action.ArchetypeIndex, datasets + index - 1) != 0) continue;
 				// if (action.Precondition.Invoke(datasets + index - 1) != 0) continue;
 
 				_datasets[index] = _datasets[index - 1];
-				ApplyEffect(action.Type, datasets + index);
+				ApplyEffect(action.ArchetypeIndex, datasets + index);
 				// action.Effect.Invoke(datasets + index);
 
 				var scoreReceived = PerformHeuristicEstimatedSearch(datasets, index + 1, cost + action.Cost, threshold, out var score);
@@ -102,82 +125,67 @@ namespace UnityEngine
 				
 				if (!scoreReceived)
 				{
-					Plan[index] = action.OuterIndex;
+					Plan[index] = action.Identifier;
 					outScore = -1;
 					return false;
 				}
 
 				_datasets[index] = _datasets[index - 1];
-				min = math.min(score, min);
+				min = Unity.Mathematics.math.min(score, min);
 			}
 
 			outScore = min;
 			return true;
 		}
 
-		private unsafe int HeuristicCheck(int target, OpenCloseDoorBlackboard* blackboard)
+		private static unsafe int HeuristicCheck(int target, OpenCloseDoorBlackboard* blackboard) =>
+			target switch
+			{
+				OpenCloseDoorBlackboardArchetypeIndices.GOAL_UNRECOGNIZED => throw new System.Exception("Uninitialized goal data received by PlannerJob."),
+				OpenCloseDoorBlackboardArchetypeIndices.GOAL_OPEN_DOOR => blackboard->DoorOpen ? 0 : 1,
+				_ => throw new System.Exception($"Invalid goal data received by PlannerJob: {target}.")
+			};
+
+		private static unsafe int PreconditionCheck(int target, OpenCloseDoorBlackboard* blackboard) =>
+			target switch
+			{
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_UNRECOGNIZED => throw new System.Exception($"Uninitialized action data received by PlannerJob."),
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_OPEN_DOOR => (blackboard->HasKey ? 0 : 1) + (!blackboard->DoorOpen ? 0 : 1),
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_BREAK_DOOR => (blackboard->HasCrowbar ? 0 : 1) + (blackboard->HasStamina ? 0 : 1) + (!blackboard->DoorOpen ? 0 : 1),
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_BREAK_DOOR_WITHOUT_STAMINA => (blackboard->HasCrowbar ? 0 : 1) + (!blackboard->DoorOpen ? 0 : 1),
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_PICKUP_KEY => !blackboard->HasKey ? 0 : 1,
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_PICKUP_CROWBAR => !blackboard->HasCrowbar ? 0 : 1,
+				OpenCloseDoorBlackboardArchetypeIndices.ACTION_DRINK_WATER => 0,
+				_ => throw new System.Exception($"Invalid action data received by PlannerJob: {target}.")
+			};
+
+		private static unsafe void ApplyEffect(int target, OpenCloseDoorBlackboard* blackboard)
 		{
 			switch (target)
 			{
-				case 0:
-					return PlannerJobFunctionLibrary.GoalOpenDoorTarget(blackboard);
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_UNRECOGNIZED:
+					throw new System.Exception($"Uninitialized action data received by PlannerJob.");
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_OPEN_DOOR:
+					blackboard->DoorOpen = true;
+					break;
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_BREAK_DOOR:
+					blackboard->DoorOpen = true;
+					break;
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_BREAK_DOOR_WITHOUT_STAMINA:
+					blackboard->DoorOpen = true;
+					break;
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_PICKUP_KEY:
+					blackboard->HasKey = true;
+					break;
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_PICKUP_CROWBAR:
+					blackboard->HasCrowbar = true;
+					break;
+				case OpenCloseDoorBlackboardArchetypeIndices.ACTION_DRINK_WATER:
+					blackboard->HasStamina = true;
+					break;
 				default:
-					Debug.Log("HOWWWWWWWWW?");
-					return -1;
+					throw new System.Exception($"Invalid action data received by PlannerJob: {target}.");
 			}
 		}
-
-		private unsafe int PreconditionCheck(PlannerJobFunctionLibrary.Actions target, OpenCloseDoorBlackboard* blackboard)
-		{
-			switch (target)
-			{
-				case PlannerJobFunctionLibrary.Actions.OpenDoor:
-					return PlannerJobFunctionLibrary.ActionOpenDoorPreCondition(blackboard);
-				case PlannerJobFunctionLibrary.Actions.BreakDoor:
-					return PlannerJobFunctionLibrary.ActionBreakDoorPreCondition(blackboard);
-				case PlannerJobFunctionLibrary.Actions.BreakDoorWithoutStamina:
-					return PlannerJobFunctionLibrary.ActionBreakDoorWithoutStaminaPreCondition(blackboard);
-				case PlannerJobFunctionLibrary.Actions.PickupKey:
-					return PlannerJobFunctionLibrary.ActionGetKeyPreCondition(blackboard);
-				case PlannerJobFunctionLibrary.Actions.PickupCrowbar:
-					return PlannerJobFunctionLibrary.ActionGetCrowbarPreCondition(blackboard);
-				case PlannerJobFunctionLibrary.Actions.DrinkWater:
-					return PlannerJobFunctionLibrary.ActionDrinkWaterPreCondition(blackboard);
-				default:
-					Debug.Log("Transition data not initialized properly.");
-					return -1;
-			}
-		}
-
-		private unsafe void ApplyEffect(PlannerJobFunctionLibrary.Actions target, OpenCloseDoorBlackboard* blackboard)
-		{
-			switch (target)
-			{
-				case PlannerJobFunctionLibrary.Actions.OpenDoor:
-					PlannerJobFunctionLibrary.ActionOpenDoorEffect(blackboard);
-					return;
-				case PlannerJobFunctionLibrary.Actions.BreakDoor:
-					PlannerJobFunctionLibrary.ActionBreakDoorEffect(blackboard);
-					return;
-				case PlannerJobFunctionLibrary.Actions.BreakDoorWithoutStamina:
-					PlannerJobFunctionLibrary.ActionBreakDoorWithoutStaminaEffect(blackboard);
-					return;
-				case PlannerJobFunctionLibrary.Actions.PickupKey:
-					PlannerJobFunctionLibrary.ActionGetKeyEffect(blackboard);
-					return;
-				case PlannerJobFunctionLibrary.Actions.PickupCrowbar:
-					PlannerJobFunctionLibrary.ActionGetCrowbarEffect(blackboard);
-					return;
-				case PlannerJobFunctionLibrary.Actions.DrinkWater:
-					PlannerJobFunctionLibrary.ActionDrinkWaterEffect(blackboard);
-					return;
-				default:
-					Debug.Log("Transition data not initialized properly.");
-					return;
-			}
-		}
-
-		public void Dispose() =>
-			_datasets.Dispose();
 	}
 }
