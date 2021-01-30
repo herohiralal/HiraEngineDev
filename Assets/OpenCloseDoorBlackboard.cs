@@ -106,11 +106,28 @@ namespace UnityEngine
     {
         public const int GOAL_UNINITIALIZED = 0;
         public const int GOAL_OPEN_DOOR = 1;
+        public const int GOAL_COUNT = 1;
         public const int ACTION_UNINITIALIZED = 0;
         public const int ACTION_OPEN_DOOR = 1;
         public const int ACTION_BREAK_DOOR = 2;
         public const int ACTION_PICKUP_KEY = 3;
         public const int ACTION_PICKUP_CROWBAR = 4;
         public const int ACTION_DRINK_WATER = 5;
+        public const int ACTION_COUNT = 5;
+    }
+    
+    [Unity.Burst.BurstCompile]
+    public struct OpenCloseDoorBlackboardPlannerJob : Unity.Jobs.IJob
+    {
+        [Unity.Collections.DeallocateOnJobCompletion] private Unity.Collections.NativeArray<OpenCloseDoorBlackboard> _datasets;
+        [Unity.Collections.ReadOnly] private readonly int _goal;
+        [Unity.Collections.ReadOnly] private readonly Unity.Collections.NativeArray<OpenCloseDoorBlackboardActionData> _actions;
+        [Unity.Collections.ReadOnly] private readonly int _actionsCount;
+        [Unity.Collections.ReadOnly] private readonly float _maxFScore;
+        [Unity.Collections.WriteOnly] public Unity.Collections.NativeArray<int> Plan;
+        
+        public void Execute()
+        {
+        }
     }
 }
