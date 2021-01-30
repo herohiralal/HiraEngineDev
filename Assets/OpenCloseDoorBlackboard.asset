@@ -12,6 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
   m_Name: OpenDoor
   m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 8785783379723503941}
+  - {fileID: -2965645369418132402}
+  collection2:
+  - {fileID: 8673841941794722108}
+--- !u!114 &-6550977703785693330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: DoorOpen is True
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: -2182549457087300641}
+  invert: 0
 --- !u!114 &-5887812627969409484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
   m_Name: BreakDoor
   m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 5674716870517938636}
+  - {fileID: 1741661977483862537}
+  - {fileID: -388261620562961432}
+  collection2:
+  - {fileID: 2526343953578052831}
 --- !u!114 &-4363161074874548413
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36,6 +62,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
   m_Name: DrinkWater
   m_EditorClassIdentifier: 
+  collection1: []
+  collection2:
+  - {fileID: 4189042563009775190}
+--- !u!114 &-3190821826281972676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: HasKey is False
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: -1980243879405301659}
+  invert: 1
+--- !u!114 &-2965645369418132402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: DoorOpen is False
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: -2182549457087300641}
+  invert: 1
 --- !u!114 &-2182549457087300641
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,6 +135,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
   m_Name: PickupCrowbar
   m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 4687275901725814193}
+  collection2:
+  - {fileID: 8471719627305062285}
+--- !u!114 &-388261620562961432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: HasStamina is True
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: 2182583221365606181}
+  invert: 0
 --- !u!114 &-175873403683842550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,6 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e4bed3b7e44cc9904ee9264dec7bc9, type: 3}
   m_Name: PickupKey
   m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -3190821826281972676}
+  collection2:
+  - {fileID: 2047220597070807348}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +213,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSynced: 0
   defaultValue: 0
+--- !u!114 &1741661977483862537
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: DoorOpen is False
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: -2182549457087300641}
+  invert: 1
+--- !u!114 &2047220597070807348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3908fa5e6854868bb2203fb9eca5bd6, type: 3}
+  m_Name: HasKey is True
+  m_EditorClassIdentifier: 
+  key: {fileID: -1980243879405301659}
+  value: 1
 --- !u!114 &2182583221365606181
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,6 +256,107 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSynced: 0
   defaultValue: 0
+--- !u!114 &2526343953578052831
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3908fa5e6854868bb2203fb9eca5bd6, type: 3}
+  m_Name: DoorOpen is True
+  m_EditorClassIdentifier: 
+  key: {fileID: -2182549457087300641}
+  value: 1
+--- !u!114 &4189042563009775190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3908fa5e6854868bb2203fb9eca5bd6, type: 3}
+  m_Name: HasStamina is True
+  m_EditorClassIdentifier: 
+  key: {fileID: 2182583221365606181}
+  value: 1
+--- !u!114 &4687275901725814193
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: HasCrowbar is False
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: 368716628081075324}
+  invert: 1
+--- !u!114 &5674716870517938636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: HasCrowbar is True
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: 368716628081075324}
+  invert: 0
+--- !u!114 &8471719627305062285
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3908fa5e6854868bb2203fb9eca5bd6, type: 3}
+  m_Name: HasCrowbar is True
+  m_EditorClassIdentifier: 
+  key: {fileID: 368716628081075324}
+  value: 1
+--- !u!114 &8673841941794722108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3908fa5e6854868bb2203fb9eca5bd6, type: 3}
+  m_Name: DoorOpen is True
+  m_EditorClassIdentifier: 
+  key: {fileID: -2182549457087300641}
+  value: 1
+--- !u!114 &8785783379723503941
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9af73a9ea804db38290a31271974adb, type: 3}
+  m_Name: HasKey is True
+  m_EditorClassIdentifier: 
+  weight: 1
+  key: {fileID: -1980243879405301659}
+  invert: 0
 --- !u!114 &8836312069814376730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,3 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c3d0fb0478487a819f7a720fda2f7e, type: 3}
   m_Name: OpenDoor
   m_EditorClassIdentifier: 
+  collection1: []
+  collection2:
+  - {fileID: -6550977703785693330}
