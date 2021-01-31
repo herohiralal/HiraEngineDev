@@ -72,23 +72,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   effects:
   - keySet: {fileID: 11400000, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
@@ -97,23 +97,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 1
+      constant: 1
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   reportOnExecution: {fileID: 7451623550717032128}
 --- !u!114 &7451623550717032128
@@ -133,6 +133,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7451623552272430627}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -144,6 +145,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 7451623550717032129}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Modify
         m_Mode: 0
         m_Arguments:
@@ -174,23 +176,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 1
+      constant: 1
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
 --- !u!1 &7451623550962703006
 GameObject:
@@ -279,6 +281,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -303,3 +306,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

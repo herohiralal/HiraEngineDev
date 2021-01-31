@@ -79,6 +79,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 711047770109595065}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Modify
         m_Mode: 0
         m_Arguments:
@@ -90,6 +91,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3624754466150631917}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Report
         m_Mode: 0
         m_Arguments:
@@ -101,6 +103,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3338720562652360996}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -131,23 +134,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 1
-      _constant: -1
+      constant: -1
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   - keySet: {fileID: 11400000, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
     key: {fileID: -560933158455212489, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
@@ -155,23 +158,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 1
+      constant: 1
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
 --- !u!1 &3338720562652360996
 GameObject:
@@ -228,6 +231,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -252,6 +256,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5872722333820113684
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,27 +328,27 @@ MonoBehaviour:
   preconditions:
   - keySet: {fileID: 11400000, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
     key: {fileID: 1304530038788525323, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
-    typeString: HiraEngine.Components.Planner.Internal.IntGreaterThanValue, HiraEngine,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    typeString: HiraEngine.Components.Planner.Internal.IntGreaterThanOrEqualToValue,
+      HiraEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 1
+      constant: 0
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 1
-      _constant: 0
+      constant: 1
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   - keySet: {fileID: 11400000, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
     key: {fileID: -6967893659986644731, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
@@ -351,23 +356,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 1
+      constant: 1
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 1
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   effects:
   - keySet: {fileID: 11400000, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
@@ -376,23 +381,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 1
+      constant: 1
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   - keySet: {fileID: 11400000, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
     key: {fileID: 1304530038788525323, guid: 4d6f30faa710a1f48bbd6e99eec2eecd, type: 2}
@@ -400,23 +405,23 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 1
-      _constant: -1
+      constant: -1
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
   reportOnExecution: {fileID: 863078614571865929}
 --- !u!1 &6255269497417289606
@@ -474,6 +479,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -498,6 +504,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8653275315348638742
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +554,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7139077950656801123}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Modify
         m_Mode: 0
         m_Arguments:
@@ -558,6 +566,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3338720562652360996}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -588,21 +597,21 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 1
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     floatValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}

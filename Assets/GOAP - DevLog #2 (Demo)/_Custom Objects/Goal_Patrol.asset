@@ -22,21 +22,21 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     boolValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     floatValue:
       useConstant: 1
-      _constant: 10
+      constant: 10
       variable: {fileID: 0}
     intValue:
       useConstant: 0
-      _constant: 0
+      constant: 0
       variable: {fileID: 0}
     stringValue:
       useConstant: 0
-      _constant: 
+      constant: 
       variable: {fileID: 0}
     vectorValue:
       useConstant: 0
-      _constant: {x: 0, y: 0, z: 0}
+      constant: {x: 0, y: 0, z: 0}
       variable: {fileID: 0}
