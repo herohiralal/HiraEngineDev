@@ -664,6 +664,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5066112465335859347, guid: 84ef1c814b2cfed4ebad890e355801fe,
         type: 3}
+      propertyPath: endValue.constant.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5066112465335859347, guid: 84ef1c814b2cfed4ebad890e355801fe,
+        type: 3}
       propertyPath: endValue._constant.y
       value: -110
       objectReference: {fileID: 0}
@@ -724,6 +729,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: East Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 5066112465335859347, guid: 84ef1c814b2cfed4ebad890e355801fe,
+        type: 3}
+      propertyPath: endValue.constant.y
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5066112465335859347, guid: 84ef1c814b2cfed4ebad890e355801fe,
         type: 3}
