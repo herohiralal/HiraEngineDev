@@ -134,6 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30174478}
   - component: {fileID: 30174479}
+  - component: {fileID: 30174480}
   m_Layer: 0
   m_Name: Agent - Jobified
   m_TagString: Untagged
@@ -170,6 +171,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 30174478}
   body: {fileID: 919132149286556289}
+--- !u!114 &30174480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30174477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d0574093a47ec947ad8517edea2dc85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard:
+    blackboard:
+      Insecurity: 0
+      WaterCarriedByAgent: 0
+      WaterInPool: 0
+      WaterCarriedByPlant: 0
+      WesternPatrolPointActive: 0
+      EasternPatrolPointActive: 0
+      DoorOpen: 0
+      HasKey: 0
+      HasCrowbar: 0
 --- !u!1001 &144461106
 PrefabInstance:
   m_ObjectHideFlags: 0
