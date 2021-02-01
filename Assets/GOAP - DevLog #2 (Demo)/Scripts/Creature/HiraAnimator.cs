@@ -1,5 +1,3 @@
-using System;
-
 namespace UnityEngine
 {
     public class HiraAnimator : MonoBehaviour
@@ -40,6 +38,8 @@ namespace UnityEngine
             var speed = Vector3.Magnitude(currentPosition - _lastPosition);
 
             body.Animator.SetFloat(speed_variable_hash, speed);
+
+            _lastPosition = currentPosition;
         }
     }
 }
