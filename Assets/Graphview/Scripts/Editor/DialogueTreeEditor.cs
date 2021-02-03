@@ -1,3 +1,4 @@
+using HiraEditor.HiraAssetEditorWindows;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,8 +10,7 @@ namespace Graphview.Scripts.Editor
 		public override void OnInspectorGUI()
 		{
 			if (GUILayout.Button("Open"))
-				if (!DialogueGraph.AttemptOpen(target))
-					Debug.LogError("There was a problem opening the dialogue tree.");
+				HiraAssetEditorWindowUtility.OnOpenHiraAsset(target.GetInstanceID(), 0);
 		}
 	}
 }
