@@ -8,7 +8,7 @@ namespace Graphview.Scripts.Editor
 	{
 		public static (NPCDialogueNode[], Edge[]) ConvertToNodes(this DialogueTree tree)
 		{
-			var correspondence = new System.Collections.Generic.Dictionary<NPCDialogue, int>();
+			var correspondence = new Dictionary<NPCDialogue, int>();
 
 			var npcDialogues = tree.Collection1;
 			var length = npcDialogues.Length;

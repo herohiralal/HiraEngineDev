@@ -1,4 +1,3 @@
-using System;
 using UnityEditor.Experimental.GraphView;
 
 namespace Graphview.Scripts.Editor
