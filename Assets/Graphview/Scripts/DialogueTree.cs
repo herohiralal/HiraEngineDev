@@ -2,13 +2,33 @@ using UnityEngine;
 
 namespace Graphview.Scripts
 {
-	[CreateAssetMenu]
-	public class DialogueTree : HiraCollection<Dialogue>
+	[System.Serializable]
+	public class Dialogue
 	{
+		public string text = "";
+		public int[] responses = { };
 #if UNITY_EDITOR && !STRIP_EDITOR_CODE
-#pragma warning disable 414
-		private static readonly string collection1_name = "Dialogues";
-#pragma warning restore 414
+		[HideInInspector] public Rect position = default;
+#endif
+	}
+
+	[System.Serializable]
+	public class Response
+	{
+		public string text = "";
+		public int nextDialogue = -1;
+#if UNITY_EDITOR && !STRIP_EDITOR_CODE
+		[HideInInspector] public Rect position = default;
+#endif
+	}
+	
+	[CreateAssetMenu]
+	public class DialogueTree : ScriptableObject
+	{
+		public Dialogue[] dialogues = { };
+		public Response[] responses = { };
+#if UNITY_EDITOR && !STRIP_EDITOR_CODE
+		[HideInInspector] public Rect entryNodePosition = default;
 #endif
 	}
 }

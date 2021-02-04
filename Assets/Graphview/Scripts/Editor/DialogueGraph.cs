@@ -32,7 +32,8 @@ namespace Graphview.Scripts.Editor
 		private void Enable()
 		{
 			var root = rootVisualElement;
-			_dialogueGraphView = new DialogueGraphView(_target.ConvertToNodes());
+			_target.ConvertToNodes(out var dialogues, out var responses, out var edges);
+			_dialogueGraphView = new DialogueGraphView(dialogues, responses, edges);
 			_dialogueGraphView.StretchToParentSize();
 			root.Add(_dialogueGraphView);
 			

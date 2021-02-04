@@ -6,102 +6,74 @@ namespace Graphview.Scripts.Editor
 {
 	public static class ConversionUtility
 	{
-		public static (DialogueNode[], Edge[]) ConvertToNodes(this DialogueTree tree)
+		public static void ConvertToNodes(this DialogueTree tree, out List<DialogueNode> dialogueNodes, out List<ResponseNode> responseNodes, out List<Edge> edges)
 		{
-			var correspondence = new Dictionary<Dialogue, int>();
+			var dialogueCount = tree.dialogues.Length;
+			var responseCount = tree.responses.Length;
+			
+			dialogueNodes = new List<DialogueNode>(dialogueCount + 1);
+			responseNodes = new List<ResponseNode>(responseCount);
+			edges = new List<Edge>();
 
-			var npcDialogues = tree.Collection1;
-			var length = npcDialogues.Length;
-			var output = new DialogueNode[length + 1];
-			var edges = new List<Edge>();
+			var entryNode = new DialogueNode();
+			tree.entryNodePosition.PreprocessPositionRect();
+			entryNode.SetPosition(tree.entryNodePosition);
+			dialogueNodes.Add(entryNode);
 			
-			// ENTRY port
-			output[length] = EntryNode;
-			
-			for (var i = 0; i < length; i++)
+			for (var i = 0; i < dialogueCount; i++)
 			{
-				var npcDialogue = npcDialogues[i];
-				correspondence.Add(npcDialogue, i);
-
-				var node = new DialogueNode
+				var currentDialogue = tree.dialogues[i];
+				var currentDialogueResponseCount = currentDialogue.responses.Length;
+				var node = new DialogueNode(currentDialogueResponseCount)
 				{
-					title = npcDialogue.name
+					title = currentDialogue.text,
 				};
-				var position = npcDialogue.position;
-				position.height = Mathf.Max(position.height, 150);
-				position.width = Mathf.Max(position.width, 200);
-				node.SetPosition(position);
+				
+				currentDialogue.position.PreprocessPositionRect();
+				node.SetPosition(currentDialogue.position);
 
-				var inputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(Dialogue));
-				inputPort.portName = "Input";
-				node.inputContainer.Add(inputPort);
-				node.Input = inputPort;
-
-				var responses = npcDialogue.Collection1;
-				var responseCount = responses.Length;
-				var ports = new Port[responseCount];
-
-				for (var j = 0; j < responseCount; j++)
-				{
-					var response = responses[j];
-
-					var port = node.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));
-					port.portName = response.name;
-					node.outputContainer.Add(port);
-
-					ports[j] = port;
-				}
-
-				node.Responses = ports;
-
-				output[i] = node;
-			}
-
-			if (length > 0)
-			{
-				var edge = output[length].Responses[0].ConnectTo(output[0].Input);
-				edges.Add(edge);
+				dialogueNodes.Add(node);
 			}
 			
-			for (var i = 0; i < length; i++)
+			for (var i = 0; i < responseCount; i++)
 			{
-				var node = output[i];
-
-				var responses = npcDialogues[i].Collection1;
-				var responseCount = responses.Length;
-				
-				for (var j = 0; j < responseCount; j++)
+				var currentResponse = tree.responses[i];
+				var node = new ResponseNode
 				{
-					var response = responses[j];
-					var next = response.Next;
-					if (next != null)
-					{
-						var index = correspondence[next];
-						var nextNode = output[index];
-						var edge = node.Responses[j].ConnectTo(nextNode.Input);
-						edges.Add(edge);
-					}
+					title = currentResponse.text
+				};
+
+				currentResponse.position.PreprocessPositionRect();
+				node.SetPosition(currentResponse.position);
+				
+				// connections
+				var next = currentResponse.nextDialogue;
+				if (next >= 0 && next < dialogueCount)
+				{
+					edges.Add(node.Next.ConnectTo(dialogueNodes[next].Input));
+				}
+
+				responseNodes.Add(node);
+			}
+			
+			for (var i = 0; i < dialogueCount; i++)
+			{
+				var currentDialogue = tree.dialogues[i];
+				var currentNode = dialogueNodes[i];
+				
+				var currentDialogueResponseCount = currentDialogue.responses.Length;
+				for (var j = 0; j < currentDialogueResponseCount; j++)
+				{
+					var targetResponse = responseNodes[currentDialogue.responses[j]];
+					edges.Add(currentNode.Responses[j].ConnectTo(targetResponse.Input));
 				}
 			}
-
-			return (output, edges.ToArray());
 		}
 
-		private static DialogueNode EntryNode
+		private static void PreprocessPositionRect(this ref Rect position)
 		{
-			get
-			{
-				var entryNode = new DialogueNode
-				{
-					title = "ENTRY"
-				};
-				entryNode.SetPosition(new Rect(0, 0, 100, 150));
-				var entryPort = entryNode.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));
-				entryPort.portName = "Start";
-				entryNode.outputContainer.Add(entryPort);
-				entryNode.Responses = new[] {entryPort};
-				return entryNode;
-			}
+			position.height = Mathf.Max(position.height, 150);
+			position.width = Mathf.Max(position.width, 200);
 		}
 	}
 }
