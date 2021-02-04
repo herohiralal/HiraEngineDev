@@ -9,7 +9,7 @@ namespace Graphview.Scripts.Editor
 {
 	public class DialogueGraphView : GraphView
 	{
-		private NPCDialogueNode[] _nodes;
+		private DialogueNode[] _nodes;
 		private ContentDragger _contentDragger;
 		private SelectionDragger _selectionDragger;
 		private RectangleSelector _rectangleSelector;
@@ -19,7 +19,7 @@ namespace Graphview.Scripts.Editor
 		public event Action OnSave = delegate { };
 		public event Action OnPing = delegate { };
 
-		public DialogueGraphView((NPCDialogueNode[], Edge[]) nodes)
+		public DialogueGraphView((DialogueNode[], Edge[]) nodes)
 		{
 			_contentDragger = new ContentDragger();
 			this.AddManipulator(_contentDragger);

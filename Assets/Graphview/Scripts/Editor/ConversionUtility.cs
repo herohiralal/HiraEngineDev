@@ -6,13 +6,13 @@ namespace Graphview.Scripts.Editor
 {
 	public static class ConversionUtility
 	{
-		public static (NPCDialogueNode[], Edge[]) ConvertToNodes(this DialogueTree tree)
+		public static (DialogueNode[], Edge[]) ConvertToNodes(this DialogueTree tree)
 		{
-			var correspondence = new Dictionary<NPCDialogue, int>();
+			var correspondence = new Dictionary<Dialogue, int>();
 
 			var npcDialogues = tree.Collection1;
 			var length = npcDialogues.Length;
-			var output = new NPCDialogueNode[length + 1];
+			var output = new DialogueNode[length + 1];
 			var edges = new List<Edge>();
 			
 			// ENTRY port
@@ -23,7 +23,7 @@ namespace Graphview.Scripts.Editor
 				var npcDialogue = npcDialogues[i];
 				correspondence.Add(npcDialogue, i);
 
-				var node = new NPCDialogueNode
+				var node = new DialogueNode
 				{
 					title = npcDialogue.name
 				};
@@ -32,7 +32,7 @@ namespace Graphview.Scripts.Editor
 				position.width = Mathf.Max(position.width, 200);
 				node.SetPosition(position);
 
-				var inputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(NPCDialogue));
+				var inputPort = node.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(Dialogue));
 				inputPort.portName = "Input";
 				node.inputContainer.Add(inputPort);
 				node.Input = inputPort;
@@ -45,7 +45,7 @@ namespace Graphview.Scripts.Editor
 				{
 					var response = responses[j];
 
-					var port = node.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(NPCDialogue));
+					var port = node.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));
 					port.portName = response.name;
 					node.outputContainer.Add(port);
 
@@ -87,16 +87,16 @@ namespace Graphview.Scripts.Editor
 			return (output, edges.ToArray());
 		}
 
-		private static NPCDialogueNode EntryNode
+		private static DialogueNode EntryNode
 		{
 			get
 			{
-				var entryNode = new NPCDialogueNode
+				var entryNode = new DialogueNode
 				{
 					title = "ENTRY"
 				};
 				entryNode.SetPosition(new Rect(0, 0, 100, 150));
-				var entryPort = entryNode.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(NPCDialogue));
+				var entryPort = entryNode.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));
 				entryPort.portName = "Start";
 				entryNode.outputContainer.Add(entryPort);
 				entryNode.Responses = new[] {entryPort};

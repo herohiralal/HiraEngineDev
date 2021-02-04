@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Graphview.Scripts
 {
-	public class NPCDialogue : HiraCollection<DialogueResponse>
+	public class Dialogue : HiraCollection<Response>
 	{
 #if UNITY_EDITOR && !STRIP_EDITOR_CODE
 #pragma warning disable 414

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Graphview.Scripts
 {
 	[CreateAssetMenu]
-	public class DialogueTree : HiraCollection<NPCDialogue>
+	public class DialogueTree : HiraCollection<Dialogue>
 	{
 #if UNITY_EDITOR && !STRIP_EDITOR_CODE
 #pragma warning disable 414
