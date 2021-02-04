@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -6,20 +7,26 @@ namespace Graphview.Scripts.Editor
 {
 	public static class ConversionUtility
 	{
-		public static void ConvertToNodes(this DialogueTree tree, out List<DialogueNode> dialogueNodes, out List<ResponseNode> responseNodes, out List<Edge> edges)
+		public static void ConvertToNodes(this DialogueTree tree, DialogueGraphView graphView)
 		{
 			var dialogueCount = tree.dialogues.Length;
 			var responseCount = tree.responses.Length;
 			
-			dialogueNodes = new List<DialogueNode>(dialogueCount + 1);
-			responseNodes = new List<ResponseNode>(responseCount);
-			edges = new List<Edge>();
+			var dialogueNodes = new List<DialogueNode>(dialogueCount);
+			graphView.Dialogues = dialogueNodes;
+			var responseNodes = new List<ResponseNode>(responseCount);
+			graphView.Responses = responseNodes;
 
-			var entryNode = new DialogueNode();
+			// entry
+			var entryNode = new EntryNode();
+			graphView.EntryNode = entryNode;
 			tree.entryNodePosition.PreprocessPositionRect();
 			entryNode.SetPosition(tree.entryNodePosition);
-			dialogueNodes.Add(entryNode);
-			
+			graphView.AddElement(entryNode);
+			entryNode.RefreshExpandedState();
+			entryNode.RefreshPorts();
+
+			// dialogues
 			for (var i = 0; i < dialogueCount; i++)
 			{
 				var currentDialogue = tree.dialogues[i];
@@ -34,28 +41,36 @@ namespace Graphview.Scripts.Editor
 
 				dialogueNodes.Add(node);
 			}
+
+			// entry -> dialogue
+			if (tree.startIndex >= 0 && tree.startIndex < dialogueCount)
+				graphView.AddElement(entryNode.Start.ConnectTo(dialogueNodes[tree.startIndex].Input));
 			
+			// responses
 			for (var i = 0; i < responseCount; i++)
 			{
 				var currentResponse = tree.responses[i];
-				var node = new ResponseNode
+				var currentNode = new ResponseNode
 				{
 					title = currentResponse.text
 				};
 
 				currentResponse.position.PreprocessPositionRect();
-				node.SetPosition(currentResponse.position);
+				currentNode.SetPosition(currentResponse.position);
 				
-				// connections
+				// response -> dialogue
 				var next = currentResponse.nextDialogue;
 				if (next >= 0 && next < dialogueCount)
-				{
-					edges.Add(node.Next.ConnectTo(dialogueNodes[next].Input));
-				}
+					graphView.AddElement(currentNode.Next.ConnectTo(dialogueNodes[next].Input));
 
-				responseNodes.Add(node);
+				responseNodes.Add(currentNode);
+				
+				graphView.AddElement(currentNode);
+				currentNode.RefreshExpandedState();
+				currentNode.RefreshPorts();
 			}
 			
+			// dialogue -> response
 			for (var i = 0; i < dialogueCount; i++)
 			{
 				var currentDialogue = tree.dialogues[i];
@@ -65,8 +80,12 @@ namespace Graphview.Scripts.Editor
 				for (var j = 0; j < currentDialogueResponseCount; j++)
 				{
 					var targetResponse = responseNodes[currentDialogue.responses[j]];
-					edges.Add(currentNode.Responses[j].ConnectTo(targetResponse.Input));
+					graphView.AddElement(currentNode.Responses[j].ConnectTo(targetResponse.Input));
 				}
+
+				graphView.AddElement(currentNode);
+				currentNode.RefreshExpandedState();
+				currentNode.RefreshPorts();
 			}
 		}
 
@@ -74,6 +93,45 @@ namespace Graphview.Scripts.Editor
 		{
 			position.height = Mathf.Max(position.height, 150);
 			position.width = Mathf.Max(position.width, 200);
+		}
+
+		public static void ConvertToTree(this DialogueGraphView graphView, DialogueTree tree)
+		{
+			tree.entryNodePosition = graphView.EntryNode.GetPosition();
+			var firstDialogue = graphView.EntryNode.Start.connections.FirstOrDefault()?.output.node;
+			tree.startIndex = firstDialogue != null ? graphView.Dialogues.FindIndex(n => n == firstDialogue) : -1;
+
+			var dialogueNodes = graphView.Dialogues;
+			var dialogueCount = dialogueNodes.Count;
+			var responseNodes = graphView.Responses;
+			var responseCount = responseNodes.Count;
+
+			var dialogues = new Dialogue[dialogueCount];
+			tree.dialogues = dialogues;
+			var responses = new Response[responseCount];
+			tree.responses = responses;
+
+			for (var i = 0; i < responseCount; i++)
+			{
+				var currentNode = responseNodes[i];
+				var currentResponse = new Response();
+				responses[i] = currentResponse;
+
+				currentResponse.text = currentNode.title;
+				currentResponse.position = currentNode.GetPosition();
+				currentResponse.nextDialogue = -1;
+			}
+			
+			for (var i = 0; i < dialogueCount; i++)
+			{
+				var currentNode = dialogueNodes[i];
+				var currentDialogue = new Dialogue();
+				dialogues[i] = currentDialogue;
+
+				currentDialogue.text = currentNode.title;
+				currentDialogue.position = currentNode.GetPosition();
+				currentDialogue.responses = new int[0];
+			}
 		}
 	}
 }

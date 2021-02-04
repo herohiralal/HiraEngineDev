@@ -32,18 +32,37 @@ namespace Graphview.Scripts.Editor
 		private void Enable()
 		{
 			var root = rootVisualElement;
-			_target.ConvertToNodes(out var dialogues, out var responses, out var edges);
-			_dialogueGraphView = new DialogueGraphView(dialogues, responses, edges);
+			_dialogueGraphView = new DialogueGraphView();
+			_target.ConvertToNodes(_dialogueGraphView);
 			_dialogueGraphView.StretchToParentSize();
 			root.Add(_dialogueGraphView);
+
+			_dialogueGraphView.OnSave -= OnSave;
+			_dialogueGraphView.OnSave += OnSave;
+
+			_dialogueGraphView.OnPing -= OnPing;
+			_dialogueGraphView.OnPing += OnPing;
 			
 			_initialized = true;
+		}
+
+		private void OnSave()
+		{
+			_dialogueGraphView.ConvertToTree(_target);
+		}
+
+		private void OnPing()
+		{
+			EditorGUIUtility.PingObject(_target);
 		}
 
 		private void OnDisable()
 		{
 			var root = rootVisualElement;
 			root.Remove(_dialogueGraphView);
+			
+			_dialogueGraphView.OnPing -= OnPing;
+			_dialogueGraphView.OnSave -= OnSave;
 			_dialogueGraphView = null;
 		}
 	}

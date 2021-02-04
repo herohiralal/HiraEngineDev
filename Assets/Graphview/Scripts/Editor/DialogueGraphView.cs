@@ -10,9 +10,9 @@ namespace Graphview.Scripts.Editor
 {
 	public class DialogueGraphView : GraphView
 	{
-		private List<DialogueNode> _dialogues;
-		private List<ResponseNode> _responses;
-		private List<Edge> _edges;
+		public EntryNode EntryNode;
+		public List<DialogueNode> Dialogues;
+		public List<ResponseNode> Responses;
 		private ContentDragger _contentDragger;
 		private SelectionDragger _selectionDragger;
 		private RectangleSelector _rectangleSelector;
@@ -21,7 +21,7 @@ namespace Graphview.Scripts.Editor
 		public event Action OnSave = delegate { };
 		public event Action OnPing = delegate { };
 
-		public DialogueGraphView(List<DialogueNode> dialogues, List<ResponseNode> responses, List<Edge> edges)
+		public DialogueGraphView()
 		{
 			_contentDragger = new ContentDragger();
 			this.AddManipulator(_contentDragger);
@@ -48,32 +48,16 @@ namespace Graphview.Scripts.Editor
 				GUILayout.EndHorizontal();
 			});
 			Add(_toolbar);
-
-			(_dialogues, _responses, _edges) = (dialogues, responses, edges);
-
-			foreach (var node in dialogues)
-			{
-				AddElement(node);
-				node.RefreshExpandedState();
-				node.RefreshPorts();
-			}
-
-			foreach (var node in _responses)
-			{
-				AddElement(node);
-				node.RefreshExpandedState();
-				node.RefreshPorts();
-			}
-
-			foreach (var edge in _edges) AddElement(edge);
 		}
 
 		~DialogueGraphView()
 		{
-			foreach (var edge in _edges) RemoveElement(edge);
-			foreach (var node in _dialogues) RemoveElement(node);
-			foreach (var node in _responses) RemoveElement(node);
-			(_dialogues, _responses, _edges) = (null, null, null);
+			foreach (var node in Dialogues) RemoveElement(node);
+			foreach (var node in Responses) RemoveElement(node);
+			(Dialogues, Responses) = (null, null);
+
+			RemoveElement(EntryNode);
+			EntryNode = null;
 
 			Remove(_toolbar);
 			_toolbar = null;
@@ -100,16 +84,20 @@ namespace Graphview.Scripts.Editor
 		{
 			var dialogueNode = new DialogueNode(0) {title = "Dialogue baby dialogue!"};
 			dialogueNode.SetPosition(new Rect(0, 0, 150, 200));
-			_dialogues.Add(dialogueNode);
+			Dialogues.Add(dialogueNode);
 			AddElement(dialogueNode);
+			dialogueNode.RefreshExpandedState();
+			dialogueNode.RefreshPorts();
 		}
 
 		private void CreateResponseNode()
 		{
 			var responseNode = new ResponseNode {title = "Response baby response!"};
 			responseNode.SetPosition(new Rect(0, 0, 150, 200));
-			_responses.Add(responseNode);
+			Responses.Add(responseNode);
 			AddElement(responseNode);
+			responseNode.RefreshExpandedState();
+			responseNode.RefreshPorts();
 		}
 	}
 }

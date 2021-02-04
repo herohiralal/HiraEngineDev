@@ -3,21 +3,27 @@ using UnityEditor.Experimental.GraphView;
 
 namespace Graphview.Scripts.Editor
 {
+	public class EntryNode : Node
+	{
+		public EntryNode()
+		{
+			capabilities &= ~Capabilities.Copiable & ~Capabilities.Deletable & ~Capabilities.Copiable & ~Capabilities.Renamable & ~Capabilities.Selectable;
+			
+			base.title = "Entry";
+			Start = base.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));
+			Start.portName = "Start";
+			outputContainer.Add(Start);
+		}
+		
+		public readonly Port Start = null;
+	}
+	
 	public class DialogueNode : Node
 	{
-		public DialogueNode()
+		public DialogueNode(int responseCount = 0)
 		{
-			base.title = "Entry";
-			Input = null;
-
-			var entryPort = base.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));
-			entryPort.portName = "Start";
-			outputContainer.Add(entryPort);
-			Responses = new List<Port> {entryPort};
-		}
-
-		public DialogueNode(int responseCount)
-		{
+			capabilities |= Capabilities.Renamable;
+			
 			Input = base.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(Dialogue));
 			Input.portName = "Dialogue";
 			inputContainer.Add(Input);
@@ -41,6 +47,8 @@ namespace Graphview.Scripts.Editor
 	{
 		public ResponseNode()
 		{
+			capabilities |= Capabilities.Renamable;
+			
 			Input = base.InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(Response));
 			Input.portName = "Response";
 			inputContainer.Add(Input);
