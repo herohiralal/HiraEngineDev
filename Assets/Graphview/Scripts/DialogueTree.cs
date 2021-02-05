@@ -25,7 +25,7 @@ namespace Graphview.Scripts
 	[CreateAssetMenu]
 	public class DialogueTree : ScriptableObject
 	{
-		[HideInInspector] public int startIndex = -1;
+		public int startIndex = -1;
 		public Dialogue[] dialogues = { };
 		public Response[] responses = { };
 #if UNITY_EDITOR && !STRIP_EDITOR_CODE

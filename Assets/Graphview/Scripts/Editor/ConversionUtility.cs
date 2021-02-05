@@ -78,8 +78,9 @@ namespace Graphview.Scripts.Editor
 				var currentDialogueResponseCount = currentDialogue.responses.Length;
 				for (var j = 0; j < currentDialogueResponseCount; j++)
 				{
-					var targetResponse = responseNodes[currentDialogue.responses[j]];
-					graphView.AddElement(currentNode.Responses[j].ConnectTo(targetResponse.Input));
+					var responseIndex = currentDialogue.responses[j];
+					if (responseIndex >= 0 && responseIndex < responseCount)
+						graphView.AddElement(currentNode.Responses[j].ConnectTo(responseNodes[responseIndex].Input));
 				}
 
 				graphView.AddElement(currentNode);
@@ -97,7 +98,7 @@ namespace Graphview.Scripts.Editor
 		public static void ConvertToTree(this DialogueGraphView graphView, DialogueTree tree)
 		{
 			tree.entryNodePosition = graphView.EntryNode.GetPosition();
-			var firstDialogue = graphView.EntryNode.Start.connections.FirstOrDefault()?.output.node;
+			var firstDialogue = graphView.EntryNode.Start.connections.FirstOrDefault()?.input.node;
 			tree.startIndex = firstDialogue != null ? graphView.Dialogues.FindIndex(n => n == firstDialogue) : -1;
 
 			var dialogueNodes = graphView.Dialogues;
@@ -118,18 +119,32 @@ namespace Graphview.Scripts.Editor
 
 				currentResponse.text = currentNode.title;
 				currentResponse.position = currentNode.GetPosition();
-				currentResponse.nextDialogue = -1;
+				
+				// connections
+				var nextDialogue = currentNode.Next.connections.FirstOrDefault()?.input.node;
+				currentResponse.nextDialogue = nextDialogue != null ? graphView.Dialogues.FindIndex(n => n == nextDialogue) : -1;
 			}
 			
 			for (var i = 0; i < dialogueCount; i++)
 			{
 				var currentNode = dialogueNodes[i];
+				
 				var currentDialogue = new Dialogue();
 				dialogues[i] = currentDialogue;
 
 				currentDialogue.text = currentNode.title;
 				currentDialogue.position = currentNode.GetPosition();
-				currentDialogue.responses = new int[0];
+				
+				// connections
+				var currentDialogueResponses = currentNode.Responses;
+				var currentDialogueResponseCount = currentDialogueResponses.Count;
+				
+				currentDialogue.responses = new int[currentDialogueResponseCount];
+				for (var j = 0; j < currentDialogueResponseCount; j++)
+				{
+					var responseNode = currentDialogueResponses[j].connections.FirstOrDefault()?.input.node;
+					currentDialogue.responses[j] = responseNode != null ? graphView.Responses.FindIndex(n=>n==responseNode) : -1;
+				}
 			}
 		}
 	}
