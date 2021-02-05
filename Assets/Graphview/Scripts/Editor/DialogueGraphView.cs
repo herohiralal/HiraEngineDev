@@ -83,7 +83,7 @@ namespace Graphview.Scripts.Editor
 
 		public void CreateDialogueNode(Vector2 position)
 		{
-			var dialogueNode = new DialogueNode {title = "Dialogue baby dialogue!"};
+			var dialogueNode = new DialogueNode("Dialogue baby dialogue!");
 			dialogueNode.SetPosition(new Rect(position.x, position.y, 150, 200));
 			Dialogues.Add(dialogueNode);
 			AddElement(dialogueNode);

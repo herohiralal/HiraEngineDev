@@ -21,10 +21,12 @@ namespace Graphview.Scripts.Editor
 			var titleLabelField = typeof(Node).GetField("m_TitleLabel", BindingFlags.NonPublic | BindingFlags.Instance);
 			var titleLabel = (Label) titleLabelField?.GetValue(this);
 
+			Text = value;
+
 			titleContainer.Remove(titleLabel);
 			titleContainer.Remove(titleButtonContainer);
 			{
-				_textField = new TextField();
+				_textField = new TextField {value = value};
 				_textField.RegisterValueChangedCallback(OnTextFieldValueChange);
 				titleContainer.Add(_textField);
 			}
@@ -33,7 +35,7 @@ namespace Graphview.Scripts.Editor
 
 		private void OnTextFieldValueChange(ChangeEvent<string> evt)
 		{
-			title = evt.newValue;
+			Text = evt.newValue;
 		}
 
 		~ResponseNode()
@@ -44,7 +46,8 @@ namespace Graphview.Scripts.Editor
 			outputContainer.Remove(Next);
 			inputContainer.Remove(Input);
 		}
-		
+
+		public string Text;
 		public readonly Port Input = null;
 		public readonly Port Next = null;
 		private readonly TextField _textField;

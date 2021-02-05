@@ -30,10 +30,7 @@ namespace Graphview.Scripts.Editor
 			{
 				var currentDialogue = tree.dialogues[i];
 				var currentDialogueResponseCount = currentDialogue.responses.Length;
-				var node = new DialogueNode(currentDialogueResponseCount)
-				{
-					title = currentDialogue.text,
-				};
+				var node = new DialogueNode(currentDialogue.text, currentDialogueResponseCount);
 				
 				currentDialogue.position.PreprocessPositionRect();
 				node.SetPosition(currentDialogue.position);
@@ -114,7 +111,7 @@ namespace Graphview.Scripts.Editor
 				var currentResponse = new Response();
 				responses[i] = currentResponse;
 
-				currentResponse.text = currentNode.title;
+				currentResponse.text = currentNode.Text;
 				currentResponse.position = currentNode.GetPosition();
 				
 				// connections
@@ -129,7 +126,7 @@ namespace Graphview.Scripts.Editor
 				var currentDialogue = new Dialogue();
 				dialogues[i] = currentDialogue;
 
-				currentDialogue.text = currentNode.title;
+				currentDialogue.text = currentNode.Text;
 				currentDialogue.position = currentNode.GetPosition();
 				
 				// connections
