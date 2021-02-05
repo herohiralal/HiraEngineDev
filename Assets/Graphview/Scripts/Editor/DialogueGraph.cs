@@ -1,5 +1,7 @@
 using HiraEditor.HiraAssetEditorWindows;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.Searcher;
 using UnityEngine.UIElements;
 
 namespace Graphview.Scripts.Editor
@@ -32,10 +34,12 @@ namespace Graphview.Scripts.Editor
 		private void Enable()
 		{
 			var root = rootVisualElement;
-			_dialogueGraphView = new DialogueGraphView();
+			_dialogueGraphView = new DialogueGraphView(this);
 			_target.ConvertToNodes(_dialogueGraphView);
 			_dialogueGraphView.StretchToParentSize();
 			root.Add(_dialogueGraphView);
+			
+			_dialogueGraphView.nodeCreationRequest = OnNodeCreationRequested;
 
 			_dialogueGraphView.OnSave -= OnSave;
 			_dialogueGraphView.OnSave += OnSave;
@@ -44,6 +48,17 @@ namespace Graphview.Scripts.Editor
 			_dialogueGraphView.OnPing += OnPing;
 			
 			_initialized = true;
+		}
+
+		private void OnNodeCreationRequested(NodeCreationContext ctx)
+		{
+			if (focusedWindow == this)
+			{
+				var screenMousePosition = ctx.screenMousePosition - position.position;
+				SearcherWindow.Show(this, SearchWindowProvider.GetSearcher(),
+					item => SearchWindowProvider.OnSearcherSelectEntry(this, item, screenMousePosition, _dialogueGraphView),
+					screenMousePosition, null);
+			}
 		}
 
 		private void OnSave()
@@ -63,6 +78,9 @@ namespace Graphview.Scripts.Editor
 			
 			_dialogueGraphView.OnPing -= OnPing;
 			_dialogueGraphView.OnSave -= OnSave;
+
+			_dialogueGraphView.nodeCreationRequest = null;
+			
 			_dialogueGraphView = null;
 		}
 	}

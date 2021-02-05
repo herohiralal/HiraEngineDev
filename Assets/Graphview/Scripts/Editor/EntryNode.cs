@@ -6,7 +6,7 @@ namespace Graphview.Scripts.Editor
 	{
 		public EntryNode()
 		{
-			capabilities &= ~Capabilities.Copiable & ~Capabilities.Deletable & ~Capabilities.Copiable & ~Capabilities.Renamable & ~Capabilities.Selectable;
+			capabilities &= ~Capabilities.Copiable & ~Capabilities.Deletable & ~Capabilities.Copiable & ~Capabilities.Renamable & ~Capabilities.Selectable & ~Capabilities.Movable;
 			
 			base.title = "Entry";
 			Start = base.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Dialogue));

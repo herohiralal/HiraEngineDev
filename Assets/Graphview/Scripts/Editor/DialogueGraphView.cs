@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,12 +18,15 @@ namespace Graphview.Scripts.Editor
 		private SelectionDragger _selectionDragger;
 		private RectangleSelector _rectangleSelector;
 		private IMGUIContainer _toolbar;
+		private readonly EditorWindow _parent = null;
 
 		public event Action OnSave = delegate { };
 		public event Action OnPing = delegate { };
 
-		public DialogueGraphView()
+		public DialogueGraphView(EditorWindow inParent)
 		{
+			_parent = inParent;
+			
 			_contentDragger = new ContentDragger();
 			this.AddManipulator(_contentDragger);
 			_selectionDragger = new SelectionDragger();
@@ -39,9 +43,6 @@ namespace Graphview.Scripts.Editor
 					if (GUILayout.Button("Show In Project", EditorStyles.toolbarButton)) OnPing.Invoke();
 
 					GUILayout.FlexibleSpace();
-
-					if (GUILayout.Button("Add Dialogue", EditorStyles.toolbarButton)) CreateDialogueNode();
-					if (GUILayout.Button("Add Response", EditorStyles.toolbarButton)) CreateResponseNode();
 
 					GUILayout.Label("Made by Rohan Jadav", EditorStyles.toolbarButton);
 				}
@@ -80,20 +81,20 @@ namespace Graphview.Scripts.Editor
 				.ToList();
 		}
 
-		private void CreateDialogueNode()
+		public void CreateDialogueNode(Vector2 position)
 		{
-			var dialogueNode = new DialogueNode(0) {title = "Dialogue baby dialogue!"};
-			dialogueNode.SetPosition(new Rect(0, 0, 150, 200));
+			var dialogueNode = new DialogueNode {title = "Dialogue baby dialogue!"};
+			dialogueNode.SetPosition(new Rect(position.x, position.y, 150, 200));
 			Dialogues.Add(dialogueNode);
 			AddElement(dialogueNode);
 			dialogueNode.RefreshExpandedState();
 			dialogueNode.RefreshPorts();
 		}
 
-		private void CreateResponseNode()
+		public void CreateResponseNode(Vector2 position)
 		{
 			var responseNode = new ResponseNode {title = "Response baby response!"};
-			responseNode.SetPosition(new Rect(0, 0, 150, 200));
+			responseNode.SetPosition(new Rect(position.x, position.y, 150, 200));
 			Responses.Add(responseNode);
 			AddElement(responseNode);
 			responseNode.RefreshExpandedState();
