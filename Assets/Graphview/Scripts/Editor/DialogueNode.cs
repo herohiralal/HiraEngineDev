@@ -19,7 +19,7 @@ namespace Graphview.Scripts.Editor
 			for (var i = 0; i < responseCount; i++) AddOutputPort(i);
 
 			_addChoiceButton = new Button(AddChoice) {text = "+"};
-			titleContainer.Add(_addChoiceButton);
+			outputContainer.Add(_addChoiceButton);
 		}
 
 		private void AddOutputPort(int i)
@@ -32,7 +32,9 @@ namespace Graphview.Scripts.Editor
 
 		private void AddChoice()
 		{
+			outputContainer.Remove(_addChoiceButton);
 			AddOutputPort(Responses.Count);
+			outputContainer.Add(_addChoiceButton);
 			
 			RefreshExpandedState();
 			RefreshPorts();
