@@ -49,10 +49,7 @@ namespace Graphview.Scripts.Editor
 			for (var i = 0; i < responseCount; i++)
 			{
 				var currentResponse = tree.responses[i];
-				var currentNode = new ResponseNode
-				{
-					title = currentResponse.text
-				};
+				var currentNode = new ResponseNode(currentResponse.text);
 
 				currentResponse.position.PreprocessPositionRect();
 				currentNode.SetPosition(currentResponse.position);

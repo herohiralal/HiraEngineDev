@@ -93,7 +93,7 @@ namespace Graphview.Scripts.Editor
 
 		public void CreateResponseNode(Vector2 position)
 		{
-			var responseNode = new ResponseNode {title = "Response baby response!"};
+			var responseNode = new ResponseNode("Response baby response!");
 			responseNode.SetPosition(new Rect(position.x, position.y, 150, 200));
 			Responses.Add(responseNode);
 			AddElement(responseNode);
