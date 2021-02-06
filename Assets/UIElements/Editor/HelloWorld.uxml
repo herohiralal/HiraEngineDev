@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML xmlns="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="../../UIElementsSchema/UnityEditor.UIElements.xsd">
+    <VisualElement name="ButtonHolder">
+        <Button name="NewPreset" text="New Preset" class="ButtonsList"/>
+        <Button name="ClearPreset" text="Clear Preset" class="ButtonsList"/>
+        <Button name="DeletePreset" text="Delete Preset" class="ButtonsList"/>
+        <editor:ObjectField name="PresetField" class="ButtonsList"/>
+    </VisualElement>
+    <VisualElement name="Container">
+        <VisualElement name="LeftPanel">
+            <Label class="AreaTitle" text="Saved Presets"/>
+            <ListView name="ListView"/>
+        </VisualElement>
+        <VisualElement name="RightPanel">
+            <VisualElement name="RightTopPanel">
+                <Label class="AreaTitle" text="Description"/> 
+                <Label name="DescriptionTextLabel" text="This is a preset manager that will be able to create and save variations of this GameObject so that various styles can be tested throughout the development of the game."/>
+            </VisualElement>
+            <VisualElement name="RightBottomPanel">
+                <Label class="AreaTitle" text="Preset Bound Values"/>
+                <TextField name="ObjectName" label="Object Name"/>
+                <editor:ColorField name="ColorField" label="Object Color"/>
+                <editor:Vector3Field name="SizeField" label="Object Size"/>
+                <editor:Vector3Field name="RotationField" label="Object Rotation"/>
+                <editor:FloatField name="AnimationSpeedField" label="Animation Speed"/>
+                <Toggle name="IsAnimatingField" label="Is Animating"/>
+            </VisualElement>
+        </VisualElement>
+    </VisualElement>
+</UXML>
