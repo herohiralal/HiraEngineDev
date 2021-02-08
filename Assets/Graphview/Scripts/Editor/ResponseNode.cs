@@ -1,4 +1,3 @@
-using System.Reflection;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
@@ -18,19 +17,12 @@ namespace Graphview.Scripts.Editor
 			Next.portName = "Next";
 			outputContainer.Add(Next);
 
-			var titleLabelField = typeof(Node).GetField("m_TitleLabel", BindingFlags.NonPublic | BindingFlags.Instance);
-			var titleLabel = (Label) titleLabelField?.GetValue(this);
-
 			Text = value;
 
-			titleContainer.Remove(titleLabel);
-			titleContainer.Remove(titleButtonContainer);
-			{
-				_textField = new TextField {value = value};
-				_textField.RegisterValueChangedCallback(OnTextFieldValueChange);
-				titleContainer.Add(_textField);
-			}
-			titleContainer.Add(titleButtonContainer);
+			titleContainer.RemoveAt(0);
+			_textField = new TextField {value = value};
+			_textField.RegisterValueChangedCallback(OnTextFieldValueChange);
+			titleContainer.Insert(0, _textField);
 		}
 
 		private void OnTextFieldValueChange(ChangeEvent<string> evt)
