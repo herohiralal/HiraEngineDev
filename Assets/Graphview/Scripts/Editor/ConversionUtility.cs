@@ -74,7 +74,7 @@ namespace Graphview.Scripts.Editor
 				{
 					var responseIndex = currentDialogue.responses[j];
 					if (responseIndex >= 0 && responseIndex < responseCount)
-						graphView.AddElement(currentNode.Responses[j].ConnectTo(responseNodes[responseIndex].Input));
+						graphView.AddElement(currentNode.Responses[j].Port.ConnectTo(responseNodes[responseIndex].Input));
 				}
 
 				graphView.AddElement(currentNode);
@@ -136,7 +136,7 @@ namespace Graphview.Scripts.Editor
 				currentDialogue.responses = new int[currentDialogueResponseCount];
 				for (var j = 0; j < currentDialogueResponseCount; j++)
 				{
-					var responseNode = currentDialogueResponses[j].connections.FirstOrDefault()?.input.node;
+					var responseNode = currentDialogueResponses[j].Port.connections.FirstOrDefault()?.input.node;
 					currentDialogue.responses[j] = responseNode != null ? graphView.Responses.FindIndex(n=>n==responseNode) : -1;
 				}
 			}

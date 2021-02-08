@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
@@ -14,7 +15,7 @@ namespace Graphview.Scripts.Editor
 			Input.portName = "Dialogue";
 			inputContainer.Add(Input);
 			
-			Responses = new List<Port>(responseCount);
+			Responses = new List<RemovablePort>(responseCount);
 			
 			for (var i = 0; i < responseCount; i++) AddOutputPort(i);
 
@@ -40,16 +41,32 @@ namespace Graphview.Scripts.Editor
 			_textField.UnregisterValueChangedCallback(OnTextFieldValueChange);
 
 			outputContainer.Remove(_addChoiceButton);
-			foreach (var response in Responses) outputContainer.Remove(response);
+			
+			var responseCount = Responses.Count;
+			for (var i = responseCount; i > -1; i--) RemoveOutputPort(i);
+			
 			inputContainer.Remove(Input);
 		}
 
 		private void AddOutputPort(int i)
 		{
-			var outputPort = base.InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Response));
-			outputPort.portName = $"Choice {i + 1}";
-			outputContainer.Add(outputPort);
-			Responses.Add(outputPort);
+			var removablePort = new RemovablePort(i);
+			removablePort.OnRemoveButtonPress += RemoveOutputPort;
+			outputContainer.Add(removablePort);
+			Responses.Add(removablePort);
+		}
+
+		private void RemoveOutputPort(int i)
+		{
+			var response = Responses[i];
+			response.OnRemoveButtonPress -= RemoveOutputPort;
+			
+			GetFirstAncestorOfType<GraphView>()?.DeleteElements(new[] {response.Port});
+			outputContainer.Remove(response);
+			Responses.RemoveAt(i);
+			
+			RefreshExpandedState();
+			RefreshPorts();
 		}
 
 		private void AddChoice()
@@ -65,7 +82,52 @@ namespace Graphview.Scripts.Editor
 		public string Text;
 		private readonly Button _addChoiceButton = null;
 		public readonly Port Input = null;
-		public readonly List<Port> Responses = null;
+		public readonly List<RemovablePort> Responses = null;
 		private readonly TextField _textField;
+	}
+
+	public class RemovablePort : VisualElement
+	{
+		public RemovablePort(int index)
+		{
+			style.flexDirection = FlexDirection.Row;
+			
+			_removeButton = new Button {text = "X"};
+			Add(_removeButton);
+			
+			_removeButton.clickable.clicked += OnRemoveButtonPressInternal;
+			
+			var outputPort = Port.Create<Edge>(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Response));
+			outputPort.portName = $"Choice {index + 1}";
+			choiceIndex = index;
+			Port = outputPort;
+			Add(outputPort);
+		}
+
+		~RemovablePort()
+		{
+			Remove(Port);
+			
+			_removeButton.clickable.clicked -= OnRemoveButtonPressInternal;
+			
+			Remove(_removeButton);
+		}
+
+		private void OnRemoveButtonPressInternal() => OnRemoveButtonPress.Invoke(choiceIndex);
+
+		public event Action<int> OnRemoveButtonPress = delegate { };
+
+		private readonly Button _removeButton;
+		public readonly Port Port;
+
+		private int choiceIndex;
+		public int ChoiceIndex
+		{
+			set
+			{
+				choiceIndex = value;
+				Port.portName = $"Choice {value + 1}";
+			}
+		}
 	}
 }
