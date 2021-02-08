@@ -60,13 +60,31 @@ namespace Graphview.Scripts.Editor
 		{
 			var response = Responses[i];
 			response.OnRemoveButtonPress -= RemoveOutputPort;
-			
-			GetFirstAncestorOfType<GraphView>()?.DeleteElements(new[] {response.Port});
+
+			var nodesToRefresh = new List<Node>(2) {this};
+
+			var connections = response.Port.connections;
+			foreach (var edge in connections)
+			{
+				var otherPort = edge.input;
+				var otherNode = otherPort.node;
+				otherPort.Disconnect(edge);
+				nodesToRefresh.Add(otherNode);
+				edge.RemoveFromHierarchy();
+			}
+
+			response.Port.DisconnectAll();
 			outputContainer.Remove(response);
 			Responses.RemoveAt(i);
 			
-			RefreshExpandedState();
-			RefreshPorts();
+			var responseCount = Responses.Count;
+			for (; i < responseCount; i++) Responses[i].ChoiceIndex++;
+
+			foreach (var nodeToRefresh in nodesToRefresh)
+			{
+				nodeToRefresh.RefreshExpandedState();
+				nodeToRefresh.RefreshPorts();
+			}
 		}
 
 		private void AddChoice()
@@ -99,7 +117,7 @@ namespace Graphview.Scripts.Editor
 			
 			var outputPort = Port.Create<Edge>(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(Response));
 			outputPort.portName = $"Choice {index + 1}";
-			choiceIndex = index;
+			_choiceIndex = index;
 			Port = outputPort;
 			Add(outputPort);
 		}
@@ -113,19 +131,20 @@ namespace Graphview.Scripts.Editor
 			Remove(_removeButton);
 		}
 
-		private void OnRemoveButtonPressInternal() => OnRemoveButtonPress.Invoke(choiceIndex);
+		private void OnRemoveButtonPressInternal() => OnRemoveButtonPress.Invoke(_choiceIndex);
 
 		public event Action<int> OnRemoveButtonPress = delegate { };
 
 		private readonly Button _removeButton;
 		public readonly Port Port;
 
-		private int choiceIndex;
+		private int _choiceIndex;
 		public int ChoiceIndex
 		{
+			get => _choiceIndex;
 			set
 			{
-				choiceIndex = value;
+				_choiceIndex = value;
 				Port.portName = $"Choice {value + 1}";
 			}
 		}
