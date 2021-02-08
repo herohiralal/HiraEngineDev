@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
-using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,15 +17,12 @@ namespace Graphview.Scripts.Editor
 		private SelectionDragger _selectionDragger;
 		private RectangleSelector _rectangleSelector;
 		private IMGUIContainer _toolbar;
-		private readonly EditorWindow _parent = null;
 
 		public event Action OnSave = delegate { };
 		public event Action OnPing = delegate { };
 
-		public DialogueGraphView(EditorWindow inParent)
+		public DialogueGraphView()
 		{
-			_parent = inParent;
-			
 			_contentDragger = new ContentDragger();
 			this.AddManipulator(_contentDragger);
 			_selectionDragger = new SelectionDragger();

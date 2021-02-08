@@ -44,12 +44,10 @@ namespace Graphview.Scripts.Editor
 
     public class SearchWindowAdapter : SearcherAdapter
     {
-        private readonly VisualTreeAsset _defaultItemTemplate;
         public override bool HasDetailsPanel => false;
 
         public SearchWindowAdapter(string title) : base(title)
         {
-            _defaultItemTemplate = Resources.Load<VisualTreeAsset>("SearcherItem");
         }
     }
 }
