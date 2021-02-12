@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BlackboardComponent : MonoBehaviour
@@ -17,7 +18,6 @@ public class BlackboardComponent : MonoBehaviour
     private void Awake()
     {
         blackboard = new TreeWatererBlackboardWrapper();
-        OnBlackboardValueUpdate();
         blackboard.OnValueUpdate += OnBlackboardValueUpdate;
     }
 
@@ -27,15 +27,20 @@ public class BlackboardComponent : MonoBehaviour
         _currentGoal = -1;
     }
 
+    public void Initialize() => OnBlackboardValueUpdate();
+
     private void OnBlackboardValueUpdate()
     {
         var newGoal = blackboard.GetGoal(_goals).ArchetypeIndex;
         if (_currentGoal != newGoal)
         {
             OnGoalUpdate.Invoke(newGoal);
-            Debug.Log($"Goal updated to: {newGoal}.");
-
             _currentGoal = newGoal;
         }
+    }
+
+    public PlannerJob<TreeWatererBlackboard> PlanWith(List<IActualAction> actions)
+    {
+        return new PlannerJob<TreeWatererBlackboard>(ref blackboard.blackboard, _currentGoal, 15, 100, actions);
     }
 }

@@ -21,7 +21,7 @@ public class AIComponent : MonoBehaviour
 
 	private static void OnGoalUpdate(int archetypeIndex)
 	{
-		Debug.Log($"Goal updated to: {archetypeIndex}.");
+		
 	}
 
 	private void OnDestroy()
