@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -12,6 +13,8 @@ public class AIComponent : MonoBehaviour
 
 	private List<IActualAction> _actions = null;
 	private ActualPlanStack _planStack = null;
+	public event Action<IActualAction> OnCurrentTargetUpdate = delegate { };
+	private IActualAction _currentAction = null;
 
 	private void Reset()
 	{
@@ -37,6 +40,17 @@ public class AIComponent : MonoBehaviour
 		blackboardComponent.OnGoalUpdate -= OnGoalUpdate;
 	}
 
+	public void AddAction(IActualAction action)
+	{
+		if (!_actions.Contains(action)) _actions.Add(action);
+	}
+
+	public void RemoveAction(IActualAction action)
+	{
+		var indexToRemove = _actions.FindIndex(a=>a==action);
+		if (indexToRemove > 0) _actions.RemoveAt(indexToRemove);
+	}
+
 	private IEnumerator PlannerRoutine(int archetypeIndex)
 	{
 		yield return new WaitForEndOfFrame();
@@ -46,12 +60,22 @@ public class AIComponent : MonoBehaviour
 		yield return null;
 		
 		jobHandle.Complete();
-		UpdatePlan(currentPlannerJob.Plan);
+		_planStack.Consume(currentPlannerJob.Plan, _actions);
+		OnCurrentTargetUpdate.Invoke(_currentAction = _planStack.Pop());
 		currentPlannerJob.Plan.Dispose();
 	}
 
-	private void UpdatePlan(NativeArray<int> plan)
+	public void OnTransitionComplete(bool success)
 	{
-		_planStack.Consume(plan, _actions);
+		if (success)
+		{
+			var previousAction = _currentAction;
+
+			var planStackHasActions = _planStack.HasActions;
+			if (planStackHasActions) OnCurrentTargetUpdate.Invoke(_currentAction = _planStack.Pop());
+
+			blackboardComponent.OnActionSuccess(previousAction.Data.ArchetypeIndex, !planStackHasActions);
+		}
+		else blackboardComponent.RecalculateGoal();
 	}
 }

@@ -21,7 +21,7 @@ namespace UnityEngine
 
 				var blackboard = instantiatedAgent.GetComponent<BlackboardComponent>();
 
-				HiraTimerEvents.RequestPing(blackboard.Initialize, 1f);
+				HiraTimerEvents.RequestPing(blackboard.RecalculateGoal, 1f);
 				Destroy(gameObject);
 			}
 		}

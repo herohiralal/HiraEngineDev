@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BlackboardComponent : MonoBehaviour
@@ -15,9 +14,13 @@ public class BlackboardComponent : MonoBehaviour
 
     private int _currentGoal = -1;
 
+    private bool _updateGoalOnBlackboardValueUpdate;
+
     private void Awake()
     {
+        _updateGoalOnBlackboardValueUpdate = true;
         blackboard = new TreeWatererBlackboardWrapper();
+        
         blackboard.OnValueUpdate += OnBlackboardValueUpdate;
     }
 
@@ -27,20 +30,35 @@ public class BlackboardComponent : MonoBehaviour
         _currentGoal = -1;
     }
 
-    public void Initialize() => OnBlackboardValueUpdate();
-
+    public void RecalculateGoal() => CalculateGoal(true);
     private void OnBlackboardValueUpdate()
     {
+        if (_updateGoalOnBlackboardValueUpdate) CalculateGoal();
+    }
+
+    private void CalculateGoal(bool forceBroadcastGoalUpdateEvent = false)
+    {
         var newGoal = blackboard.GetGoal(_goals).ArchetypeIndex;
-        if (_currentGoal != newGoal)
+        if (forceBroadcastGoalUpdateEvent || _currentGoal != newGoal)
         {
             OnGoalUpdate.Invoke(newGoal);
             _currentGoal = newGoal;
         }
     }
 
-    public PlannerJob<TreeWatererBlackboard> PlanWith(List<IActualAction> actions)
+    public void OnActionSuccess(int archetypeIndex, bool final)
     {
-        return new PlannerJob<TreeWatererBlackboard>(ref blackboard.blackboard, _currentGoal, 15, 100, actions);
+        _updateGoalOnBlackboardValueUpdate = false;
+        {
+            blackboard.ApplyActionEffect(archetypeIndex);
+            if (final)
+            {
+                blackboard.Insecurity = 100;
+                _currentGoal = -1;
+            }
+        }
+        _updateGoalOnBlackboardValueUpdate = true;
+
+        CalculateGoal();
     }
 }
