@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlackboardComponent : MonoBehaviour
 {
-    [SerializeField] private TreeWatererBlackboardWrapper blackboard = null;
+    [SerializeField] public TreeWatererBlackboardWrapper blackboard = null;
     public event Action<int> OnGoalUpdate = delegate {  };
 
     private readonly GoalData[] _goals =
