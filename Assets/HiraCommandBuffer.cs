@@ -1,32 +1,30 @@
 using System;
-using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-[HiraManager]
 public class HiraCommandBuffer : MonoBehaviour
 {
-	public static HiraCommandBuffer Instance { get; [JetBrains.Annotations.UsedImplicitly] private set; }
 	private struct ActiveTimer
 	{
-		internal bool _paused;
-		internal float _timeRemaining;
-		internal ulong _hash;
-		internal Action _action;
+		internal bool Active;
+		internal float TimeRemaining;
+		internal ulong Hash;
+		internal Action Action;
 	}
 	
 	[SerializeField] private ushort bufferSize = 10;
-	[SerializeField] private BoolReference gamePaused = null;
 
 	private ActiveTimer[] _commandBuffer;
-	private Stack<int> _unusedCommandBufferIndices;
+	private System.Collections.Generic.Stack<ushort> _unusedCommandBufferIndices;
 	private ulong _hash;
 
 	private void Awake()
 	{
 		_hash = 1;
 		
-		_unusedCommandBufferIndices = new Stack<int>(bufferSize);
-		for (var i = 0; i < bufferSize; i++) _unusedCommandBufferIndices.Push(i);
+		_unusedCommandBufferIndices = new System.Collections.Generic.Stack<ushort>(bufferSize);
+		for (ushort i = 0; i < bufferSize; i++) _unusedCommandBufferIndices.Push(i);
 
 		_commandBuffer = new ActiveTimer[bufferSize];
 	}
@@ -45,42 +43,116 @@ public class HiraCommandBuffer : MonoBehaviour
 		var count = bufferSize;
 		var deltaTime = Time.deltaTime;
 
-		for (var i = 0; i < count; i++)
+		// update all timers first
+		for (ushort i = 0; i < count; i++) _commandBuffer[i].TimeRemaining -= _commandBuffer[i].Active ? deltaTime : 0;
+
+		// check which timers are done
+		for (ushort i = 0; i < count; i++)
 		{
-			_commandBuffer[i]._timeRemaining -= 
+			if (_commandBuffer[i].Active && _commandBuffer[i].TimeRemaining <= 0)
+			{
+				Invalidate(i);
+				_commandBuffer[i].Action.Invoke();
+			}
 		}
 	}
 
-	public TimerHandle SetTimerTiedToPauseSystem(Action action, float timer)
+	private void Invalidate(ushort i)
 	{
-		
+		_commandBuffer[i].Active = false;
+		_commandBuffer[i].Hash = 0;
+		_unusedCommandBufferIndices.Push(i);
+	}
+
+	public TimerHandle SetTimer(Action action, float timer)
+	{
+		var index = _unusedCommandBufferIndices.Pop();
+		var hash = _hash++;
+
+		_commandBuffer[index].Active = true;
+		_commandBuffer[index].TimeRemaining = timer;
+		_commandBuffer[index].Hash = hash;
+		_commandBuffer[index].Action = action;
+
+		return new TimerHandle(this, index, hash);
+	}
+	
+	internal bool IsHandleValid(in TimerHandle handle) => _commandBuffer[handle.BufferIndex].Hash == handle.Hash;
+
+	internal float GetTimeRemaining(in TimerHandle handle)
+	{
+		Assert.IsTrue(IsHandleValid(in handle));
+		return _commandBuffer[handle.BufferIndex].TimeRemaining;
+	}
+
+	internal void SetTimeRemaining(in TimerHandle handle, float value)
+	{
+		Assert.IsTrue(IsHandleValid(in handle));
+		_commandBuffer[handle.BufferIndex].TimeRemaining = value;
+	}
+
+	internal void PauseTimer(in TimerHandle handle)
+	{
+		Assert.IsTrue(IsHandleValid(in handle));
+		_commandBuffer[handle.BufferIndex].Active = false;
+	}
+
+	internal void ResumeTimer(in TimerHandle handle)
+	{
+		Assert.IsTrue(IsHandleValid(in handle));
+		_commandBuffer[handle.BufferIndex].Active = true;
+	}
+
+	internal void CancelTimer(in TimerHandle handle)
+	{
+		Assert.IsTrue(IsHandleValid(in handle));
+		Invalidate(handle.BufferIndex);
+	}
+
+	internal void ChangeAction(in TimerHandle handle, Action action)
+	{
+		Assert.IsTrue(IsHandleValid(in handle));
+		_commandBuffer[handle.BufferIndex].Action = action;
 	}
 }
 
 public readonly struct TimerHandle
 {
-	private readonly WeakReference<HiraCommandBuffer> _owner;
+	public TimerHandle(HiraCommandBuffer owner, ushort bufferIndex, ulong hash)
+	{
+		_owner = owner;
+		BufferIndex = bufferIndex;
+		Hash = hash;
+	}
+	
+	private readonly HiraCommandBuffer _owner;
 
-	private readonly ushort _bufferIndex;
-	private readonly ulong _hash;
+	internal readonly ushort BufferIndex;
+	internal readonly ulong Hash;
+
+	public bool IsValid
+	{
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		get => _owner.IsHandleValid(in this);
+	}
 
 	public float TimeRemaining
 	{
-		get
-		{
-			
-		}
-	}
-	
-	public void Resume()
-	{
-	}
-	
-	public void Pause()
-	{
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		get => _owner.GetTimeRemaining(in this);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		set => _owner.SetTimeRemaining(in this, value);
 	}
 
-	public void Cancel()
-	{
-	}
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void Pause() => _owner.PauseTimer(in this);
+	
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void Resume() => _owner.ResumeTimer(in this);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void Cancel() => _owner.CancelTimer(in this);
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public void ChangeAction(Action action) => _owner.ChangeAction(in this, action);
 }
