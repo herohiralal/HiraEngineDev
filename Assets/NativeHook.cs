@@ -47,6 +47,7 @@ namespace UnityEngine
         [DllImport(HIRA_ENGINE_NATIVE_DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void InitDebugLogToUnity(Action<string> logger);
 
+        [AOT.MonoPInvokeCallback(typeof(Action<string>))]
         private static void LogToUnity(string message) => Debug.Log(message);
     }
 
