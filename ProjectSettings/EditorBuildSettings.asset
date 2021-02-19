@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/GOAP - DevLog #2 (Demo)/Scenes/PlannerTest.unity
-    guid: bc628672970dba94db1fa94b5ca1a666
+    path: Assets/GOAP - DevLog #2 (Demo)/Scenes/SampleScene.unity
+    guid: d02f96bf6960b88438ad8a44f76724fa
   m_configObjects: {}
