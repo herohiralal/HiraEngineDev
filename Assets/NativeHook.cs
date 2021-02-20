@@ -33,11 +33,11 @@ namespace UnityEngine
         }
 
         [DllImport(HIRA_ENGINE_NATIVE_DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void InitDebugLogToUnity(Action<string> logger);
+        private static extern void InitDebugLogToUnity(Action<LogType, string> logger);
 
-        [AOT.MonoPInvokeCallback(typeof(Action<string>))]
-        private static void LogToUnity(string message) =>
-            Debug.LogFormat($"<color=grey><b>Native log: </b></color>{message}");
+        [AOT.MonoPInvokeCallback(typeof(Action<LogType, string>))]
+        private static void LogToUnity(LogType type, string message) =>
+            Debug.LogFormat(type, LogOption.NoStacktrace, null, $"<color=red><b>Native log: </b></color>{message}");
 
         private void OnGUI()
         {
