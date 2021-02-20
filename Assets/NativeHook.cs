@@ -6,49 +6,43 @@ namespace UnityEngine
 {
     using Internal;
 
-    [HiraManager]
+    [HiraManager(Priority = byte.MaxValue)]
     public class NativeHook : MonoBehaviour
     {
-        private static NativeUnityHook _nativeHook = default;
-        private static bool _initialized = false;
+        private NativeUnityHook _nativeHook = default;
+#if UNITY_EDITOR
+        public const string HIRA_ENGINE_NATIVE_DLL_NAME = "HiraEngine-Native-Editor";
+#else
         public const string HIRA_ENGINE_NATIVE_DLL_NAME = "HiraEngine-Native";
-
-        [RuntimeInitializeOnLoadMethod]
-        private static void OnInitialize()
+#endif
+        
+        private void Awake()
         {
-            if (_initialized)
-            {
-                _initialized = false;
-                Application.quitting -= OnQuit;
-
-                if (_nativeHook.IsValid) _nativeHook.Destroy();
-            }
-
-            _initialized = true;
-            Application.quitting += OnQuit;
-
             InitDebugLogToUnity(LogToUnity);
             _nativeHook = NativeUnityHook.Create();
         }
 
         private void Update()
         {
-            if (_nativeHook.IsValid) _nativeHook.Update(Time.deltaTime);
+            _nativeHook.Update(Time.deltaTime);
         }
 
-        private static void OnQuit()
+        private void OnDestroy()
         {
-            _initialized = false;
-            Application.quitting -= OnQuit;
-            
-            if (_nativeHook.IsValid) _nativeHook.Destroy();
+            _nativeHook.Destroy();
         }
 
         [DllImport(HIRA_ENGINE_NATIVE_DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         private static extern void InitDebugLogToUnity(Action<string> logger);
 
         [AOT.MonoPInvokeCallback(typeof(Action<string>))]
-        private static void LogToUnity(string message) => Debug.Log(message);
+        private static void LogToUnity(string message) =>
+            Debug.LogFormat($"<color=grey><b>Native log: </b></color>{message}");
+
+        private void OnGUI()
+        {
+            if (GUILayout.Button("Quit")) Application.Quit();
+        }
     }
 
     namespace Internal
@@ -64,19 +58,18 @@ namespace UnityEngine
             [DllImport(NativeHook.HIRA_ENGINE_NATIVE_DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
             private static extern void UnityHookUpdate(IntPtr target, float deltaTime);
 
-            public bool IsValid { get; private set; }
+            public bool IsValid => _target != IntPtr.Zero;
             private IntPtr _target;
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public static NativeUnityHook Create() =>
-                new NativeUnityHook {_target = CreateUnityHook(), IsValid = true};
+                new NativeUnityHook {_target = CreateUnityHook()};
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Destroy()
             {
                 DestroyUnityHook(_target);
-                _target = default;
-                IsValid = false;
+                _target = IntPtr.Zero;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
