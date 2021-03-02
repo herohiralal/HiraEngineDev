@@ -2,7 +2,7 @@
 
 namespace LGOAPDemo
 {
-    public class LGOAPAgentDomain2Layers : HiraCollection<LGOAPGoal, LGOAPTask, LGOAPIntermediateGoal>, IAgentDomain
+    public class LGOAPAgentDomain2Layers : HiraCollection<LGOAPGoal, LGOAPTask, LGOAPIntermediateGoal>, ILGOAPDomain
     {
 #if UNITY_EDITOR
 #pragma warning disable CS0414

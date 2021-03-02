@@ -1,6 +1,6 @@
 namespace LGOAPDemo
 {
-	public interface IAgentDomain
+	public interface ILGOAPDomain
 	{
 		
 	}

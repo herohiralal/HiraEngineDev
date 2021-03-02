@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace LGOAPDemo
 {
-	public class GOAPAgentDomain : HiraCollection<LGOAPGoal, LGOAPTask>, IAgentDomain
+	public class GOAPAgentDomain : HiraCollection<LGOAPGoal, LGOAPTask>, ILGOAPDomain
 	{
 #if UNITY_EDITOR
 #pragma warning disable CS0414
