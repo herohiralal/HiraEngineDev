@@ -13,7 +13,7 @@ namespace LGOAPDemo
             T* blackboard,
             NativeArray<LGOAPGoalCalculationData> goalsCalculationData,
             byte currentGoal,
-            NativeArray<byte> result
+            LGOAPPlannerResult result
         )
         {
             _blackboard = *blackboard;
@@ -25,7 +25,7 @@ namespace LGOAPDemo
         [ReadOnly] private T _blackboard;
         [ReadOnly] private readonly NativeArray<LGOAPGoalCalculationData> _goalsCalculationData;
         [ReadOnly] private readonly byte _currentGoal;
-        [WriteOnly] public NativeArray<byte> Result;
+        [WriteOnly] public LGOAPPlannerResult Result;
 
         public void Execute()
         {
@@ -50,17 +50,19 @@ namespace LGOAPDemo
 
                 if (goal == byte.MaxValue)
                 {
-                    Result[0] = (byte) LGOAPPlannerResult.Failure;
+                    Result.ResultType = LGOAPPlannerResultType.Failure;
                 }
                 else if (_currentGoal == goal)
                 {
-                    Result[0] = (byte) LGOAPPlannerResult.Unchanged;
+                    Result.ResultType = LGOAPPlannerResultType.Unchanged;
+                    Result.Count = 1;
                     Result[0] = goal;
                 }
                 else
                 {
-                    Result[0] = (byte) LGOAPPlannerResult.Success;
-                    Result[1] = goal;
+                    Result.ResultType = LGOAPPlannerResultType.Success;
+                    Result.Count = 1;
+                    Result[0] = goal;
                 }
             }
         }
