@@ -16,57 +16,46 @@ namespace LGOAPDemo
     public unsafe struct LGOAPPlannerResult : IDisposable
     {
         public LGOAPPlannerResult(byte bufferSize, Allocator allocator) =>
-            Container = new NativeArray<byte>(bufferSize + 2, allocator, NativeArrayOptions.UninitializedMemory)
+            _container = new NativeArray<byte>(bufferSize + 2, allocator, NativeArrayOptions.UninitializedMemory)
             {
                 [0] = 0,
                 [1] = (byte) LGOAPPlannerResultType.Uninitialized
             };
 
-        public void Dispose() => Container.Dispose();
+        public void Dispose() => _container.Dispose();
 
-        public NativeArray<byte> Container;
+        private NativeArray<byte> _container;
 
         public byte Count
         {
-            get => Container[0];
-            set => Container[0] = value;
+            get => _container[0];
+            set => _container[0] = value;
         }
 
         public LGOAPPlannerResultType ResultType
         {
-            get => (LGOAPPlannerResultType) Container[1];
-            set => Container[1] = (byte) value;
+            get => (LGOAPPlannerResultType) _container[1];
+            set => _container[1] = (byte) value;
         }
 
-        public byte BufferSize => (byte) (Container.Length - 2);
+        public byte BufferSize => (byte) (_container.Length - 2);
 
         public byte this[byte index]
         {
-            get => Container[index + 2];
-            set => Container[index + 2] = value;
+            get => _container[index + 2];
+            set => _container[index + 2] = value;
         }
 
         [BurstCompile]
         public byte* GetUnsafePtr()
         {
-            return 2 + (byte*) Container.GetUnsafePtr();
+            return 2 + (byte*) _container.GetUnsafePtr();
         }
 
         [BurstCompile]
         public byte* GetUnsafeReadOnlyPtr()
         {
-            return 2 + (byte*) Container.GetUnsafeReadOnlyPtr();
-        }
-
-        public LGOAPPlan ToPlan(Allocator allocator)
-        {
-            var count = Count;
-
-            var plan = new LGOAPPlan(BufferSize, allocator) {Count = count};
-
-            NativeArray<byte>.Copy(Container, 2, plan.Container, 1, count);
-
-            return plan;
+            return 2 + (byte*) _container.GetUnsafeReadOnlyPtr();
         }
     }
 }

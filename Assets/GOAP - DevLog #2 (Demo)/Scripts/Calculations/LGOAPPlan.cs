@@ -1,65 +1,70 @@
 ﻿using System;
-using Unity.Burst;
+using System.Text;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine;
 
 namespace LGOAPDemo
 {
-    [BurstCompile]
-    public unsafe struct LGOAPPlan : IDisposable
+    [Serializable]
+    public class LGOAPPlan<T> where T : ScriptableObject, IHiraCollectionAwareTarget
     {
-        public LGOAPPlan(byte bufferSize, Allocator allocator) =>
-            Container = new NativeArray<byte>(bufferSize + 1, allocator, NativeArrayOptions.UninitializedMemory);
+        private readonly T[] _collection = null;
+        [SerializeField] private T[] tasks = null;
+        private byte _planSize = 0;
+        private short _currentIndex = 0;
 
-        [BurstCompile]
-        public void Dispose() => Container.Dispose();
+        public LGOAPPlan(T[] collection, byte length) => (_collection, tasks) = (collection, new T[length]);
 
-        public NativeArray<byte> Container;
-
-        public byte Count
+        public static LGOAPPlan<T> From(LGOAPPlannerResult plannerResult, T[] collection, byte maxLength)
         {
-            [BurstCompile]
-            get => Container[0];
-            [BurstCompile]
-            set => Container[0] = value;
+            var plan = new LGOAPPlan<T>(collection, maxLength);
+            plan.Consume(plannerResult);
+            return plan;
         }
 
-        public byte BufferSize
+        public unsafe void Consume(LGOAPPlannerResult plannerResult)
         {
-            [BurstCompile]
-            get => (byte) (Container.Length - 1);
+            _planSize = plannerResult.Count;
+
+            var itStart = plannerResult.GetUnsafeReadOnlyPtr();
+            var itMax = itStart + _planSize;
+
+            for (byte i = 0; itStart + i < itMax; i++)
+                tasks[i] = _collection[itStart[i]];
+
+            _currentIndex = (short) (_planSize - 1);
         }
 
-        public byte this[byte index]
+        public unsafe LGOAPPlannerResult ToPlannerResult(Allocator allocator, LGOAPPlannerResultType resultType = LGOAPPlannerResultType.Uninitialized)
         {
-            [BurstCompile]
-            get => Container[index + 1];
-            [BurstCompile]
-            set => Container[index + 1] = value;
-        }
+            var result = new LGOAPPlannerResult(_planSize, allocator);
+            var itStart = result.GetUnsafePtr();
+            var itMax = itStart + _planSize;
 
-        [BurstCompile]
-        public byte* GetUnsafePtr()
-        {
-            return 1 + (byte*) Container.GetUnsafePtr();
-        }
+            for (byte i = 0; itStart + i < itMax; i++)
+                itStart[i] = (byte) tasks[i].Index;
 
-        [BurstCompile]
-        public byte* GetUnsafeReadOnlyPtr()
-        {
-            return 1 + (byte*) Container.GetUnsafeReadOnlyPtr();
-        }
-
-        [BurstCompile]
-        public LGOAPPlannerResult ToResult(LGOAPPlannerResultType resultType, Allocator allocator)
-        {
-            var count = Count;
-
-            var result = new LGOAPPlannerResult(BufferSize, allocator) {Count = count, ResultType = resultType};
-
-            NativeArray<byte>.Copy(Container, 1, result.Container, 2, count);
+            result.ResultType = resultType;
+            result.Count = _planSize;
 
             return result;
+        }
+
+        public T Pop() => tasks[_currentIndex--];
+        public bool HasActions => _currentIndex > -1;
+        public void Invalidate() => _currentIndex = -1;
+        public void Restart() => _currentIndex = (short) (_planSize - 1);
+
+        public override string ToString()
+        {
+            var data = new StringBuilder(500);
+            for (var i = _planSize - 1; i > -1; i--)
+            {
+                data.Append(tasks[i].name);
+                data.AppendLine(_currentIndex + 1 == i ? " <--" : "");
+            }
+
+            return data.ToString();
         }
     }
 }
