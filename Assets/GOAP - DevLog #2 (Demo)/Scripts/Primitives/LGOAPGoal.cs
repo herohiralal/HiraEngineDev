@@ -30,8 +30,9 @@ namespace LGOAPDemo
         [ReadOnly] public readonly FunctionPointer<LGOAPGoalHeuristicCheckDelegate> GetHeuristic;
     }
 
-    public class LGOAPGoal : ScriptableObject
+    public class LGOAPGoal : ScriptableObject, IHiraCollectionAwareTarget
     {
-        
+        public HiraCollection ParentCollection { get; set; }
+        public int Index { get; set; }
     }
 }

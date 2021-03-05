@@ -23,8 +23,9 @@ namespace LGOAPDemo
         [ReadOnly] public readonly FunctionPointer<LGOAPModificationDelegate> ApplyTo;
     }
 
-	public class LGOAPTask : ScriptableObject
+	public class LGOAPTask : ScriptableObject, IHiraCollectionAwareTarget
 	{
-        
-	}
+        public HiraCollection ParentCollection { get; set; }
+        public int Index { get; set; }
+    }
 }
