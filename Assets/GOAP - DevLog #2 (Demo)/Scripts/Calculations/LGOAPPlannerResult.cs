@@ -13,6 +13,7 @@ namespace LGOAPDemo
         Success = 3
     }
 
+    [BurstCompile]
     public unsafe struct LGOAPPlannerResult : IDisposable
     {
         public LGOAPPlannerResult(byte bufferSize, Allocator allocator) =>
@@ -57,5 +58,8 @@ namespace LGOAPDemo
         {
             return 2 + (byte*) _container.GetUnsafeReadOnlyPtr();
         }
+
+        [BurstCompile]
+        public void CopyTo(LGOAPPlannerResult other) => _container.CopyTo(other._container);
     }
 }
