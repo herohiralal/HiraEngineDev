@@ -51,6 +51,7 @@ namespace LGOAPDemo
                 if (goal == byte.MaxValue)
                 {
                     Result.ResultType = LGOAPPlannerResultType.Failure;
+                    Result.Count = 0;
                 }
                 else if (_currentGoal == goal)
                 {
