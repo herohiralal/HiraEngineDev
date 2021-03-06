@@ -35,15 +35,16 @@ namespace LGOAPDemo
                 tasks[_currentIndex - i] = _collection[itStart[i]];
         }
 
-        public unsafe LGOAPPlannerResult ToPlannerResult(Allocator allocator, LGOAPPlannerResultType resultType = LGOAPPlannerResultType.Uninitialized)
+        public unsafe LGOAPPlannerResult ToPlannerResult(Allocator allocator, LGOAPPlannerResultType resultType = LGOAPPlannerResultType.Uninitialized, bool full = true)
         {
-            var remainingPlanSize = (byte) (_currentIndex + 1);
+            var remainingPlanSize = (byte) (full ? _planSize : _currentIndex + 1);
+            var maxIndex = (byte) (remainingPlanSize - 1);
 
             var result = new LGOAPPlannerResult(remainingPlanSize, allocator);
             var it = result.GetUnsafePtr();
 
             for (byte i = 0; i < remainingPlanSize; i++)
-                it[i] = (byte) tasks[_currentIndex - i].Index;
+                it[i] = (byte) tasks[maxIndex - i].Index;
 
             result.ResultType = resultType;
             result.Count = remainingPlanSize;
