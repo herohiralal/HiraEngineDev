@@ -29,23 +29,24 @@ namespace LGOAPDemo
             var itStart = plannerResult.GetUnsafeReadOnlyPtr();
             var itMax = itStart + _planSize;
 
-            for (byte i = 0; itStart + i < itMax; i++)
-                tasks[i] = _collection[itStart[i]];
-
             _currentIndex = (short) (_planSize - 1);
+
+            for (byte i = 0; itStart + i < itMax; i++)
+                tasks[_currentIndex - i] = _collection[itStart[i]];
         }
 
         public unsafe LGOAPPlannerResult ToPlannerResult(Allocator allocator, LGOAPPlannerResultType resultType = LGOAPPlannerResultType.Uninitialized)
         {
-            var result = new LGOAPPlannerResult(_planSize, allocator);
-            var itStart = result.GetUnsafePtr();
-            var itMax = itStart + _planSize;
+            var remainingPlanSize = (byte) (_currentIndex + 1);
 
-            for (byte i = 0; itStart + i < itMax; i++)
-                itStart[i] = (byte) tasks[i].Index;
+            var result = new LGOAPPlannerResult(remainingPlanSize, allocator);
+            var it = result.GetUnsafePtr();
+
+            for (byte i = 0; i < remainingPlanSize; i++)
+                it[i] = (byte) tasks[_currentIndex - i].Index;
 
             result.ResultType = resultType;
-            result.Count = _planSize;
+            result.Count = remainingPlanSize;
 
             return result;
         }

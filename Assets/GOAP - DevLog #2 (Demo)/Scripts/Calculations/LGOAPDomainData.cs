@@ -3,10 +3,11 @@ using System.Linq;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine.Assertions;
+// ReSharper disable PossiblyImpureMethodCallOnReadonlyVariable
 
 namespace LGOAPDemo
 {
-    public unsafe struct LGOAPDomainData : IDisposable
+    public readonly unsafe struct LGOAPDomainData : IDisposable
     {
         public LGOAPDomainData(Allocator allocator, byte goalCount, byte taskCount, params byte[] intermediateGoalCounts)
         {
@@ -65,7 +66,7 @@ namespace LGOAPDemo
             Assert.AreEqual(numberOfBytesToAllocate, allocatedSize, "Bytes not allocated properly in LGOAPDomainData.");
         }
 
-        private NativeArray<byte> _container;
+        private readonly NativeArray<byte> _container;
 
         public void Dispose() => _container.Dispose();
 
