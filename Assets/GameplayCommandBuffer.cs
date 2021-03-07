@@ -48,7 +48,7 @@ namespace UnityEngine.Internal
         private static extern void GameplayCommandBufferCancelTimer(IntPtr target, [In] in TimerHandle handle);
 
         [SuppressUnmanagedCodeSecurity, DllImport(HiraNativeHook.HIRA_ENGINE_NATIVE_DLL_NAME, CallingConvention = HiraNativeHook.CALLING_CONVENTION)]
-        private static extern void InitGameplayCommandBufferExecuteBufferedCommands(Action<IntPtr, IntPtr> executor);
+        private static extern void InitGameplayCommandBufferExecuteBufferedCommandsManagedOverride(Action<IntPtr, IntPtr> executor);
 
         [AOT.MonoPInvokeCallback(typeof(Action<IntPtr, IntPtr>))]
         private static unsafe void ExecuteBufferedCommands(IntPtr buffer, IntPtr values)
@@ -132,7 +132,7 @@ namespace UnityEngine.Internal
             
             Instance = Create(20);
             
-            InitGameplayCommandBufferExecuteBufferedCommands(ExecuteBufferedCommands);
+            InitGameplayCommandBufferExecuteBufferedCommandsManagedOverride(ExecuteBufferedCommands);
             HiraNativeHook.OnNativeHookDestroyed -= OnNativeHookDestroyed;
             HiraNativeHook.OnNativeHookDestroyed += OnNativeHookDestroyed;
         }
