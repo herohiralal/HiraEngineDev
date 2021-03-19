@@ -8,73 +8,107 @@ using UnityEngine.Assertions;
 
 namespace LGOAPDemo
 {
-	public class BlackboardTemplate : HiraCollection<BlackboardKey>
-	{
-		[NonSerialized] private int _cachedTotalSize = 0;
-		[NonSerialized] private Dictionary<string, int> _keyIndices = null;
-		[NonSerialized] private Dictionary<int, bool> _instanceSyncData = null;
-		[NonSerialized] private NativeArray<byte> _template = default;
+    [Flags]
+    public enum BlackboardKeyTraits : byte
+    {
+        None = 0,
+        InstanceSynced = 1 << 0,
+        EssentialToDecisionMaking = 1 << 1
+    }
 
-		private int TotalSize
-		{
-			get
-			{
-				var size = 0;
-				foreach (var key in Collection1)
-				{
-					size += key.SizeInBytes;
-				}
+    [CreateAssetMenu]
+    public class BlackboardTemplate : HiraCollection<BlackboardKey>
+    {
+        [NonSerialized] private int _cachedTotalSize = 0;
+        [NonSerialized] private Dictionary<string, int> _keyIndices = null;
+        [NonSerialized] private Dictionary<int, BlackboardKeyTraits> _keyTraits = null;
+        [NonSerialized] private NativeArray<byte> _template = default;
 
-				return size;
-			}
-		}
+        public int this[string keyName] => _keyIndices[keyName];
+        public BlackboardKeyTraits this[int index] => _keyTraits[index];
 
-		public unsafe void Initialize()
-		{
-			_keyIndices = new Dictionary<string, int>();
-			_instanceSyncData = new Dictionary<int, bool>();
+        private int TotalSize
+        {
+            get
+            {
+                var size = 0;
+                foreach (var key in Collection1)
+                {
+                    size += key.SizeInBytes;
+                }
 
-			_cachedTotalSize = TotalSize;
-			var sortedKeys = Collection1.OrderBy(k => k.SizeInBytes);
-			_template = new NativeArray<byte>(_cachedTotalSize, Allocator.Persistent);
-			var templatePtr = (byte*) _template.GetUnsafePtr();
+                return size;
+            }
+        }
 
-			var index = 0;
-			foreach (var key in sortedKeys)
-			{
-				var keyName = key.name;
+        public unsafe void Initialize()
+        {
+            _keyIndices = new Dictionary<string, int>();
+            _keyTraits = new Dictionary<int, BlackboardKeyTraits>();
 
-				// cache the string-to-id hash table
-				if (!_keyIndices.ContainsKey(keyName))
-					_keyIndices.Add(keyName, index);
-				else
-				{
-					Debug.LogError($"Blackboard contains multiple keys named {keyName}.", this);
-					_keyIndices[keyName] = index;
-				}
+            _cachedTotalSize = TotalSize;
+            var sortedKeys = Collection1.OrderBy(k => k.SizeInBytes);
+            _template = new NativeArray<byte>(_cachedTotalSize, Allocator.Persistent);
+            var templatePtr = (byte*) _template.GetUnsafePtr();
 
-				// update the index on the key itself
-				key.Index = index;
+            var index = 0;
+            foreach (var key in sortedKeys)
+            {
+                var keyName = key.name;
 
-				// update instance syncing data
-				_instanceSyncData.Add(index, key.InstanceSynced);
+                // cache the string-to-id hash table
+                if (!_keyIndices.ContainsKey(keyName))
+                    _keyIndices.Add(keyName, index);
+                else
+                {
+                    Debug.LogError($"Blackboard contains multiple keys named {keyName}.", this);
+                    _keyIndices[keyName] = index;
+                }
 
-				// set the default value
-				key.SetDefault(templatePtr + index);
+                // update the index on the key itself
+                key.Index = index;
 
-				// get the next index
-				index += key.SizeInBytes;
-			}
+                // update instance syncing data
+                _keyTraits.Add(index, key.Traits);
 
-			Assert.AreEqual(_cachedTotalSize, index);
-		}
+                // set the default value
+                key.SetDefault(templatePtr + index);
 
-		public void Shutdown()
-		{
-			_template.Dispose();
+                // get the next index
+                index += key.SizeInBytes;
+            }
 
-			_instanceSyncData = null;
-			_keyIndices = null;
-		}
-	}
+            Assert.AreEqual(_cachedTotalSize, index);
+        }
+
+        public void Shutdown()
+        {
+            _template.Dispose();
+
+            _keyTraits = null;
+            _keyIndices = null;
+        }
+
+        public NativeArray<byte> GetNewBlackboard()
+        {
+            var output = new NativeArray<byte>(_cachedTotalSize, Allocator.Persistent);
+            _template.CopyTo(output);
+            return output;
+        }
+
+        public unsafe delegate void InstanceSyncKeyUpdateDelegate(int keyIndex, bool isEssentialToDecisionMaking, byte* value, byte size);
+
+        public event InstanceSyncKeyUpdateDelegate OnInstanceSyncKeyUpdate = delegate { };
+
+        public unsafe void UpdateInstanceSyncedKey<T>(int keyIndex, T value) where T : unmanaged
+        {
+            *(T*) ((byte*) _template.GetUnsafePtr() + keyIndex) = value;
+
+            OnInstanceSyncKeyUpdate.Invoke(
+                keyIndex, 
+                this[keyIndex].HasFlag(BlackboardKeyTraits.EssentialToDecisionMaking), 
+                (byte*) &value, 
+                (byte) sizeof(T));
+        }
+    }
 }
