@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 532022551}
   - component: {fileID: 532022553}
   - component: {fileID: 532022554}
+  - component: {fileID: 532022555}
   m_Layer: 0
   m_Name: BlackboardTester
   m_TagString: Untagged
@@ -203,6 +204,20 @@ MonoBehaviour:
   core:
     template: {fileID: 0}
     broadcastKeyUpdateEvents: 1
+--- !u!114 &532022555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532022550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5497c11a9d877704eb002ce0acad463d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 0, b: 0, a: 1}
+  blackboard: {fileID: 532022551}
 --- !u!1 &642384096
 GameObject:
   m_ObjectHideFlags: 0

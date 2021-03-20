@@ -30,6 +30,27 @@ MonoBehaviour:
   instanceSynced: 0
   essentialToDecisionMaking: 0
   defaultValue: 100
+--- !u!114 &-6122796402554884038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570f0de2b8e9493595190b84226fc217, type: 3}
+  m_Name: Class
+  m_EditorClassIdentifier: 
+  instanceSynced: 1
+  essentialToDecisionMaking: 0
+  names:
+  - Warrior
+  - Rogue
+  - Mage
+  defaultValue: 2
+  defaultValueName: Mage
+  size: 1
 --- !u!114 &-4830442445807606561
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -43,7 +64,7 @@ MonoBehaviour:
   m_Name: Lives
   m_EditorClassIdentifier: 
   instanceSynced: 0
-  essentialToDecisionMaking: 0
+  essentialToDecisionMaking: 1
   defaultValue: 5
 --- !u!114 &11400000
 MonoBehaviour:
@@ -63,6 +84,8 @@ MonoBehaviour:
   - {fileID: 6992560362249104271}
   - {fileID: -4830442445807606561}
   - {fileID: 1933475007970667071}
+  - {fileID: -6122796402554884038}
+  - {fileID: 3402210261654893088}
 --- !u!114 &1933475007970667071
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75,9 +98,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238bd2ee1b3e4231a07ec354768a08ae, type: 3}
   m_Name: TargetPosition
   m_EditorClassIdentifier: 
-  instanceSynced: 0
-  essentialToDecisionMaking: 0
+  instanceSynced: 1
+  essentialToDecisionMaking: 1
   defaultValue: {x: 0, y: 0, z: 0}
+--- !u!114 &3402210261654893088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4860f9b7661c45048b2bab62b8eb425a, type: 3}
+  m_Name: Properties
+  m_EditorClassIdentifier: 
+  instanceSynced: 1
+  essentialToDecisionMaking: 1
+  names:
+  - name: CanRun
+    onAtStart: 1
+  - name: CanWalk
+    onAtStart: 0
+  - name: CanFuck
+    onAtStart: 0
+  - name: CanCuck
+    onAtStart: 1
+  - name: ShouldDie
+    onAtStart: 0
+  - name: Key1
+    onAtStart: 0
+  - name: Key2
+    onAtStart: 1
+  - name: X
+    onAtStart: 1
+  - name: Y
+    onAtStart: 0
+  - name: Z
+    onAtStart: 0
+  size: 2
+  default1ByteValue: -55
+  default2ByteValue: 201
+  default4ByteValue: 0
+  default8ByteValue: 0
 --- !u!114 &6992560362249104271
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,5 +154,5 @@ MonoBehaviour:
   m_Name: Mana
   m_EditorClassIdentifier: 
   instanceSynced: 0
-  essentialToDecisionMaking: 0
+  essentialToDecisionMaking: 1
   defaultValue: 100
