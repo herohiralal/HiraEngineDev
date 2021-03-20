@@ -5,7 +5,8 @@ namespace UnityEngine.Internal
 	public class BlackboardTester : MonoBehaviour
 	{
 		[SerializeField] private HiraBlackboardTemplate template = null;
-		[SerializeField] private HiraBlackboard blackboard = null;
+		[SerializeField] private HiraBlackboardComponent blackboard = null;
+		[SerializeField] private HiraSharedBlackboard sharedBlackboard = null;
 		[SerializeField] private EffectorTester effect = null;
 
 		private void Awake()
@@ -13,10 +14,12 @@ namespace UnityEngine.Internal
 			object init = null;
 			template.Initialize(ref init);
 			blackboard.Initialize(ref init);
-		}
+            sharedBlackboard.Initialize(ref init);
+        }
 
 		private void OnDestroy()
 		{
+            sharedBlackboard.Shutdown();
 			blackboard.Shutdown();
 			template.Shutdown();
 		}
