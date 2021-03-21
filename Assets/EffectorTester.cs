@@ -2,9 +2,9 @@
 
 namespace UnityEngine.Internal
 {
-	[CreateAssetMenu]
-	public class EffectorTester : HiraCollection<IBlackboardEffector>
-	{
-		
-	}
+    [CreateAssetMenu]
+    [HiraCollectionCustomizer(1, RequiredAttributes = new[] {typeof(HiraBlackboardEffectorAttribute)})]
+    public class EffectorTester : HiraCollection<IBlackboardEffector>
+    {
+    }
 }

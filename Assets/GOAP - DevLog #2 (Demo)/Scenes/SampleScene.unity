@@ -188,8 +188,6 @@ MonoBehaviour:
   blackboard: {fileID: 532022551}
   sharedBlackboard: {fileID: 11400000, guid: 2a1c93d261bdde3498800486a807a51d, type: 2}
   effect: {fileID: 0}
-  c: 5
-  key: {fileID: 2582121790702393724, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
 --- !u!114 &532022554
 MonoBehaviour:
   m_ObjectHideFlags: 0

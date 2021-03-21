@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9aca7caa2f0d46599b7647442f54fca5, type: 3}
-  m_Name: Remove Rogue flags from Class
+  m_Name: Remove (Rogue) flags from Class
   m_EditorClassIdentifier: 
   key: {fileID: 2582121790702393724, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
   value:
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfe2f534b1624a179e36e654ff5162e1, type: 3}
-  m_Name: Add Mage flags to Class
+  m_Name: Add (Mage) flags to Class
   m_EditorClassIdentifier: 
   key: {fileID: 2582121790702393724, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
   value:

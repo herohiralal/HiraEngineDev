@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5774921932453811436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80687aef34aa4861a6a56b9712a898cf, type: 3}
+  m_Name: TargetPosition  equals (3.0, 3.0, 3.0)-(5.0, 7.0, 9.0)
+  m_EditorClassIdentifier: 
+  key: {fileID: 1933475007970667071, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
+  value: {x: 4, y: 5, z: 6}
+  tolerance: {x: 1, y: 2, z: 3}
+  invert: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e55c92e58a4463a5300ecb4cdd09e7, type: 3}
+  m_Name: Condition
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 7027256589316709672}
+  - {fileID: -5774921932453811436}
+--- !u!114 &7027256589316709672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57dbb94201c1442089f2d410bc8f6c9b, type: 3}
+  m_Name: Health  equals 99.9-100.1
+  m_EditorClassIdentifier: 
+  key: {fileID: -7798900553047802108, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
+  value: 100
+  tolerance: 0.1
+  invert: 0
