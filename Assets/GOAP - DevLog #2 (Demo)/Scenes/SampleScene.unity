@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.03366092, g: 0.08844574, b: 0.20754066, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -188,6 +188,8 @@ MonoBehaviour:
   blackboard: {fileID: 532022551}
   sharedBlackboard: {fileID: 11400000, guid: 2a1c93d261bdde3498800486a807a51d, type: 2}
   effect: {fileID: 0}
+  c: 5
+  key: {fileID: 2582121790702393724, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
 --- !u!114 &532022554
 MonoBehaviour:
   m_ObjectHideFlags: 0

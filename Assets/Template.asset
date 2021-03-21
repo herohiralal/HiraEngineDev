@@ -30,27 +30,6 @@ MonoBehaviour:
   instanceSynced: 0
   essentialToDecisionMaking: 0
   defaultValue: 100
---- !u!114 &-6122796402554884038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 570f0de2b8e9493595190b84226fc217, type: 3}
-  m_Name: Class
-  m_EditorClassIdentifier: 
-  instanceSynced: 1
-  essentialToDecisionMaking: 0
-  names:
-  - Warrior
-  - Rogue
-  - Mage
-  defaultValue: 2
-  defaultValueName: Mage
-  size: 1
 --- !u!114 &-4830442445807606561
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,8 +63,7 @@ MonoBehaviour:
   - {fileID: 6992560362249104271}
   - {fileID: -4830442445807606561}
   - {fileID: 1933475007970667071}
-  - {fileID: -6122796402554884038}
-  - {fileID: 3402210261654893088}
+  - {fileID: 2582121790702393724}
 --- !u!114 &1933475007970667071
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,7 +79,7 @@ MonoBehaviour:
   instanceSynced: 1
   essentialToDecisionMaking: 1
   defaultValue: {x: 0, y: 0, z: 0}
---- !u!114 &3402210261654893088
+--- !u!114 &2582121790702393724
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,37 +88,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4860f9b7661c45048b2bab62b8eb425a, type: 3}
-  m_Name: Properties
+  m_Script: {fileID: 11500000, guid: 99d92fb84ff84dd6a04bc6e1d9d9ee6f, type: 3}
+  m_Name: StaticEnumKey
   m_EditorClassIdentifier: 
   instanceSynced: 1
   essentialToDecisionMaking: 1
-  names:
-  - name: CanRun
-    onAtStart: 1
-  - name: CanWalk
-    onAtStart: 0
-  - name: CanFuck
-    onAtStart: 0
-  - name: CanCuck
-    onAtStart: 1
-  - name: ShouldDie
-    onAtStart: 0
-  - name: Key1
-    onAtStart: 0
-  - name: Key2
-    onAtStart: 1
-  - name: X
-    onAtStart: 1
-  - name: Y
-    onAtStart: 0
-  - name: Z
-    onAtStart: 0
-  size: 2
-  default1ByteValue: -55
-  default2ByteValue: 201
-  default4ByteValue: 0
-  default8ByteValue: 0
+  defaultValue:
+    type: 6e8da6b9-998f-4186-81e4-7a9d11fc1ebd
+    byteValue: 0
+    sByteValue: 0
+    uShortValue: 0
+    shortValue: 0
+    uIntValue: 0
+    intValue: 0
+    uLongValue: 0
+    longValue: 0
 --- !u!114 &6992560362249104271
 MonoBehaviour:
   m_ObjectHideFlags: 1
