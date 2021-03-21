@@ -89,18 +89,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99d92fb84ff84dd6a04bc6e1d9d9ee6f, type: 3}
-  m_Name: StaticEnumKey
+  m_Name: Class
   m_EditorClassIdentifier: 
   instanceSynced: 1
   essentialToDecisionMaking: 1
   defaultValue:
     type: 6e8da6b9-998f-4186-81e4-7a9d11fc1ebd
-    byteValue: 0
+    byteValue: 4
     sByteValue: 0
     uShortValue: 0
     shortValue: 0
     uIntValue: 0
-    intValue: 0
+    intValue: 4
     uLongValue: 0
     longValue: 0
 --- !u!114 &6992560362249104271

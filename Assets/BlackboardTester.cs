@@ -3,7 +3,7 @@
 namespace UnityEngine.Internal
 {
 	[System.Serializable, DynamicallyAccessibleEnum("6e8da6b9-998f-4186-81e4-7a9d11fc1ebd"), System.Flags]
-	public enum Class
+	public enum Class : byte
 	{
 		None = 0, Warrior = 1 << 0, Mage = 1 << 1, Rogue = 1 << 2
 	}
