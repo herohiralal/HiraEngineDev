@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6446657803642126658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ecb3beee7a415d96067adeb7d2da72, type: 3}
+  m_Name: Some Goal
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 7865570922313854415}
+  collection2: []
+--- !u!114 &-5752119682909061981
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8e50dea744f2ba68919115e8d8aaa, type: 3}
+  m_Name: Action
+  m_EditorClassIdentifier: 
+  collection1: []
+  collection2: []
+  collection3: []
+  collection4: []
+  collection5: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a281c45d4804cb9a4696de84e1cd5b6, type: 3}
+  m_Name: New GOAPDomain
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -6446657803642126658}
+  collection2:
+  - {fileID: -5752119682909061981}
+--- !u!114 &7865570922313854415
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c076b229fb9c4097a15e43f986eb77b6, type: 3}
+  m_Name: INVALID CONDITION (+10)
+  m_EditorClassIdentifier: 
+  key: {fileID: 0}
+  value:
+    type: 6e8da6b9-998f-4186-81e4-7a9d11fc1ebd
+    byteValue: 2
+    sByteValue: 0
+    uShortValue: 0
+    shortValue: 0
+    uIntValue: 0
+    intValue: 0
+    uLongValue: 0
+    longValue: 0
+  invert: 1
+  score: 10

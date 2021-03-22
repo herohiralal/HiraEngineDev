@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 532022552}
   - component: {fileID: 532022551}
   - component: {fileID: 532022553}
-  - component: {fileID: 532022554}
   - component: {fileID: 532022555}
   m_Layer: 0
   m_Name: BlackboardTester
@@ -156,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   core:
-    template: {fileID: 11400000, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
+    template: {fileID: 0}
     broadcastKeyUpdateEvents: 1
 --- !u!4 &532022552
 Transform:
@@ -184,26 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23548648791e445ab2350e95125abbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  template: {fileID: 11400000, guid: f6585ee0430ec1e4aaa66542b0c4dae3, type: 2}
+  template: {fileID: 0}
   blackboard: {fileID: 532022551}
-  sharedBlackboard: {fileID: 11400000, guid: 2a1c93d261bdde3498800486a807a51d, type: 2}
-  effect: {fileID: 0}
---- !u!114 &532022554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532022550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777ce71ab1b748039a8ffb940f21557b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedBlackboard: {fileID: 11400000, guid: 2a1c93d261bdde3498800486a807a51d, type: 2}
-  core:
-    template: {fileID: 0}
-    broadcastKeyUpdateEvents: 1
 --- !u!114 &532022555
 MonoBehaviour:
   m_ObjectHideFlags: 0
