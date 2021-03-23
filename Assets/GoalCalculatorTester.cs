@@ -10,6 +10,8 @@ namespace UnityEngine.Internal
 		[SerializeField] private GoalOrientedActionPlannerDomain domain = null;
 		[HiraButton(nameof(UpdateGoal))]
 		[SerializeField] private Stub updateGoal = default;
+		[HiraButton(nameof(UpdateGoalDebug))]
+		[SerializeField] private Stub updateGoalDebug = default;
 		[SerializeField] private Goal goal = null;
 
 		private FlipFlopPool<PlannerResult> _result;
@@ -34,5 +36,12 @@ namespace UnityEngine.Internal
 			jobHandle.Complete();
 			goal = domain.Collection1[_result.First[0]];
 		}
+
+        public void UpdateGoalDebug()
+        {
+            domain.RunGoalCalculatorJob(blackboard, _result.First[0], _result.Second);
+            _result.Flip();
+            goal = domain.Collection1[_result.First[0]];
+        }
 	}
 }
