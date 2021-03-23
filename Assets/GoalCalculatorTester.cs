@@ -1,6 +1,8 @@
-﻿using HiraEngine.Components.AI.LGOAP;
+﻿using System;
+using HiraEngine.Components.AI.LGOAP;
 using HiraEngine.Components.AI.LGOAP.Internal;
 using Unity.Collections;
+using Unity.Jobs;
 
 namespace UnityEngine.Internal
 {
@@ -14,34 +16,34 @@ namespace UnityEngine.Internal
 		[SerializeField] private Stub updateGoalDebug = default;
 		[SerializeField] private Goal goal = null;
 
-		private FlipFlopPool<PlannerResult> _result;
+		[NonSerialized] public FlipFlopPool<PlannerResult> Result;
 
 		private void Awake()
 		{
-			_result.First = new PlannerResult(1, Allocator.Persistent);
-			_result.Second = new PlannerResult(1, Allocator.Persistent);
+			Result.First = new PlannerResult(1, Allocator.Persistent){Count = 1, [0] = byte.MaxValue};
+			Result.Second = new PlannerResult(1, Allocator.Persistent){Count = 1, [0] = byte.MaxValue};
 		}
 
 		private void OnDestroy()
 		{
-			_result.First.Dispose();
-			_result.Second.Dispose();
-			_result = default;
+			Result.First.Dispose();
+			Result.Second.Dispose();
+			Result = default;
 		}
 
-		public void UpdateGoal()
+		public unsafe void UpdateGoal()
 		{
-			var jobHandle = domain.ScheduleGoalCalculatorJob(blackboard, _result.First[0], _result.Second);
-			_result.Flip();
+			var jobHandle = new GoalCalculatorJob(blackboard.Data, domain.InsistenceCalculatorsBlock, Result.First[0], Result.Second).Schedule();
+			Result.Flip();
 			jobHandle.Complete();
-			goal = domain.Collection1[_result.First[0]];
+			goal = domain.Collection1[Result.First[0]];
 		}
 
-        public void UpdateGoalDebug()
+        public unsafe void UpdateGoalDebug()
         {
-            domain.RunGoalCalculatorJob(blackboard, _result.First[0], _result.Second);
-            _result.Flip();
-            goal = domain.Collection1[_result.First[0]];
+            new GoalCalculatorJob(blackboard.Data, domain.InsistenceCalculatorsBlock, Result.First[0], Result.Second).Run();
+            Result.Flip();
+            goal = domain.Collection1[Result.First[0]];
         }
 	}
 }

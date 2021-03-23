@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5619346470832483330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57dbb94201c1442089f2d410bc8f6c9b, type: 3}
+  m_Name: Mana is  between 49.9 and 50.1
+  m_EditorClassIdentifier: 
+  key: {fileID: -5960590922838426181, guid: afca90a75fe2f4647a02fe4adbed6dfe, type: 2}
+  value: 50
+  tolerance: 0.1
+  invert: 0
+--- !u!114 &-5441049857698328196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207829c1aef346d98f615adeb31c4e53, type: 3}
+  m_Name: Mana  greater than 50
+  m_EditorClassIdentifier: 
+  key: {fileID: -5960590922838426181, guid: afca90a75fe2f4647a02fe4adbed6dfe, type: 2}
+  value: 50
+  invert: 0
 --- !u!114 &-5024514797274134021
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27,7 +58,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collection1:
   - {fileID: 7316842507144032816}
-  collection2: []
+  collection2:
+  - {fileID: -5441049857698328196}
 --- !u!114 &-2875626791852038479
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -42,7 +74,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collection1:
   - {fileID: 3995029621905299114}
-  collection2: []
+  collection2:
+  - {fileID: -2237805660149331682}
+--- !u!114 &-2237805660149331682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd7081e37ef43699dd885b3e6b6eae2, type: 3}
+  m_Name: Mana  lesser than 50
+  m_EditorClassIdentifier: 
+  key: {fileID: -5960590922838426181, guid: afca90a75fe2f4647a02fe4adbed6dfe, type: 2}
+  value: 50
+  invert: 0
 --- !u!114 &-1673728528207686460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,7 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collection1:
   - {fileID: -5024514797274134021}
-  collection2: []
+  collection2:
+  - {fileID: -5619346470832483330}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.03366092, g: 0.08844574, b: 0.20754066, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 532022553}
   - component: {fileID: 532022555}
   - component: {fileID: 532022554}
+  - component: {fileID: 532022556}
   m_Layer: 0
   m_Name: BlackboardTester
   m_TagString: Untagged
@@ -216,6 +217,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 0, b: 0, a: 1}
   blackboard: {fileID: 532022551}
+--- !u!114 &532022556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532022550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495dcb5f88b444708c52aee3c1473869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard: {fileID: 532022551}
+  domain: {fileID: 11400000, guid: a9f264c440b60bd439a04ef26f0ac985, type: 2}
+  goalCalculator: {fileID: 532022554}
 --- !u!1 &642384096
 GameObject:
   m_ObjectHideFlags: 0
