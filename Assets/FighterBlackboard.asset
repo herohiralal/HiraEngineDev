@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5960590922838426181
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e50ce865e3a4fb7aed9cdb40148cc1b, type: 3}
+  m_Name: Mana
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  essentialToDecisionMaking: 1
+  defaultValue: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2c8ff12f4a49fd8cf248611a2e5c82, type: 3}
+  m_Name: FighterBlackboard
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 2667390717213865624}
+  - {fileID: -5960590922838426181}
+  - {fileID: 6309649235775713075}
+--- !u!114 &2667390717213865624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e50ce865e3a4fb7aed9cdb40148cc1b, type: 3}
+  m_Name: Health
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  essentialToDecisionMaking: 1
+  defaultValue: 100
+--- !u!114 &6309649235775713075
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e50ce865e3a4fb7aed9cdb40148cc1b, type: 3}
+  m_Name: Stamina
+  m_EditorClassIdentifier: 
+  instanceSynced: 0
+  essentialToDecisionMaking: 1
+  defaultValue: 0

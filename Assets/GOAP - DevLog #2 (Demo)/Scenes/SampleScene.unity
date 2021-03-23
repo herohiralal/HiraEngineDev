@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 532022551}
   - component: {fileID: 532022553}
   - component: {fileID: 532022555}
+  - component: {fileID: 532022554}
   m_Layer: 0
   m_Name: BlackboardTester
   m_TagString: Untagged
@@ -155,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   core:
-    template: {fileID: 0}
+    template: {fileID: 11400000, guid: afca90a75fe2f4647a02fe4adbed6dfe, type: 2}
     broadcastKeyUpdateEvents: 1
 --- !u!4 &532022552
 Transform:
@@ -183,8 +184,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23548648791e445ab2350e95125abbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  template: {fileID: 0}
+  template: {fileID: 11400000, guid: afca90a75fe2f4647a02fe4adbed6dfe, type: 2}
   blackboard: {fileID: 532022551}
+  domain: {fileID: 11400000, guid: a9f264c440b60bd439a04ef26f0ac985, type: 2}
+--- !u!114 &532022554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532022550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febdaf501bad447cb3c780ff453cee53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackboard: {fileID: 532022551}
+  domain: {fileID: 11400000, guid: a9f264c440b60bd439a04ef26f0ac985, type: 2}
+  goal: {fileID: 0}
 --- !u!114 &532022555
 MonoBehaviour:
   m_ObjectHideFlags: 0
