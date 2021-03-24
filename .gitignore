@@ -78,3 +78,12 @@ crashlytics-build.properties
 
 # Native-Defines
 /NativeDefines/*-Native.h
+
+# Visual Scripting generated files
+/[Aa]ssets/Unity.VisualScripting.Generated.meta
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core.meta
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow.meta
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+/[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
