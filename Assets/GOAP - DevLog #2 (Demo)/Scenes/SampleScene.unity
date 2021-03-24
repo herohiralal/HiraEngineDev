@@ -232,6 +232,8 @@ MonoBehaviour:
   blackboard: {fileID: 532022551}
   domain: {fileID: 11400000, guid: a9f264c440b60bd439a04ef26f0ac985, type: 2}
   goalCalculator: {fileID: 532022554}
+  maxPlanLength: 10
+  plan: []
 --- !u!1 &642384096
 GameObject:
   m_ObjectHideFlags: 0

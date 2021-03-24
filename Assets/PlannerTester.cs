@@ -1,8 +1,10 @@
-﻿using HiraEngine.Components.AI.LGOAP;
+﻿using System;
+using HiraEngine.Components.AI.LGOAP;
 using HiraEngine.Components.AI.LGOAP.Internal;
+using HiraEngine.Components.Blackboard.Raw;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
+using Action = HiraEngine.Components.AI.LGOAP.Action;
 
 namespace UnityEngine.Internal
 {
@@ -11,6 +13,7 @@ namespace UnityEngine.Internal
         [SerializeField] private HiraBlackboardComponent blackboard = null;
         [SerializeField] private GoalOrientedActionPlannerDomain domain = null;
         [SerializeField] private GoalCalculatorTester goalCalculator = null;
+        [SerializeField] private byte maxPlanLength = 10;
 
         [HiraButton(nameof(Calculate))]
         [SerializeField] private Stub calculate = default;
@@ -18,45 +21,69 @@ namespace UnityEngine.Internal
         [HiraButton(nameof(CalculateDebug))]
         [SerializeField] private Stub calculateDebug = default;
 
-        private PlannerResult _result;
+        [SerializeField] private byte[] plan = null;
+
+        [NonSerialized] private PlannerResult _result;
+        [NonSerialized] private RawBlackboardArrayWrapper _plannerDatasets;
+
         private static GoalOrientedActionPlannerDomain _staticDomain = null;
 
         private void Awake()
         {
             _staticDomain = domain;
-            _result = new PlannerResult(1, Allocator.Persistent);
+            _result = new PlannerResult(maxPlanLength, Allocator.Persistent);
+            _plannerDatasets = new RawBlackboardArrayWrapper((byte) (maxPlanLength + 1), blackboard.Template);
         }
 
         private void OnDestroy()
         {
+            _plannerDatasets.Dispose();
             _result.Dispose();
         }
 
-        public unsafe void Calculate()
+        public void Calculate()
         {
             goalCalculator.UpdateGoal();
             var job = new MainPlannerJob(
                 domain.DomainData[0],
-                goalCalculator.Result.First,
-                0,
-                ((byte*) blackboard.Data.GetUnsafeReadOnlyPtr()), 
-                _result);
+                goalCalculator.Result.First, 0,
+                1000, 
+                _plannerDatasets, blackboard,
+                _result
+            );
 
             job.Schedule().Complete();
-            if(_result.ResultType == PlannerResultType.Success) Debug.Log($"Result: {_result[0].ToBoolean()}.");
+            if (_result.ResultType == PlannerResultType.Success)
+            {
+                var count = _result.Count;
+                plan = new byte[count];
+                for (byte i = 0; i < count; i++)
+                {
+                    plan[i] = _result[i];
+                }
+            }
         }
 
-        public unsafe void CalculateDebug()
+        public void CalculateDebug()
         {
             goalCalculator.UpdateGoalDebug();
             var job = new MainPlannerJob(
                 domain.DomainData[0],
-                goalCalculator.Result.First,
-                0,
-                ((byte*) blackboard.Data.GetUnsafeReadOnlyPtr()), 
-                _result);
+                goalCalculator.Result.First, 0,
+                1000, 
+                _plannerDatasets, blackboard,
+                _result
+            );
             job.Run();
-            if(_result.ResultType == PlannerResultType.Success) Debug.Log($"Result: {_result[0].ToBoolean()}.");
+            if (_result.ResultType == PlannerResultType.Success)
+            {
+                var count = _result.Count;
+                plan = new byte[count];
+                for (byte i = 0; i < count; i++)
+                {
+                    plan[i] = _result[i];
+                }
+            }
         }
     }
 }
