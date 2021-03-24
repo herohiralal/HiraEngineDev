@@ -36,7 +36,7 @@ namespace UnityEngine.Internal
         {
             goalCalculator.UpdateGoal();
             var job = new MainPlannerJob(
-                domain.GetLayer(0),
+                domain.DomainData[0],
                 goalCalculator.Result.First,
                 0,
                 ((byte*) blackboard.Data.GetUnsafeReadOnlyPtr()), 
@@ -50,7 +50,7 @@ namespace UnityEngine.Internal
         {
             goalCalculator.UpdateGoalDebug();
             var job = new MainPlannerJob(
-                domain.GetLayer(0),
+                domain.DomainData[0],
                 goalCalculator.Result.First,
                 0,
                 ((byte*) blackboard.Data.GetUnsafeReadOnlyPtr()), 

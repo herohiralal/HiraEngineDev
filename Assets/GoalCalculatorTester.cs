@@ -31,17 +31,17 @@ namespace UnityEngine.Internal
 			Result = default;
 		}
 
-		public unsafe void UpdateGoal()
+		public void UpdateGoal()
 		{
-			var jobHandle = new GoalCalculatorJob(blackboard.Data, domain.InsistenceCalculatorsBlock, Result.First[0], Result.Second).Schedule();
+			var jobHandle = new GoalCalculatorJob(blackboard.Data, domain.DomainData, Result.First[0], Result.Second).Schedule();
 			Result.Flip();
 			jobHandle.Complete();
 			goal = domain.Collection1[Result.First[0]];
 		}
 
-        public unsafe void UpdateGoalDebug()
+        public void UpdateGoalDebug()
         {
-            new GoalCalculatorJob(blackboard.Data, domain.InsistenceCalculatorsBlock, Result.First[0], Result.Second).Run();
+            new GoalCalculatorJob(blackboard.Data, domain.DomainData, Result.First[0], Result.Second).Run();
             Result.Flip();
             goal = domain.Collection1[Result.First[0]];
         }
