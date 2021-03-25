@@ -33,7 +33,9 @@ namespace UnityEngine.Internal
 
 		public void UpdateGoal()
 		{
-			var jobHandle = new GoalCalculatorJob(blackboard.Data, domain.DomainData, Result.First[0], Result.Second).Schedule();
+            var result = Result.Second;
+            result.CurrentIndex = Result.First[0];
+			var jobHandle = new GoalCalculatorJob(blackboard.Data, domain.DomainData, result).Schedule();
 			Result.Flip();
 			jobHandle.Complete();
 			goal = domain.Collection1[Result.First[0]];
@@ -41,7 +43,9 @@ namespace UnityEngine.Internal
 
         public void UpdateGoalDebug()
         {
-            new GoalCalculatorJob(blackboard.Data, domain.DomainData, Result.First[0], Result.Second).Run();
+            var result = Result.Second;
+            result.CurrentIndex = Result.First[0];
+			new GoalCalculatorJob(blackboard.Data, domain.DomainData, result).Run();
             Result.Flip();
             goal = domain.Collection1[Result.First[0]];
         }

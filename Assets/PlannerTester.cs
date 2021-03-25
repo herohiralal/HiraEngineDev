@@ -54,13 +54,31 @@ namespace UnityEngine.Internal
             );
 
             job.Schedule().Complete();
-            if (_result.ResultType == PlannerResultType.Success)
+            switch (_result.ResultType)
             {
-                var count = _result.Count;
-                plan = new Action[count];
-                for (byte i = 0; i < count; i++)
+                case PlannerResultType.Success:
                 {
-                    plan[i] = domain.Collection2[_result[i]];
+                    var count = _result.Count;
+                    plan = new Action[count];
+                    for (byte i = 0; i < count; i++)
+                    {
+                        plan[i] = domain.Collection2[_result[i]];
+                    }
+
+                    break;
+                }
+                case PlannerResultType.Failure:
+                {
+                    plan = new Action[0];
+                    break;
+                }
+                case PlannerResultType.Unchanged:
+                {
+                    break;
+                }
+                case PlannerResultType.Uninitialized:
+                {
+                    throw new Exception("A planner provided uninitialized output.");
                 }
             }
         }
@@ -76,13 +94,31 @@ namespace UnityEngine.Internal
                 _result
             );
             job.Run();
-            if (_result.ResultType == PlannerResultType.Success)
+            switch (_result.ResultType)
             {
-                var count = _result.Count;
-                plan = new Action[count];
-                for (byte i = 0; i < count; i++)
+                case PlannerResultType.Success:
                 {
-                    plan[i] = domain.Collection2[_result[i]];
+                    var count = _result.Count;
+                    plan = new Action[count];
+                    for (byte i = 0; i < count; i++)
+                    {
+                        plan[i] = domain.Collection2[_result[i]];
+                    }
+
+                    break;
+                }
+                case PlannerResultType.Failure:
+                {
+                    plan = new Action[0];
+                    break;
+                }
+                case PlannerResultType.Unchanged:
+                {
+                    break;
+                }
+                case PlannerResultType.Uninitialized:
+                {
+                    throw new Exception("A planner provided uninitialized output.");
                 }
             }
         }
