@@ -47,7 +47,7 @@ namespace UnityEngine.Internal
             goalCalculator.UpdateGoal();
             var job = new MainPlannerJob(
                 domain.DomainData[0],
-                goalCalculator.Result.First, 0,
+                goalCalculator.Result.First,
                 1000, 
                 _plannerDatasets, blackboard,
                 _result
@@ -88,7 +88,7 @@ namespace UnityEngine.Internal
             goalCalculator.UpdateGoalDebug();
             var job = new MainPlannerJob(
                 domain.DomainData[0],
-                goalCalculator.Result.First, 0,
+                goalCalculator.Result.First,
                 1000, 
                 _plannerDatasets, blackboard,
                 _result
