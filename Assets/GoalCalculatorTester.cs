@@ -11,9 +11,9 @@ namespace UnityEngine.Internal
 		[SerializeField] private HiraBlackboardComponent blackboard = null;
 		[SerializeField] private GoalOrientedActionPlannerDomain domain = null;
 		[HiraButton(nameof(UpdateGoal))]
-		[SerializeField] private Stub updateGoal = default;
+		[SerializeField] public Stub updateGoal = default;
 		[HiraButton(nameof(UpdateGoalDebug))]
-		[SerializeField] private Stub updateGoalDebug = default;
+		[SerializeField] public Stub updateGoalDebug = default;
 		[SerializeField] private Goal goal = null;
 
 		[NonSerialized] public FlipFlopPool<PlannerResult> Result;

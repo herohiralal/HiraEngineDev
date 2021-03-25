@@ -16,23 +16,24 @@ namespace UnityEngine.Internal
         [SerializeField] private byte maxPlanLength = 10;
 
         [HiraButton(nameof(Calculate))]
-        [SerializeField] private Stub calculate = default;
+        [SerializeField] public Stub calculate = default;
 
         [HiraButton(nameof(CalculateDebug))]
-        [SerializeField] private Stub calculateDebug = default;
+        [SerializeField] public Stub calculateDebug = default;
 
-        [SerializeField] private byte[] plan = null;
+        [SerializeField] private Action[] plan = null;
 
         [NonSerialized] private PlannerResult _result;
         [NonSerialized] private RawBlackboardArrayWrapper _plannerDatasets;
 
         private static GoalOrientedActionPlannerDomain _staticDomain = null;
+        private static RawBlackboardArrayWrapper _wrapper = default;
 
         private void Awake()
         {
             _staticDomain = domain;
             _result = new PlannerResult(maxPlanLength, Allocator.Persistent);
-            _plannerDatasets = new RawBlackboardArrayWrapper((byte) (maxPlanLength + 1), blackboard.Template);
+            _wrapper = _plannerDatasets = new RawBlackboardArrayWrapper((byte) (maxPlanLength + 1), blackboard.Template);
         }
 
         private void OnDestroy()
@@ -56,10 +57,10 @@ namespace UnityEngine.Internal
             if (_result.ResultType == PlannerResultType.Success)
             {
                 var count = _result.Count;
-                plan = new byte[count];
+                plan = new Action[count];
                 for (byte i = 0; i < count; i++)
                 {
-                    plan[i] = _result[i];
+                    plan[i] = domain.Collection2[_result[i]];
                 }
             }
         }
@@ -78,10 +79,10 @@ namespace UnityEngine.Internal
             if (_result.ResultType == PlannerResultType.Success)
             {
                 var count = _result.Count;
-                plan = new byte[count];
+                plan = new Action[count];
                 for (byte i = 0; i < count; i++)
                 {
-                    plan[i] = _result[i];
+                    plan[i] = domain.Collection2[_result[i]];
                 }
             }
         }
