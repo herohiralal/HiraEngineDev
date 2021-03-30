@@ -1,0 +1,21 @@
+{
+    "name": "Behaviour-Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:18b4fb767b8f81047b7c24fdec94709e",
+        "GUID:4988cf9794f41d64c884876ab6574b89",
+        "GUID:89c4159a3b65bec4ea921302c61d32db",
+        "GUID:1cb6511cc7bd86c4fbe3c4182ebe94cc"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
