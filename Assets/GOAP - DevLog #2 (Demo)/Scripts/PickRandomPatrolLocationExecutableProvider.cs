@@ -46,6 +46,6 @@ public class PickRandomPatrolLocationExecutableProvider : ScriptableObject, IExe
 	[HiraCollectionDropdown(typeof(VectorKey))]
 	[SerializeField] private HiraBlackboardKey storeIn = null;
 	
-	public Executable GetExecutable(GameObject target, IBlackboardComponent blackboard) =>
+	public Executable GetExecutable(HiraComponentContainer target, IBlackboardComponent blackboard) =>
 		GenericPool<PickRandomPatrolLocationExecutable>.Retrieve().Init(blackboard, storeIn);
 }

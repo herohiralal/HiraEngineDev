@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6173103363680446219}
+  - component: {fileID: 5731488657295859780}
   - component: {fileID: 6173103363680446223}
   - component: {fileID: 6173103363680446216}
-  - component: {fileID: 6173103363680446217}
   - component: {fileID: 6173103363680446218}
   m_Layer: 0
   m_Name: Agent
@@ -35,6 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5731488657295859780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173103363680446260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ffaff0d08d04b96acceabf5dac53ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 6173103363680446218}
+  blackboard: {fileID: 6173103363680446223}
+  planner: {fileID: 6173103363680446216}
 --- !u!114 &6173103363680446223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,41 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f224bd794c4a7387cc8506c84dba81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGameObject: {fileID: 6173103363680446260}
+  targetGameObject: {fileID: 5731488657295859780}
   blackboard: {fileID: 6173103363680446223}
   domain: {fileID: 11400000, guid: 17e8a3d300873dd41a5309f488e6d15d, type: 2}
   maxPlanLength: 5
   maxFScore: 100
   currentState: 0
---- !u!114 &6173103363680446217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6173103363680446260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eabcabf7fd3800c46bc6891b26e60146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTransform: {fileID: 6173103363680446219}
-  targetRigidbody: {fileID: 0}
-  targetNavMeshAgent: {fileID: 6173103363680446218}
-  movementMode: 0
-  directionalMovementSpeed: 4
-  directionalMovementAngularSpeed: 360
-  gravity: 9.8
-  fallMultiplier: 0.1
-  raycastSpaceRadius: 0.25
-  raycastStartHeight: 1
-  raycastLength: 1.5
-  floorMask:
-    useConstant: 1
-    constant:
-      serializedVersion: 2
-      m_Bits: 0
-    variable: {fileID: 0}
 --- !u!195 &6173103363680446218
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -107,7 +93,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
