@@ -2,7 +2,7 @@
 using HiraEngine.Components.Blackboard;
 using UnityEngine;
 
-public class PickRandomPatrolLocationExecutable : Executable, IPoolable
+public class PickRandomPatrolLocationExecutable : Executable
 {
 	public PickRandomPatrolLocationExecutable Init(IBlackboardComponent blackboard, HiraBlackboardKey key)
 	{
@@ -28,14 +28,6 @@ public class PickRandomPatrolLocationExecutable : Executable, IPoolable
 	public override ExecutionStatus Execute(float deltaTime) => _result;
 
     public override void Dispose() => GenericPool<PickRandomPatrolLocationExecutable>.Return(this);
-
-	public void OnRetrieve()
-	{
-	}
-
-	public void OnReturn()
-	{
-	}
 }
 
 public class PickRandomPatrolLocationExecutableProvider : ScriptableObject, IExecutableProvider
