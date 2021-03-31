@@ -32,6 +32,8 @@ public class PickRandomPatrolLocationExecutable : Executable, IPoolable
 
 	public override ExecutionStatus Execute(float deltaTime) => _result;
 
+    public override void Dispose() => GenericPool<PickRandomPatrolLocationExecutable>.Return(this);
+
 	public void OnRetrieve()
 	{
 	}
