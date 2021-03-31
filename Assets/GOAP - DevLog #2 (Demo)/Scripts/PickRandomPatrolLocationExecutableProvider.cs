@@ -17,18 +17,13 @@ public class PickRandomPatrolLocationExecutable : Executable, IPoolable
 	
 	public override void OnExecutionStart()
 	{
-		var locations = Object.FindObjectsOfType<RandomLocation>(true);
-		var count = locations.Length;
-		if (count == 0)
-		{
-			_result = ExecutionStatus.Failed;
-			return;
-		}
-
-		var random = locations[Random.Range(0, count)].Position;
-		_blackboard.SetValue<Vector3>(_key, random);
-		_result = ExecutionStatus.Succeeded;
-	}
+        if (RandomLocation.TryGet(out var random))
+        {
+            _blackboard.SetValue<Vector3>(_key, random);
+            _result = ExecutionStatus.Succeeded;
+        }
+        else _result = ExecutionStatus.Failed;
+    }
 
 	public override ExecutionStatus Execute(float deltaTime) => _result;
 
