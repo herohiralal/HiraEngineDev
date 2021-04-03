@@ -42,6 +42,17 @@ namespace UnityEngine.Internal
 
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
+			gameScreen.SetActive(true);
+			loader.SetActive(false);
+		}
+
+		public void AddAgent() => StartCoroutine(AddAgentCoroutine());
+
+		private IEnumerator AddAgentCoroutine()
+		{
+			loader.SetActive(true);
+			mainMenu.SetActive(false);
+
 			var agent = Instantiate(agentPrefab, transform.position, Quaternion.identity, null);
 
 			var blackboard = agent.GetComponent<HiraBlackboard>();
