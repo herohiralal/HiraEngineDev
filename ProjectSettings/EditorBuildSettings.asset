@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GOAP - DevLog #2 (Demo)/Scenes/SampleScene.unity
     guid: d02f96bf6960b88438ad8a44f76724fa
+  - enabled: 1
+    path: Assets/GOAP - DevLog #2 (Demo)/Scenes/PatrolScene.unity
+    guid: 3b27a97f4f9813b4996f9e30c080e808
   m_configObjects: {}

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14b5a2f7a4e24a49bbd726a7f8080e7c, type: 3}
-  m_Name: AlwaysSucceedDecorator
+  m_Name: Always Succeed
   m_EditorClassIdentifier: 
 --- !u!114 &3966528913136171374
 MonoBehaviour:
