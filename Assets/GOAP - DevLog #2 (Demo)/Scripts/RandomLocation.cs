@@ -3,22 +3,41 @@ using UnityEngine;
 
 public class RandomLocation : MonoBehaviour
 {
-    private static readonly List<RandomLocation> registry = new List<RandomLocation>();
-    private void OnEnable() => registry.Add(this);
-    private void OnDisable() => registry.Remove(this);
+    private static readonly Dictionary<string, List<RandomLocation>> registry = new Dictionary<string, List<RandomLocation>>();
 
-    public static bool TryGet(out Vector3 randomLocation)
+    [SerializeField] private string id = "";
+
+    private void OnEnable()
     {
-        var registrySize = registry.Count;
+	    if (!registry.ContainsKey(id)) registry.Add(id, new List<RandomLocation>());
+	    registry[id].Add(this);
+    }
+
+    private void OnDisable()
+    {
+	    registry[id].Remove(this);
+	    if (registry[id].Count == 0) registry.Remove(id);
+    }
+
+    public static bool TryGet(string keyName, out RandomLocation location)
+    {
+	    if (!registry.ContainsKey(keyName))
+	    {
+		    location = null;
+		    return false;
+	    }
+	    
+	    var currentRegistry = registry[keyName];
+        var registrySize = currentRegistry.Count;
 
         if (registrySize == 0)
         {
-            randomLocation = Vector3.zero;
+	        location = null;
             return false;
         }
 
         var randomIndex = Random.Range(0, registrySize);
-        randomLocation = registry[randomIndex].transform.position;
+        location = currentRegistry[randomIndex];
         return true;
     }
 }

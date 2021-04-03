@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
     type: 2}
-  tolerance: 1.25
+  tolerance: 3
 --- !u!114 &2949053036821808482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: PickRandomPatrolLocationExecutableProvider
   m_EditorClassIdentifier: 
   storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  location: Patrol
 --- !u!114 &4314256265344609774
 MonoBehaviour:
   m_ObjectHideFlags: 1
