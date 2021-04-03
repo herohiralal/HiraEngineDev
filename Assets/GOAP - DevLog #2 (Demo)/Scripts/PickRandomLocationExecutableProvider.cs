@@ -23,7 +23,6 @@ public class PickRandomLocationExecutable : Executable
         if (RandomLocation.TryGet(_locationName, out _current))
         {
             _blackboard.SetValue<Vector3>(_key, _current.transform.position);
-            _current.enabled = false;
             _result = ExecutionStatus.Succeeded;
         }
         else _result = ExecutionStatus.Failed;
@@ -35,7 +34,6 @@ public class PickRandomLocationExecutable : Executable
 
     public override void Dispose()
     {
-	    _current.enabled = true;
 	    _current = null;
 	    GenericPool<PickRandomLocationExecutable>.Return(this);
     }
