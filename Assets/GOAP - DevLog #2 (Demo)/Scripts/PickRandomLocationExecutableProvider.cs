@@ -47,4 +47,11 @@ public class PickRandomLocationExecutableProvider : ScriptableObject, IExecutabl
 	
 	public Executable GetExecutable(HiraComponentContainer target, IBlackboardComponent blackboard) =>
 		GenericPool<PickRandomLocationExecutable>.Retrieve().Init(blackboard, storeIn, location);
+
+    private void OnValidate() => name = ToString();
+
+    public override string ToString() =>
+        storeIn == null 
+            ? "INVALID EXECUTABLE" 
+            : $"Set {storeIn.name} as a random {location} location.";
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c24ddf30d1fa4a98be8de065b03536e9, type: 3}
-  m_Name: PickRandomLocationExecutableProvider
+  m_Name: Set PatrolLocation as a random Patrol location.
   m_EditorClassIdentifier: 
   storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
   location: Patrol
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 957f829c90ff41d18e41cdda286206fd, type: 3}
-  m_Name: MoveToExecutableProvider
+  m_Name: Move to PatrolLocation
   m_EditorClassIdentifier: 
   targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
     type: 2}
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 957f829c90ff41d18e41cdda286206fd, type: 3}
-  m_Name: MoveToExecutableProvider
+  m_Name: Move to PatrolLocation
   m_EditorClassIdentifier: 
   targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
     type: 2}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c24ddf30d1fa4a98be8de065b03536e9, type: 3}
-  m_Name: PickRandomPatrolLocationExecutableProvider
+  m_Name: Set PatrolLocation as a random Patrol location.
   m_EditorClassIdentifier: 
   storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
   location: Patrol
@@ -274,6 +274,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba8156e80cad49918dc9c578ba53992b, type: 3}
-  m_Name: WaitExecutableProvider
+  m_Name: Wait for 5 seconds
   m_EditorClassIdentifier: 
   time: 5

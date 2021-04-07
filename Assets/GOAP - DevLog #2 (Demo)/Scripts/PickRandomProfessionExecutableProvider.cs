@@ -37,5 +37,8 @@ namespace UnityEngine.Internal
 		
 		public Executable GetExecutable(HiraComponentContainer target, IBlackboardComponent blackboard) =>
 			GenericPool<PickRandomProfessionExecutable>.Retrieve().Init(blackboard, professionKey);
-	}
+
+        private void OnValidate() => name = ToString();
+        public override string ToString() => "Pick random profession";
+    }
 }
