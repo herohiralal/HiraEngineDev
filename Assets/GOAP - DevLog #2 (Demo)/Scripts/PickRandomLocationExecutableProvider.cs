@@ -15,22 +15,22 @@ public class PickRandomLocationExecutable : Executable
 	private string _locationName;
 	private IBlackboardComponent _blackboard;
 	private ushort _key;
-	private ExecutionStatus _result;
 	private RandomLocation _current;
-	
-	public override void OnExecutionStart()
-	{
+
+    public override ExecutionStatus Execute(float deltaTime)
+    {
+        ExecutionStatus result;
         if (RandomLocation.TryGet(_locationName, out _current))
         {
             _blackboard.SetValue<Vector3>(_key, _current.transform.position);
-            _result = ExecutionStatus.Succeeded;
+            result = ExecutionStatus.Succeeded;
         }
-        else _result = ExecutionStatus.Failed;
+        else result = ExecutionStatus.Failed;
 
         _blackboard = null;
-    }
 
-	public override ExecutionStatus Execute(float deltaTime) => _result;
+        return result;
+    }
 
     public override void Dispose()
     {
