@@ -1,0 +1,263 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6672338290543420230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8408a864771e45bc8a1f8659d358c3cb, type: 3}
+  m_Name: HasProfession equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -7987474423033162907, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+--- !u!114 &-5590681795349890995
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: HasProfession equals True
+  m_EditorClassIdentifier: 
+  key: {fileID: -7987474423033162907, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 1
+--- !u!114 &-4781628790044990531
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: SpentDay equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -1290459863446266090, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+--- !u!114 &-2437943914293308829
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: HasProfession equals True
+  m_EditorClassIdentifier: 
+  key: {fileID: -7987474423033162907, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 1
+--- !u!114 &-2160084425041496796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d65306c2a534430aec3a23fb2799e01, type: 3}
+  m_Name: HasProfession equals False (+10)
+  m_EditorClassIdentifier: 
+  key: {fileID: -7987474423033162907, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+  score: 10
+--- !u!114 &-2091448038974554409
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8408a864771e45bc8a1f8659d358c3cb, type: 3}
+  m_Name: HasProfession equals True
+  m_EditorClassIdentifier: 
+  key: {fileID: -7987474423033162907, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 1
+--- !u!114 &-1791689712927121172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ecb3beee7a415d96067adeb7d2da72, type: 3}
+  m_Name: Pick Profession
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -2160084425041496796}
+  collection2:
+  - {fileID: -2091448038974554409}
+--- !u!114 &-482842619769059308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+5)
+  m_EditorClassIdentifier: 
+  score: 5
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2fc0e44ee49b1aae72507d299a64c, type: 3}
+  m_Name: DaySpenderDomain
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -1791689712927121172}
+  collection2:
+  - {fileID: 5553527781552441819}
+  collection3: []
+  collection4:
+  - {fileID: 611069149660026675}
+  collection5:
+  - {fileID: 5122715623643917404}
+  - {fileID: -4781628790044990531}
+  - {fileID: 7045418026920903447}
+  - {fileID: 8350414906564805956}
+--- !u!114 &481158221387996097
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a23aced4d5a446d9c42cd5eca6ce931, type: 3}
+  m_Name: PickRandomProfessionExecutableProvider
+  m_EditorClassIdentifier: 
+  professionKey: {fileID: -7393820112006530469, guid: a86ede61bbff05441abdbc7c1dd742c3,
+    type: 2}
+--- !u!114 &611069149660026675
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8e50dea744f2ba68919115e8d8aaa, type: 3}
+  m_Name: Choose Profession
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -6672338290543420230}
+  collection2:
+  - {fileID: 8498199033044361052}
+  collection3:
+  - {fileID: -5590681795349890995}
+  collection4:
+  - {fileID: 481158221387996097}
+  collection5: []
+--- !u!114 &4109896786179555071
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8408a864771e45bc8a1f8659d358c3cb, type: 3}
+  m_Name: HasProfession equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -7987474423033162907, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+--- !u!114 &5122715623643917404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: SpentMorning equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -8840220788181509188, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+--- !u!114 &5553527781552441819
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79520cd8f7114854b0ebe25043013dc5, type: 3}
+  m_Name: Choose Profession
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 4109896786179555071}
+  collection2:
+  - {fileID: -482842619769059308}
+  collection3:
+  - {fileID: -2437943914293308829}
+  collection4: []
+--- !u!114 &7045418026920903447
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: SpentEvening equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -3326254881023603899, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+--- !u!114 &8350414906564805956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: SpentNight equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -4655733263841474818, guid: a86ede61bbff05441abdbc7c1dd742c3, type: 2}
+  value: 0
+--- !u!114 &8498199033044361052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+10)
+  m_EditorClassIdentifier: 
+  score: 10
