@@ -64,15 +64,6 @@ namespace UnityEngine.Internal
 					yield return null;
 			}
 
-			var planner = agent.GetComponent<GoalOrientedActionPlanner>();
-			if (planner != null)
-			{
-				planner.Initialize();
-				_initializedObjects.Push(planner);
-				while (planner.InitializationStatus != InitializationState.Active)
-					yield return null;
-			}
-
 			var layeredPlanner = agent.GetComponent<LayeredGoalOrientedActionPlanner>();
 			if (layeredPlanner != null)
 			{
