@@ -79,6 +79,9 @@ crashlytics-build.properties
 # Native-Defines
 /NativeDefines/*-Native.h
 
+# UIElements Schemas
+/UIElementsSchema/*
+
 # Visual Scripting generated files
 /[Aa]ssets/Unity.VisualScripting.Generated.meta
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core.meta
