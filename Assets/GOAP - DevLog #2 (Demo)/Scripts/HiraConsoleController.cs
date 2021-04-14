@@ -1,6 +1,6 @@
 ﻿namespace UnityEngine.Internal
 {
-    [HiraManager]
+    [HiraManager, HiraConsole]
     public class HiraConsoleController : MonoBehaviour
     {
         private bool _consoleActive = false;
