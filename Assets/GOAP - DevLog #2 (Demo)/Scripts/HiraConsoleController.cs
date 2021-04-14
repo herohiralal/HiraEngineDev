@@ -5,9 +5,11 @@
     {
         private bool _consoleActive = false;
         [SerializeField] private HiraConsoleGUI gui = null;
+        [SerializeField] private string[] commands = null;
 
         private void Awake()
         {
+	        commands = HiraConsoleCommandRegistry.COMMANDS;
             gui = gameObject.AddComponent<HiraConsoleGUI>();
             gui.enabled = false;
         }
@@ -28,11 +30,7 @@
             _consoleActive = !_consoleActive;
             Time.timeScale = _consoleActive ? 0f : 1f;
             gui.enabled = _consoleActive;
-        }
-
-        public void Handle(string command)
-        {
-            
+            enabled = !_consoleActive;
         }
     }
 }
