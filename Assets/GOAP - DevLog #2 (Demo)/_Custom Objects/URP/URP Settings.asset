@@ -37,7 +37,7 @@ MonoBehaviour:
   m_AdditionalLightsShadowResolutionTierMedium: 512
   m_AdditionalLightsShadowResolutionTierHigh: 1024
   m_ShadowDistance: 100
-  m_ShadowCascadeCount: 1
+  m_ShadowCascadeCount: 2
   m_Cascade2Split: 0.6780741
   m_Cascade3Split: {x: 0.1, y: 0.3}
   m_Cascade4Split: {x: 0.10294771, y: 0.32091504, z: 0.46700004}
