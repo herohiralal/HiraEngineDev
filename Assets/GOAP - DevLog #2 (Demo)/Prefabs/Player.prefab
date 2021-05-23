@@ -64,6 +64,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanoidModel
       objectReference: {fileID: 0}
+    - target: {fileID: 3970640624270751130, guid: 7945849afe2dfb843be00d5d51f366dd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4346356480355921696, guid: 7945849afe2dfb843be00d5d51f366dd,
         type: 3}
       propertyPath: m_RootOrder

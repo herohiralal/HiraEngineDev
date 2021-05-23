@@ -23,8 +23,8 @@ namespace UnityEngine.Internal
 			_startingCameraLocation = _mainCam.position;
 			_startingCameraRotation = _mainCam.rotation;
 
-			_mainCam.position = transform.position + new Vector3(0, 3, -4);
-			_mainCam.eulerAngles = new Vector3(27, 0, 0);
+			_mainCam.position = transform.position + new Vector3(0, 5.5f, -4.5f);
+			_mainCam.eulerAngles = new Vector3(45, 0, 0);
 		}
 
 		private void OnDestroy()
@@ -74,7 +74,7 @@ namespace UnityEngine.Internal
 					{
 						selfTransform.position = hit.position;
 
-						_mainCam.position = hit.position + new Vector3(0, 3, -4);
+						_mainCam.position = hit.position + new Vector3(0, 5.5f, -4.5f);
 
 						var newYaw = Quaternion.LookRotation(intendedPosition - startingPosition, Vector3.up).eulerAngles.y;
 						selfTransform.eulerAngles = new Vector3(0, newYaw, 0);
