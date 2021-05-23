@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: AwareOfPlayer
   m_EditorClassIdentifier: 
   instanceSynced: 0
-  essentialToDecisionMaking: 0
+  essentialToDecisionMaking: 1
   defaultValue: 0
 --- !u!114 &8108493358044297556
 MonoBehaviour:
