@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7688050164990817626}
   selfTransform: {fileID: 0}
-  rightKickCollider: {fileID: 5915478938519779628}
+  rightKickCollider: {fileID: 2876074235255100019}
 --- !u!114 &8754122905742842582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,13 +58,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectMesh: {fileID: 8899457612986775647}
---- !u!54 &773321372462955739
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!54 &9014269203432187666
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424827115774109120}
+  m_GameObject: {fileID: 7479117918376639528}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -74,26 +77,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &5915478938519779628
+--- !u!135 &2876074235255100019
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424827115774109120}
+  m_GameObject: {fileID: 7479117918376639528}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &418956619310519320
+--- !u!114 &7389604809781076587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 424827115774109120}
+  m_GameObject: {fileID: 7479117918376639528}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43d0adf842e814d4d933f7eb81cbf644, type: 3}
@@ -209,9 +212,9 @@ SkinnedMeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 4313293189703895243}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &424827115774109120 stripped
+--- !u!1 &7479117918376639528 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4485215034603138315, guid: 13c66d90c9f61314e8bf1ae5eff8aa2f,
+  m_CorrespondingSourceObject: {fileID: -2589341829167008541, guid: 13c66d90c9f61314e8bf1ae5eff8aa2f,
     type: 3}
   m_PrefabInstance: {fileID: 4313293189703895243}
   m_PrefabAsset: {fileID: 0}
