@@ -799,6 +799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template: {fileID: 11400000, guid: 82a04aec024edad468da977ced1aab33, type: 2}
   domain: {fileID: 11400000, guid: 17e8a3d300873dd41a5309f488e6d15d, type: 2}
+  domain2: {fileID: 11400000, guid: 011b1a48ad5078042b11d236a75f807a, type: 2}
   playerPrefab: {fileID: 5681973388985610207, guid: 56ae19e933a80234f988b8d76f76d8e3,
     type: 3}
   agentPrefab: {fileID: 6173103363680446260, guid: ac99b52b9fa84bb45b9ae16edef93800,

@@ -196,4 +196,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackboard: {fileID: 0}
-  key: {fileID: 4873930581301642412, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  key: {fileID: 0}

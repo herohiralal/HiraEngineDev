@@ -45,6 +45,9 @@ namespace UnityEngine.Internal
 			set => animator.SetInteger(animator_action, value);
 		}
 
+		public bool IsKicking => Action == 1;
+		public void Kick() => Action = 1;
+
 		private void OnDestroy()
 		{
 			selfTransform = null;

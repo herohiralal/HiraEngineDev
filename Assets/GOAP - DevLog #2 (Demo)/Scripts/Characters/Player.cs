@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine.AI;
 
 namespace UnityEngine.Internal
@@ -10,7 +9,6 @@ namespace UnityEngine.Internal
 		[SerializeField] private AgentAnimator animator = null;
 
 		private bool _fighting = false;
-		private bool _kicking = false;
 
 		private Transform _mainCam = null;
 		private Vector3 _startingCameraLocation = default;
@@ -39,7 +37,7 @@ namespace UnityEngine.Internal
 
 		private void Update()
 		{
-			if (Input.GetKey(KeyCode.LeftShift) || _kicking)
+			if (Input.GetKey(KeyCode.LeftShift) || animator.IsKicking)
 			{
 				if (!_fighting)
 				{
@@ -47,10 +45,8 @@ namespace UnityEngine.Internal
 					animator.Fighting = true;
 				}
 
-				if (!_kicking && Input.GetKeyDown(KeyCode.F))
-				{
-					StartCoroutine(KickCoroutine());
-				}
+				if (!animator.IsKicking && Input.GetKeyDown(KeyCode.F))
+					animator.Kick();
 			}
 			else
 			{
@@ -81,16 +77,6 @@ namespace UnityEngine.Internal
 					}
 				}
 			}
-		}
-
-		private IEnumerator KickCoroutine()
-		{
-			_kicking = true;
-			animator.Action = 1;
-			yield return null;
-			yield return null;
-			animator.Action = 0;
-			_kicking = false;
 		}
 	}
 }

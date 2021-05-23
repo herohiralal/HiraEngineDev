@@ -1,0 +1,735 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7491641493021248205
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7de4ea8dff14528bd346c7fc5da224c, type: 3}
+  m_Name: Energy plus -15
+  m_EditorClassIdentifier: 
+  key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: -15
+--- !u!114 &-7097461005716054081
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ecb3beee7a415d96067adeb7d2da72, type: 3}
+  m_Name: Stuff
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 3755984306725923019}
+  collection2:
+  - {fileID: -4339657864957611277}
+--- !u!114 &-6923701279485061837
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4552cbf20244ddabee73bc0fff95f5c, type: 3}
+  m_Name: Anxiety equals 0
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+--- !u!114 &-6513776579756677547
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957f829c90ff41d18e41cdda286206fd, type: 3}
+  m_Name: Move to TargetLocation
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
+    type: 2}
+  followTarget: 0
+  speed: 2
+  tolerance: 1.2
+--- !u!114 &-6020447703564415233
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7de4ea8dff14528bd346c7fc5da224c, type: 3}
+  m_Name: AppleCount plus -1
+  m_EditorClassIdentifier: 
+  key: {fileID: 1861950121376969739, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: -1
+--- !u!114 &-5808929528498674301
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8156e80cad49918dc9c578ba53992b, type: 3}
+  m_Name: Wait for 5 seconds
+  m_EditorClassIdentifier: 
+  time: 5
+--- !u!114 &-5686657615783750433
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a129d130cb45f9afb47333e315dce2, type: 3}
+  m_Name: Anxiety plus -100
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: -100
+--- !u!114 &-5388737013127935006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79520cd8f7114854b0ebe25043013dc5, type: 3}
+  m_Name: Patrol
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 4714436933293619969}
+  - {fileID: -4063666374203430261}
+  collection2:
+  - {fileID: 5426439731013829436}
+  collection3:
+  - {fileID: -6923701279485061837}
+  - {fileID: -7491641493021248205}
+  collection4:
+  - {fileID: 470470201713704621}
+--- !u!114 &-5234883719264399995
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+10)
+  m_EditorClassIdentifier: 
+  score: 10
+--- !u!114 &-4804226516619056093
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24ddf30d1fa4a98be8de065b03536e9, type: 3}
+  m_Name: Set TargetLocation as a random Patrol location.
+  m_EditorClassIdentifier: 
+  storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  location: Patrol
+--- !u!114 &-4671945336933579987
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4552cbf20244ddabee73bc0fff95f5c, type: 3}
+  m_Name: Anxiety equals 100
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 100
+--- !u!114 &-4389502969184307898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24ddf30d1fa4a98be8de065b03536e9, type: 3}
+  m_Name: Set TargetLocation as a random Patrol location.
+  m_EditorClassIdentifier: 
+  storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  location: Patrol
+--- !u!114 &-4339657864957611277
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd7081e37ef43699dd885b3e6b6eae2, type: 3}
+  m_Name: Anxiety  lesser than 10
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 10
+  invert: 0
+--- !u!114 &-4063666374203430261
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f07bb57b6a5439f8a126bfc24c01b78, type: 3}
+  m_Name: Energy not lesser than 15
+  m_EditorClassIdentifier: 
+  key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 15
+  invert: 1
+--- !u!114 &-3568489888457544516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f40519987d45269df88d3208c12609, type: 3}
+  m_Name: AppleCount  equals 0
+  m_EditorClassIdentifier: 
+  key: {fileID: 1861950121376969739, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+  invert: 0
+--- !u!114 &-3494803786553277018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: PlayerAntagonized equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: 8407778599512604627, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+--- !u!114 &-3295728220466855596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a129d130cb45f9afb47333e315dce2, type: 3}
+  m_Name: Anxiety plus -25
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: -25
+--- !u!114 &-2176946467022420444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f40519987d45269df88d3208c12609, type: 3}
+  m_Name: Energy  equals 100
+  m_EditorClassIdentifier: 
+  key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 100
+  invert: 0
+--- !u!114 &-1847675115016918544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8408a864771e45bc8a1f8659d358c3cb, type: 3}
+  m_Name: Panicking equals True
+  m_EditorClassIdentifier: 
+  key: {fileID: 8962462510851448251, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 1
+--- !u!114 &-1815790269986927308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+10)
+  m_EditorClassIdentifier: 
+  score: 10
+--- !u!114 &-1541226250215800032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+5)
+  m_EditorClassIdentifier: 
+  score: 5
+--- !u!114 &-132603959277865362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79520cd8f7114854b0ebe25043013dc5, type: 3}
+  m_Name: Acquire Energy
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 974021131761529461}
+  collection2:
+  - {fileID: -5234883719264399995}
+  collection3:
+  - {fileID: 7622733320719944731}
+  collection4:
+  - {fileID: -2176946467022420444}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c7bb09628d43cf9343f5b0b266ec33, type: 3}
+  m_Name: AttackerDomain
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -7097461005716054081}
+  collection2:
+  - {fileID: -5388737013127935006}
+  - {fileID: -132603959277865362}
+  collection3:
+  - {fileID: 4879939323804419576}
+  - {fileID: 5555694468723912617}
+  - {fileID: 4893002939842610607}
+  - {fileID: 3768589513831559493}
+  collection4:
+  - {fileID: -4671945336933579987}
+  - {fileID: 5766630843701223923}
+  - {fileID: 5422742083845627463}
+  - {fileID: -3494803786553277018}
+--- !u!114 &470470201713704621
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57dbb94201c1442089f2d410bc8f6c9b, type: 3}
+  m_Name: Anxiety is  between -0.1 and 0.1
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+  tolerance: 0.1
+  invert: 0
+--- !u!114 &747505773736470188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f91f9a5b5dd45a69371583d0a9a24ab, type: 3}
+  m_Name: KickExecutableProvider
+  m_EditorClassIdentifier: 
+--- !u!114 &974021131761529461
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f07bb57b6a5439f8a126bfc24c01b78, type: 3}
+  m_Name: Energy  lesser than 40
+  m_EditorClassIdentifier: 
+  key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 40
+  invert: 0
+--- !u!114 &1320009217550015422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+10)
+  m_EditorClassIdentifier: 
+  score: 10
+--- !u!114 &2093988362211643672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b14a2a11ef44ceb4f517ab817ac3c7, type: 3}
+  m_Name: Energy equals 100
+  m_EditorClassIdentifier: 
+  key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 100
+--- !u!114 &2469956859833905728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957f829c90ff41d18e41cdda286206fd, type: 3}
+  m_Name: Move to TargetLocation
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
+    type: 2}
+  followTarget: 0
+  speed: 1.5
+  tolerance: 3
+--- !u!114 &2739174594967954767
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24ddf30d1fa4a98be8de065b03536e9, type: 3}
+  m_Name: Set TargetLocation as a random Tree location.
+  m_EditorClassIdentifier: 
+  storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  location: Tree
+--- !u!114 &3755984306725923019
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+5)
+  m_EditorClassIdentifier: 
+  score: 5
+--- !u!114 &3768589513831559493
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8e50dea744f2ba68919115e8d8aaa, type: 3}
+  m_Name: Kick Tree
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -3568489888457544516}
+  collection2:
+  - {fileID: -1541226250215800032}
+  collection3:
+  - {fileID: 4433983413953955196}
+  collection4:
+  - {fileID: 2739174594967954767}
+  - {fileID: -6513776579756677547}
+  - {fileID: 747505773736470188}
+  collection5: []
+--- !u!114 &4433983413953955196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7de4ea8dff14528bd346c7fc5da224c, type: 3}
+  m_Name: AppleCount plus 6
+  m_EditorClassIdentifier: 
+  key: {fileID: 1861950121376969739, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 6
+--- !u!114 &4714436933293619969
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207829c1aef346d98f615adeb31c4e53, type: 3}
+  m_Name: Anxiety  greater than 0
+  m_EditorClassIdentifier: 
+  key: {fileID: -4670609879535081228, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+  invert: 0
+--- !u!114 &4879939323804419576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8e50dea744f2ba68919115e8d8aaa, type: 3}
+  m_Name: Find and Walk to Next Patrol Point
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 8588225724437578688}
+  collection2:
+  - {fileID: -1815790269986927308}
+  collection3:
+  - {fileID: -5686657615783750433}
+  collection4:
+  - {fileID: -4804226516619056093}
+  - {fileID: 2469956859833905728}
+  - {fileID: -5808929528498674301}
+  collection5: []
+--- !u!114 &4893002939842610607
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8e50dea744f2ba68919115e8d8aaa, type: 3}
+  m_Name: Eat Apple
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: 5663013794103973328}
+  collection2:
+  - {fileID: 8491387284798223632}
+  collection3:
+  - {fileID: -6020447703564415233}
+  - {fileID: 2093988362211643672}
+  collection4:
+  - {fileID: 7476583579184070575}
+  - {fileID: 5836215394191944616}
+  collection5: []
+--- !u!114 &5422742083845627463
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: PlayerAdmired equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -6439277699780456345, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+--- !u!114 &5426439731013829436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+5)
+  m_EditorClassIdentifier: 
+  score: 5
+--- !u!114 &5555694468723912617
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8e50dea744f2ba68919115e8d8aaa, type: 3}
+  m_Name: Find and Run to Next Patrol Point
+  m_EditorClassIdentifier: 
+  collection1:
+  - {fileID: -1847675115016918544}
+  collection2:
+  - {fileID: 1320009217550015422}
+  collection3:
+  - {fileID: -3295728220466855596}
+  collection4:
+  - {fileID: -4389502969184307898}
+  - {fileID: 5929796057758314778}
+  collection5: []
+--- !u!114 &5663013794103973328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58aab38cb7d4b87a794e92ad77ce0f0, type: 3}
+  m_Name: AppleCount  greater than 0
+  m_EditorClassIdentifier: 
+  key: {fileID: 1861950121376969739, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+  invert: 0
+--- !u!114 &5766630843701223923
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a086b6b11f694a49a05d0f5e9ed92a1d, type: 3}
+  m_Name: RespondedToPlayer equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: -4423902172471369137, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
+--- !u!114 &5836215394191944616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957f829c90ff41d18e41cdda286206fd, type: 3}
+  m_Name: Move to TargetLocation
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
+    type: 2}
+  followTarget: 0
+  speed: 2
+  tolerance: 0.05
+--- !u!114 &5929796057758314778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957f829c90ff41d18e41cdda286206fd, type: 3}
+  m_Name: Move to TargetLocation
+  m_EditorClassIdentifier: 
+  targetPosition: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
+    type: 2}
+  followTarget: 0
+  speed: 4
+  tolerance: 0.1
+--- !u!114 &7476583579184070575
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24ddf30d1fa4a98be8de065b03536e9, type: 3}
+  m_Name: Set TargetLocation as a random Apple location.
+  m_EditorClassIdentifier: 
+  storeIn: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  location: Apple
+--- !u!114 &7622733320719944731
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b14a2a11ef44ceb4f517ab817ac3c7, type: 3}
+  m_Name: Energy equals 100
+  m_EditorClassIdentifier: 
+  key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 100
+--- !u!114 &8491387284798223632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db301868cb403491867e81749b73b1, type: 3}
+  m_Name: Base (+5)
+  m_EditorClassIdentifier: 
+  score: 5
+--- !u!114 &8588225724437578688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8408a864771e45bc8a1f8659d358c3cb, type: 3}
+  m_Name: Panicking equals False
+  m_EditorClassIdentifier: 
+  key: {fileID: 8962462510851448251, guid: 82a04aec024edad468da977ced1aab33, type: 2}
+  value: 0
