@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using HiraEngine.Components.AI.LGOAP;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 namespace UnityEngine.Internal
@@ -10,6 +11,7 @@ namespace UnityEngine.Internal
 		[SerializeField] private HiraBlackboardTemplate template = null;
 		[SerializeField] private GoalOrientedActionPlannerDomain domain = null;
 
+		[SerializeField] private GameObject playerPrefab = null;
 		[SerializeField] private GameObject agentPrefab = null;
 		private readonly Stack<IInitializable> _initializedObjects = new Stack<IInitializable>();
 
@@ -42,6 +44,8 @@ namespace UnityEngine.Internal
 
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
+			Instantiate(playerPrefab, transform.position - new Vector3(0, 0, -3f), Quaternion.identity, null);
+
 			gameScreen.SetActive(true);
 			loader.SetActive(false);
 		}
@@ -53,24 +57,27 @@ namespace UnityEngine.Internal
 			loader.SetActive(true);
 			mainMenu.SetActive(false);
 
-			var agent = Instantiate(agentPrefab, transform.position, Quaternion.identity, null);
-
-			var blackboard = agent.GetComponent<HiraBlackboard>();
-			if (blackboard != null && blackboard is IInitializable initializableBlackboard)
+			if (NavMesh.SamplePosition(transform.position, out var hit, 3f, NavMesh.AllAreas))
 			{
-				initializableBlackboard.Initialize();
-				_initializedObjects.Push(initializableBlackboard);
-				while (initializableBlackboard.InitializationStatus != InitializationState.Active)
-					yield return null;
-			}
+				var agent = Instantiate(agentPrefab, hit.position, Quaternion.identity, null);
 
-			var layeredPlanner = agent.GetComponent<LayeredGoalOrientedActionPlanner>();
-			if (layeredPlanner != null)
-			{
-				layeredPlanner.Initialize();
-				_initializedObjects.Push(layeredPlanner);
-				while (layeredPlanner.InitializationStatus != InitializationState.Active)
-					yield return null;
+				var blackboard = agent.GetComponent<HiraBlackboard>();
+				if (blackboard != null && blackboard is IInitializable initializableBlackboard)
+				{
+					initializableBlackboard.Initialize();
+					_initializedObjects.Push(initializableBlackboard);
+					while (initializableBlackboard.InitializationStatus != InitializationState.Active)
+						yield return null;
+				}
+
+				var layeredPlanner = agent.GetComponent<LayeredGoalOrientedActionPlanner>();
+				if (layeredPlanner != null)
+				{
+					layeredPlanner.Initialize();
+					_initializedObjects.Push(layeredPlanner);
+					while (layeredPlanner.InitializationStatus != InitializationState.Active)
+						yield return null;
+				}
 			}
 
 			gameScreen.SetActive(true);

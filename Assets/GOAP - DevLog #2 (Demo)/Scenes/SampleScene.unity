@@ -799,6 +799,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template: {fileID: 11400000, guid: 82a04aec024edad468da977ced1aab33, type: 2}
   domain: {fileID: 11400000, guid: 17e8a3d300873dd41a5309f488e6d15d, type: 2}
+  playerPrefab: {fileID: 5681973388985610207, guid: 56ae19e933a80234f988b8d76f76d8e3,
+    type: 3}
   agentPrefab: {fileID: 6173103363680446260, guid: ac99b52b9fa84bb45b9ae16edef93800,
     type: 3}
   sceneName:
@@ -1231,8 +1233,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367630476}
-  m_LocalRotation: {x: 0, y: 0.97134215, z: -0.2376859, w: 0}
-  m_LocalPosition: {x: 0, y: 9, z: 25}
+  m_LocalRotation: {x: -0.2376859, y: -0, z: -0, w: -0.97134215}
+  m_LocalPosition: {x: 0, y: 9, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

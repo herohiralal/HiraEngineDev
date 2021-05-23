@@ -1,4 +1,4 @@
-using System;
+using UnityEngine.Scripting;
 
 namespace UnityEngine.Internal
 {
@@ -12,12 +12,38 @@ namespace UnityEngine.Internal
 		[SerializeField] private Animator animator = null;
 		[SerializeField] private Transform selfTransform = null;
 
+		[SerializeField] private Collider rightKickCollider = null;
+
 		private Vector3 _position = default;
 
 		private static readonly int animator_speed = Animator.StringToHash(animator_speed_variable);
 		private static readonly int animator_inactive = Animator.StringToHash(animator_inactive_variable);
 		private static readonly int animator_fighting = Animator.StringToHash(animator_fighting_variable);
 		private static readonly int animator_action = Animator.StringToHash(animator_action_variable);
+
+		public float Speed
+		{
+			get => animator.GetFloat(animator_speed);
+			set => animator.SetFloat(animator_speed, value);
+		}
+
+		public bool Active
+		{
+			get => !animator.GetBool(animator_inactive);
+			set => animator.SetBool(animator_inactive, !value);
+		}
+
+		public bool Fighting
+		{
+			get => animator.GetBool(animator_fighting);
+			set => animator.SetBool(animator_fighting, value);
+		}
+
+		public int Action
+		{
+			get => animator.GetInteger(animator_action);
+			set => animator.SetInteger(animator_action, value);
+		}
 
 		private void OnDestroy()
 		{
@@ -28,12 +54,14 @@ namespace UnityEngine.Internal
 		private void OnEnable()
 		{
 			_position = selfTransform.position;
-			animator.SetBool(animator_inactive, false);
+			rightKickCollider.enabled = false;
+			Active = true;
 		}
 
 		private void OnDisable()
 		{
-			animator.SetBool(animator_inactive, true);
+			Active = false;
+			rightKickCollider.enabled = false;
 			_position = selfTransform.position;
 		}
 
@@ -44,10 +72,20 @@ namespace UnityEngine.Internal
 
 			var currentPosition = selfTransform.position;
 
-			var currentSpeed = (currentPosition - _position).magnitude / deltaTime;
-			animator.SetFloat(animator_speed, currentSpeed);
+			Speed = (currentPosition - _position).magnitude / deltaTime;
 
 			_position = currentPosition;
+		}
+
+		[Preserve]
+		public void RightKick(int state)
+		{
+			rightKickCollider.enabled = state switch
+			{
+				1 => true,
+				0 => false,
+				_ => rightKickCollider.enabled
+			};
 		}
 	}
 }
