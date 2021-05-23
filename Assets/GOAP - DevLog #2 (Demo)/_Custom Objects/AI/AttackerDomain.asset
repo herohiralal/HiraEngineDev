@@ -354,6 +354,20 @@ MonoBehaviour:
   - {fileID: 5766630843701223923}
   - {fileID: 5422742083845627463}
   - {fileID: -3494803786553277018}
+--- !u!114 &158932303828447467
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfc31dae9b6489b9e90a601ca0ac4b4, type: 3}
+  m_Name: RotateToExecutableProvider
+  m_EditorClassIdentifier: 
+  location: {fileID: 3904575822890044360, guid: 82a04aec024edad468da977ced1aab33,
+    type: 2}
 --- !u!114 &470470201713704621
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -489,6 +503,7 @@ MonoBehaviour:
   collection4:
   - {fileID: 2739174594967954767}
   - {fileID: -6513776579756677547}
+  - {fileID: 158932303828447467}
   - {fileID: 747505773736470188}
   collection5: []
 --- !u!114 &4433983413953955196
@@ -660,7 +675,7 @@ MonoBehaviour:
     type: 2}
   followTarget: 0
   speed: 2
-  tolerance: 0.05
+  tolerance: 0.4
 --- !u!114 &5929796057758314778
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSynced: 0
   essentialToDecisionMaking: 0
-  defaultValue: 40
+  defaultValue: 25
 --- !u!114 &4873930581301642412
 MonoBehaviour:
   m_ObjectHideFlags: 1
