@@ -8,17 +8,10 @@ namespace UnityEngine.Internal
 		[SerializeField] private HiraBlackboardTemplate blackboard = null;
 		[HiraCollectionDropdown(typeof(VectorKey))] [SerializeField] private HiraBlackboardKey key = null;
 
-		private void Reset()
-		{
-			target = transform;
-		}
+		private void Reset() => target = transform;
 
-		private void Update()
-		{
-			var index = key.Index;
-			var position = target.position;
+		private void OnDisable() => blackboard.UpdateInstanceSyncedKey<Vector3>(key.Index, new Vector3(0, 100, 0));
 
-			blackboard.UpdateInstanceSyncedKey(index, position);
-		}
+		private void Update() => blackboard.UpdateInstanceSyncedKey<Vector3>(key.Index, target.position);
 	}
 }

@@ -14,6 +14,7 @@ namespace UnityEngine.Internal
 
 		[SerializeField] private GameObject playerPrefab = null;
 		[SerializeField] private GameObject agentPrefab = null;
+		private GameObject _player = null;
 		private readonly Stack<IInitializable> _initializedObjects = new Stack<IInitializable>();
 
 		[SerializeField] private StringReference sceneName = null;
@@ -48,10 +49,22 @@ namespace UnityEngine.Internal
 
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
-			Instantiate(playerPrefab, transform.position - new Vector3(0, 0, -3f), Quaternion.identity, null);
-
 			gameScreen.SetActive(true);
 			loader.SetActive(false);
+		}
+
+		public void AddPlayer()
+		{
+			if (_player == null)
+				_player = Instantiate(playerPrefab, transform.position - new Vector3(0, 0, -3f), Quaternion.identity, null);
+		}
+
+		public void RemovePlayer()
+		{
+			if (_player != null)
+				Destroy(_player);
+
+			_player = null;
 		}
 
 		public void AddAgent() => StartCoroutine(AddAgentCoroutine());

@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instanceSynced: 1
   essentialToDecisionMaking: 0
-  defaultValue: {x: 0, y: 0, z: 0}
+  defaultValue: {x: 0, y: 100, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

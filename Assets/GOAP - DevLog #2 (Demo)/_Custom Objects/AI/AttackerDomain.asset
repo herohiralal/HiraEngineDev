@@ -39,6 +39,7 @@ MonoBehaviour:
   - {fileID: -6064792965907728708}
   collection4:
   - {fileID: -2699110822864175646}
+  - {fileID: -1109651979878504494}
   collection5: []
 --- !u!114 &-7491641493021248205
 MonoBehaviour:
@@ -463,7 +464,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14b5a2f7a4e24a49bbd726a7f8080e7c, type: 3}
-  m_Name: AlwaysSucceedDecorator
+  m_Name: Always Succeed
   m_EditorClassIdentifier: 
 --- !u!114 &-2176946467022420444
 MonoBehaviour:
@@ -556,6 +557,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: {fileID: -4423902172471369137, guid: 82a04aec024edad468da977ced1aab33, type: 2}
   value: 1
+--- !u!114 &-1109651979878504494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8156e80cad49918dc9c578ba53992b, type: 3}
+  m_Name: Wait for 3 seconds
+  m_EditorClassIdentifier: 
+  time: 3
 --- !u!114 &-725572137061443232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -720,6 +734,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: {fileID: 4257888999270459494, guid: 82a04aec024edad468da977ced1aab33, type: 2}
   value: 100
+--- !u!114 &2303921807481684137
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8156e80cad49918dc9c578ba53992b, type: 3}
+  m_Name: Wait for 5 seconds
+  m_EditorClassIdentifier: 
+  time: 5
 --- !u!114 &2469956859833905728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1039,6 +1066,7 @@ MonoBehaviour:
   - {fileID: -8994174086343324308}
   - {fileID: -3405329370970698072}
   - {fileID: 8536247463829074927}
+  - {fileID: 2303921807481684137}
   collection5: []
 --- !u!114 &7476583579184070575
 MonoBehaviour:
@@ -1147,5 +1175,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14b5a2f7a4e24a49bbd726a7f8080e7c, type: 3}
-  m_Name: AlwaysSucceedDecorator
+  m_Name: Always Succeed
   m_EditorClassIdentifier: 
