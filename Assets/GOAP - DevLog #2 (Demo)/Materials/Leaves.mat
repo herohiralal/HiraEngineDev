@@ -10,7 +10,7 @@ Material:
   m_Name: Leaves
   m_Shader: {fileID: -6465566751694194690, guid: a84e14741ffdfad46848fc45556ebc63,
     type: 3}
-  m_ShaderKeywords: BOOLEAN_43F0057E_ON _MAIN_LIGHT_SHADOWS_CASCADE _SHADOWS_SOFT
+  m_ShaderKeywords: _MAIN_LIGHT_SHADOWS_CASCADE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -104,6 +104,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Flash: 0
     - _GlossMapScale: 1
     - _Glossiness: 1
     - _GlossyReflections: 1
@@ -144,4 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 2
+  version: 5

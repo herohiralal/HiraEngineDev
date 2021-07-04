@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6173103363680446219}
   - component: {fileID: 6815791595932425854}
   - component: {fileID: 6173103363680446223}
-  - component: {fileID: 3888103008722230430}
   - component: {fileID: 6173103363680446218}
   m_Layer: 0
   m_Name: Multilayered Agent
@@ -53,7 +52,6 @@ MonoBehaviour:
   animator: {fileID: 5211262442323994536}
   navMeshAgent: {fileID: 6173103363680446218}
   blackboard: {fileID: 6173103363680446223}
-  planner: {fileID: 3888103008722230430}
 --- !u!114 &6173103363680446223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,25 +67,6 @@ MonoBehaviour:
   core:
     template: {fileID: 11400000, guid: 82a04aec024edad468da977ced1aab33, type: 2}
     broadcastKeyUpdateEvents: 1
---- !u!114 &3888103008722230430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6173103363680446260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cae64988873400eab8ab089b590d95c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 6815791595932425854}
-  blackboard: {fileID: 6173103363680446223}
-  domain: {fileID: 11400000, guid: 011b1a48ad5078042b11d236a75f807a, type: 2}
-  maxPlanLength: 6
-  maxFScores:
-  - 100
-  - 100
 --- !u!195 &6173103363680446218
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-﻿using HiraEngine.Components.AI.LGOAP;
+﻿// using HiraEngine.Components.AI.LGOAP;
 using UnityEngine.AI;
 
 namespace UnityEngine.Internal
@@ -6,13 +6,13 @@ namespace UnityEngine.Internal
 	public class MultiLayeredAgentComponentContainer : HiraComponentContainer,
 		IContainsComponent<NavMeshAgent>,
 		IContainsComponent<IBlackboardComponent>,
-		IContainsComponent<LayeredGoalOrientedActionPlanner>,
+		// IContainsComponent<LayeredGoalOrientedActionPlanner>,
 		IContainsComponent<AgentAnimator>
 	{
 		[SerializeField] private AgentAnimator animator;
 		[SerializeField] private NavMeshAgent navMeshAgent;
 		[SerializeField] private HiraBlackboard blackboard;
-		[SerializeField] private LayeredGoalOrientedActionPlanner planner;
+		// [SerializeField] private LayeredGoalOrientedActionPlanner planner;
 
 		AgentAnimator IContainsComponent<AgentAnimator>.Component => animator;
 
@@ -20,6 +20,6 @@ namespace UnityEngine.Internal
 
 		IBlackboardComponent IContainsComponent<IBlackboardComponent>.Component => blackboard;
 
-		LayeredGoalOrientedActionPlanner IContainsComponent<LayeredGoalOrientedActionPlanner>.Component => planner;
+		// LayeredGoalOrientedActionPlanner IContainsComponent<LayeredGoalOrientedActionPlanner>.Component => planner;
 	}
 }

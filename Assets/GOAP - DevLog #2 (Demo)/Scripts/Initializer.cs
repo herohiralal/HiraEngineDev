@@ -87,14 +87,14 @@ namespace UnityEngine.Internal
 						yield return null;
 				}
 
-				var layeredPlanner = agent.GetComponent<LayeredGoalOrientedActionPlanner>();
-				if (layeredPlanner != null)
-				{
-					layeredPlanner.Initialize();
-					_initializedObjects.Push(layeredPlanner);
-					while (layeredPlanner.InitializationStatus != InitializationState.Active)
-						yield return null;
-				}
+				// var layeredPlanner = agent.GetComponent<LayeredGoalOrientedActionPlanner>();
+				// if (layeredPlanner != null)
+				// {
+				// 	layeredPlanner.Initialize();
+				// 	_initializedObjects.Push(layeredPlanner);
+				// 	while (layeredPlanner.InitializationStatus != InitializationState.Active)
+				// 		yield return null;
+				// }
 			}
 
 			gameScreen.SetActive(true);
