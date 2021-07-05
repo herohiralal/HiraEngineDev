@@ -10,7 +10,7 @@ Material:
   m_Name: Walls
   m_Shader: {fileID: -6465566751694194690, guid: a84e14741ffdfad46848fc45556ebc63,
     type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: BOOLEAN_49824457_ON MAIN_LIGHT_CALCULATE_SHADOWS _SHADOWS_SOFT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -87,8 +87,8 @@ Material:
     m_Ints: []
     m_Floats:
     - BOOLEAN_43F0057E: 0
-    - BOOLEAN_49824457: 0
-    - MAIN_LIGHT_CALCULATE_SHADOWS: 0
+    - BOOLEAN_49824457: 1
+    - MAIN_LIGHT_CALCULATE_SHADOWS: 1
     - Vector1_2EA09322: 7
     - Vector1_410F86F3: 0.867
     - Vector1_57CD6875: 1
@@ -113,7 +113,7 @@ Material:
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SHADOWS_SOFT: 0
+    - _SHADOWS_SOFT: 1
     - _Smoothness: 0.85
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
