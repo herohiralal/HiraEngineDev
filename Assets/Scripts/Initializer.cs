@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using HiraEngine.Components.AI.LGOAP;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
@@ -8,9 +7,6 @@ namespace UnityEngine.Internal
 {
     public class Initializer : MonoBehaviour
 	{
-		[SerializeField] private HiraBlackboardTemplate template = null;
-		[SerializeField] private GoalOrientedActionPlannerDomain domain = null;
-		[SerializeField] private OneLayeredGoalOrientedActionPlannerDomain domain2 = null;
 
 		[SerializeField] private GameObject playerPrefab = null;
 		[SerializeField] private GameObject agentPrefab = null;
@@ -25,16 +21,9 @@ namespace UnityEngine.Internal
 
 		private void Awake()
 		{
-			// NativeLeakDetection.Mode = NativeLeakDetectionMode.EnabledWithStackTrace;
-		
 			loader.SetActive(false);
 			gameScreen.SetActive(false);
 			mainMenu.SetActive(true);
-			
-            template.Initialize();
-
-			domain.Initialize();
-			domain2.Initialize();
 		}
 
 		public void Begin() => StartCoroutine(BeginCoroutine());
@@ -121,14 +110,6 @@ namespace UnityEngine.Internal
 
 			mainMenu.SetActive(true);
 			loader.SetActive(false);
-		}
-
-		private void OnDestroy()
-		{
-			domain2.Shutdown();
-			domain.Shutdown();
-			
-			template.Shutdown();
 		}
 	}
 }
